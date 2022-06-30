@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
+#    By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/29 11:22:02 by mbarutel          #+#    #+#              #
-#    Updated: 2022/06/29 12:56:33 by mbarutel         ###   ########.fr        #
+#    Updated: 2022/06/30 12:11:02 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,10 +16,11 @@ NAME 		= ft_ls
 SRC_DIR		= srcs/
 CC			= gcc
 FLAGS		= -Wall -Werror -Wextra
+LIB_INC		= -Llibft -lftprintf
 
 # Files
 
-SRC_FILE 	= ft_inspect_file
+SRC_FILE 	= ft_ls
 
 # Variables
 
@@ -32,7 +33,7 @@ all: $(NAME)
 
 $(NAME): $(SRC)
 	@$(CC) -c $(SRC)
-	@$(CC) -o $(NAME) $(OBJ)
+	@$(CC) -o $(NAME) $(LIB_INC) $(OBJ)
 
 clean:
 	@rm -f $(OBJ)
