@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:21:27 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/06/30 17:50:46 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/06/30 18:30:15 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,23 @@ char    *permission_str(mode_t mode)
     return (permission);
 }
 
+char    *get_owner_name(uid_t uid)
+{
+    struct passwd *user_info;
+
+    user_info = getpwuid(uid);
+    return (user_info->pw_name);
+}
+
+char    *get_owner_group(gid_t gid)
+{
+
+    struct group *user_group;
+
+    user_group = getgrgid(gid);
+    return (user_group->gr_name);
+}
+
 void    attr_printer(struct dirent *dent, struct stat *stat)
 {
     char    *perm;
@@ -69,6 +86,9 @@ void    attr_printer(struct dirent *dent, struct stat *stat)
     ft_printf("Type            : %s\n", file_type(stat->st_mode));
     perm = permission_str(stat->st_mode);
     ft_printf("Permissions     : %s\n", perm);
+    ft_printf("Number of links : %i\n", stat->st_nlink);
+    ft_printf("Owner           : %s\n", get_owner_name(stat->st_uid));
+    ft_printf("Group           : %s\n", get_owner_group(stat->st_gid));
     free(perm);
     ft_printf("\n");
 }
