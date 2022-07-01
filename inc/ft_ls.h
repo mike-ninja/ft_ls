@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/01 09:36:11 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/01 12:47:43 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,20 @@
 #include <uuid/uuid.h>
 #include <time.h>
 
-// typedef struct {
-	
-// 	char 	*name;
-// 	char	*type;
-// 	// dev_t	rdev;
-// 	// mode_t	mode;
-// 	// nlink_t	nlink; 
-// 	// uid_t	uid;
-// 	// gid_t	gid;
-// 	// off_t	size;
-// }				s_file;
+typedef struct
+{
+    int l;
+    int a;
+    int r;
+    int t;
+    int R;
+} s_options;
 
+// Prototypes
+void    ft_ls(const char *file_name);
+
+// Utils
+void    init_struct(s_options *opt);
+void    input_checker(char *av, s_options *opt);
 
 #endif

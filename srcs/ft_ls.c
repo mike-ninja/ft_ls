@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:21:27 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/01 10:49:29 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/01 12:07:16 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,35 +120,29 @@ char    *get_path(char *input, char *file_name)
     return (input);
 }
 
-int main(int ac, char **av)
+void    ft_ls(const char *file_name)
 {
     DIR             *dir;
-    char            buffer[50];
     struct stat     *buff;
     struct dirent   *dent;
     char            *path;
    
-    if (ac > 1)
+    dir = opendir(file_name);
+    if (dir)
     {
-        strcpy(buffer, av[1]);
-        dir = opendir(buffer); // This invokes dir to point to the directory named within buffer
-        if (dir)
+        dent = readdir(dir);
+        while(dent)
         {
-            dent = readdir(dir); // readdir extracts information of the dir and puts it into dent which is a dirent struct
-            while(dent) // Iterates over the directory and when it reaches the end, it will be NULL
-            {
-                buff = malloc(sizeof(struct stat));
-                if (!buff)
-                    return (0);
-                path = get_path(av[1], dent->d_name);
-                lstat(path, buff);
-                attr_printer(dent, buff);
-                free(path);
-                free(buff);
-                dent = readdir(dir); // Calling this function within the while loop move the dir pointer.
-            }
-            closedir(dir);
+            buff = malloc(sizeof(struct stat));
+            if (!buff)
+                exit(3);
+            path = get_path((char *)file_name, dent->d_name);
+            lstat(path, buff);
+            attr_printer(dent, buff);
+            free(path);
+            free(buff);
+            dent = readdir(dir);
         }
+        closedir(dir);
     }
-    return (0);
 }
