@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:21:27 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/12 16:09:08 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/12 16:21:17 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,16 @@ char    *get_path(char *input, char *file_name)
     return (input);
 }
 
+static void     array_delete(char **file_name_array, size_t index)
+{
+    while (index >= 0)
+    {
+        free(file_name_array[index]);
+        index--;
+    }
+    free(file_name_array);
+}
+
 static char    **file_names_array(char **files_array, char *file_name, size_t index)
 {
     char    **ret;
@@ -135,10 +145,12 @@ static char    **file_names_array(char **files_array, char *file_name, size_t in
         {
             while (index--)
             {
+                
                 ret[index] = ft_strdup(files_array[index]);
                 free(files_array[index]);
             }
-        }  
+            free(files_array);
+        }
     }
     return (ret);
 }
@@ -181,6 +193,7 @@ void    ft_ls(const char *file_name, t_opts *opt)
             printf("%s\n", list_file_names[i]);
             i++;
         }
+        array_delete(list_file_names, index);
         // Testing
     }
 }
