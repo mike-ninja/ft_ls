@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:57:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/13 10:19:35 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/13 11:21:15 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int main(int ac, char **av)
         file_name_list(".", opts);
     while (index < ac)
     {
-        // ft_ls(av[index], opts);
         file_name_list(av[index], opts);
         index++;
     }
