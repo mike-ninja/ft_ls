@@ -1,35 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   lexi_sort.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/01 11:57:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/13 13:19:45 by mbarutel         ###   ########.fr       */
+/*   Created: 2022/07/13 11:41:22 by mbarutel          #+#    #+#             */
+/*   Updated: 2022/07/13 11:54:48 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-int main(int ac, char **av)
+void    lexi_sort(t_node *file_node)
 {
-    int         index;
-    t_opts      opts[1];
+    t_node *head;
+    t_node *current;
 
-    index = 1;
-    init_struct(opts);
-    while (index < ac && *av[index] == '-')
+    head = file_node;
+    while (file_node)
     {
-        options_parse(opts, av[index]);
-        index++;
+        file_node = file_node->next;
     }
-    if (index == ac)
-        file_name_list(".", opts);
-    while (index < ac)
-    {
-        file_name_list(av[index], opts);
-        index++;
-    }
-    return (0);
 }

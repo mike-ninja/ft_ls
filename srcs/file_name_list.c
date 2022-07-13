@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 09:30:17 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/13 11:34:42 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/13 13:25:50 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,14 +89,35 @@ static void node_reader(t_node *file_node)
 {
     while(file_node)
     {
-        printf("%p\n", file_node->current);
-        printf("%s\n", file_node->file_name);
-        printf("%i\n", file_node->file_type);
-        printf("%p\n", file_node->next);
-        printf("\n");
+        // printf("%p\n", file_node->current);
+        printf("%7s", file_node->file_name);
+        // printf("%i\n", file_node->file_type);
+        // printf("%p\n", file_node->next);
+        // printf("\n");
         file_node = file_node->next;
     }
     printf("\n");
+}
+
+static void    recursive(char *file_name, t_node *file_node, t_opts *opt)
+{
+    int     i;
+    char    *path;
+
+    i = 0;
+    while (i < 2)
+    {
+        file_node = file_node->next;
+        i++;
+    }
+    while (file_node)
+    {
+        if (file_node->file_type == 2)
+        {
+            file_name_list(get_path(file_name, file_node->file_name), opt);
+        }
+        file_node = file_node->next;
+    }
 }
 
 /*
@@ -128,8 +149,43 @@ t_node  *file_name_list(const char *file_name, t_opts *opt)
             dent = readdir(dir);
         }
         closedir(dir);
+        node_reader(file_node);
+        recursive((char *)file_name, file_node, opt); // this causes segmentaion fault on empty dir
+        nodes_array_delete(file_node);
     }
-    // node_reader(file_node);
-    nodes_array_delete(file_node);
     return (file_node);
 }
+
+// t_node  *file_name_list(DIR **dir, const char *file_name, t_opts *opt)
+// {
+//     t_node          *file_node;
+//     struct stat     *stat;
+//     struct dirent   *dent;
+    
+//     file_node = NULL;
+//     *dir = opendir(file_name);
+//     printf("%s}\n", file_name);
+//     if (dir)
+//     {
+//         printf("This happens %s}\n", file_name);
+//         dent = readdir(dir);
+//         while (dent)
+//         {
+//             stat = malloc(sizeof(struct stat));
+//             if (!stat)
+//             {
+//                 ft_putstr("Allocation Error: Struct Stat");
+//                 exit(0);
+//             }
+//             lstat(get_path((char *)file_name, dent->d_name), stat); // we can change get path so ft_strjoin_
+//             file_node = file_nodes_array(file_node, dent->d_name, stat);
+//             free(stat);
+//             dent = readdir(dir);
+//         }
+//         closedir(dir);
+//         node_reader(file_node);
+//         recursive(file_node, opt); // this causes segmentaion fault on empty dir
+//         nodes_array_delete(file_node);
+//     }
+//     return (file_node);
+// }

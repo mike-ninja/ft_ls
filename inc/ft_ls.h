@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/13 11:32:38 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/13 11:55:25 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,5 @@ t_node  *file_name_list(const char *file_name, t_opts *opt);
 
 // Utils
 char    *get_path(char *input, char *file_name);
-int file_type(mode_t mode);
+int		file_type(mode_t mode);
 #endif
