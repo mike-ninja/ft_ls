@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/12 15:13:20 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/13 10:19:13 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,22 @@ typedef struct options
 	bool	rec;
 }				t_opts;
 
+typedef struct file_node
+{
+	struct file_node	*current; // maybe we don't need
+	char	*file_name;
+	char	file_type;
+	struct file_node	*next;
+}				t_node;
+
 // Prototypes
-void    ft_ls(const char *file_name, t_opts *opt);
+// void    ft_ls(const char *file_name, t_opts *opt);
 
 // Options
 void	init_struct(t_opts *opt);
 void    options_parse(t_opts *opt, char *opt_str);
+
+// Linked list
+t_node  *file_name_list(const char *file_name, t_opts *opt);
 
 #endif

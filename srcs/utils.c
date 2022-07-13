@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:21:27 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/12 16:21:17 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/13 10:15:00 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,80 +120,71 @@ char    *get_path(char *input, char *file_name)
     return (input);
 }
 
-static void     array_delete(char **file_name_array, size_t index)
-{
-    while (index >= 0)
-    {
-        free(file_name_array[index]);
-        index--;
-    }
-    free(file_name_array);
-}
-
-static char    **file_names_array(char **files_array, char *file_name, size_t index)
-{
-    char    **ret;
+// void    ft_ls(const char *file_name, t_opts *opt)
+// {
+//     DIR             *dir;
+//     struct stat     *buff;
+//     struct dirent   *dent;
+//     char            *path;
+//     char            **list_file_names;
+//     size_t          index;
     
-    ret = NULL;
-    if (index >= 0)
-    {
-        ret = (char **)malloc(sizeof(char *) * index + 1);
-        if (!ret)
-            return (NULL);
-        ret[index] = ft_strdup(file_name);
-        if (files_array)
-        {
-            while (index--)
-            {
-                
-                ret[index] = ft_strdup(files_array[index]);
-                free(files_array[index]);
-            }
-            free(files_array);
-        }
-    }
-    return (ret);
-}
-
-void    ft_ls(const char *file_name, t_opts *opt)
-{
-    DIR             *dir;
-    struct stat     *buff;
-    struct dirent   *dent;
-    char            *path;
-    char            **list_file_names;
-    size_t          index;
+//     index = 0;
+//     list_file_names = NULL;
+//     dir = opendir(file_name);
+//     if (dir)
+//     {
+//         dent = readdir(dir);
+//         while (dent)
+//         {
+//             // printf("file_name %s\n", dent->d_name);
+//             // list_file_names = file_names_array(list_file_names, dent->d_name, index);
+//             file_name_list(const char *file_name, t_opts *opt)
+//             // buff = malloc(sizeof(struct stat));
+//             // if (!buff)
+//             //     exit(3);
+//             // path = get_path((char *)file_name, dent->d_name);
+//             // lstat(path, buff);
+//             // attr_printer(dent, buff);
+//             // free(path);
+//             // free(buff);
+//             index++;
+//             dent = readdir(dir);
+//         }
+//         closedir(dir);
+//     }
+// }
+// void    ft_ls(const char *file_name, t_opts *opt)
+// {
+//     DIR             *dir;
+//     struct stat     *buff;
+//     struct dirent   *dent;
+//     char            *path;
+//     char            **list_file_names;
+//     size_t          index;
     
-    index = 0;
-    list_file_names = NULL;
-    dir = opendir(file_name);
-    if (dir)
-    {
-        dent = readdir(dir);
-        while (dent)
-        {
-            // printf("file_name %s\n", dent->d_name);
-            list_file_names = file_names_array(list_file_names, dent->d_name, index);
-            // buff = malloc(sizeof(struct stat));
-            // if (!buff)
-            //     exit(3);
-            // path = get_path((char *)file_name, dent->d_name);
-            // lstat(path, buff);
-            // attr_printer(dent, buff);
-            // free(path);
-            // free(buff);
-            index++;
-            dent = readdir(dir);
-        }
-        closedir(dir);
-        // Testing
-        size_t i = 0;
-        while (i < index)
-        {
-            printf("%s\n", list_file_names[i]);
-            i++;
-        }
-        array_delete(list_file_names, index);
-        // Testing
-    }
-}
+//     index = 0;
+//     list_file_names = NULL;
+//     dir = opendir(file_name);
+//     if (dir)
+//     {
+//         dent = readdir(dir);
+//         while (dent)
+//         {
+//             // printf("file_name %s\n", dent->d_name);
+//             // list_file_names = file_names_array(list_file_names, dent->d_name, index);
+//             file_name_list(const char *file_name, t_opts *opt)
+//             // buff = malloc(sizeof(struct stat));
+//             // if (!buff)
+//             //     exit(3);
+//             // path = get_path((char *)file_name, dent->d_name);
+//             // lstat(path, buff);
+//             // attr_printer(dent, buff);
+//             // free(path);
+//             // free(buff);
+//             index++;
+//             dent = readdir(dir);
+//         }
+//         closedir(dir);
+//     }
+// }
