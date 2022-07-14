@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 09:30:17 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/14 12:49:41 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/14 13:45:46 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,26 +90,27 @@ static t_node  *file_nodes_array(const char *prefix_file_name, t_node *file_node
     return (file_node);
 }
 
-// static void node_reader(t_node *file_node, t_opts *opt, char **file_name_array)
-// {
-//     // while(file_node)
-//     // {
-//     //     if (opt->all || *file_node->file_name != '.') // implementation for a flag
-//     //         break ;
-//     //     file_node = file_node->next;   
-//     // }
-//     // while(file_node)
-//     // {        
-//     //     printf("%10s", file_node->file_name);
-//     //     file_node = file_node->next;
-//     // }
-//     while (file_name_array)
-//     {
-//         // printf("%15s", *file_name_array);
-//         file_name_array++;
-//     }
-//     printf("\n");
-// }
+static void node_reader(t_node *file_node, t_opts *opt, t_array *lexi_sorted)
+{
+    t_node  *ptr;
+    size_t  i;
+
+    i = 0;
+    while (i < lexi_sorted->index)
+    {
+        ptr = file_node;
+        while (ptr)
+        {
+            if (ft_strcmp(lexi_sorted->name_array[i], ptr->file_name) == 0)
+            {
+                printf("%-20s", ptr->file_name);
+                break ;
+            }
+            ptr = ptr->next;
+        }
+        i++;
+    }
+}
 
 /*
     This file collects name & file type to add to a linked list.
@@ -137,10 +138,12 @@ t_node  *file_name_list(const char *file_name, t_opts *opt)
         }
         closedir(dir);
         lexi_sorted = file_name_array_collect(file_node, opt);
-        // node_reader(file_node, opt, file_names_array);
+        node_reader(file_node, opt, lexi_sorted);
         if (opt->rec)
             recursive((char *)file_name, file_node, opt);
         nodes_array_delete(file_node);
+        free(lexi_sorted->name_array);
+        free(lexi_sorted);
     }
     return (file_node);
 }

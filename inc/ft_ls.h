@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/14 12:50:04 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/14 13:32:11 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,6 @@ typedef struct	lexi_array
 	char	**name_array;
 	size_t	index;
 }				t_array;
-
-// Prototypes
-// void    ft_ls(const char *file_name, t_opts *opt);
 
 // Options
 void	init_struct(t_opts *opt);
