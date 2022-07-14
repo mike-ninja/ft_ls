@@ -6,7 +6,7 @@
 #    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/29 11:22:02 by mbarutel          #+#    #+#              #
-#    Updated: 2022/07/13 11:32:43 by mbarutel         ###   ########.fr        #
+#    Updated: 2022/07/14 10:42:26 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,10 +20,12 @@ LIB_INC		= -Llibft -lftprintf
 
 # Files
 
-SRC_FILE 	= ft_ls
+SRC_FILE 	= main
 SRC_FILE 	+= options
 SRC_FILE 	+= file_name_list
 SRC_FILE 	+= utils
+SRC_FILE 	+= options_functions
+
 
 
 # Colours
