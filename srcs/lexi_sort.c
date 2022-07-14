@@ -6,39 +6,11 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 11:41:22 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/14 13:54:08 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/14 14:09:39 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
-
-// void    lexi_sort(t_array *array)
-// {
-//     size_t  i;
-//     size_t  y;
-//     int     ret;
-//     char    *tmp;
-
-//     i = 0;
-//     ret = 0;
-//     tmp = NULL;
-//     while (i < array->index)
-//     {
-//         y = 0;
-//         while (y < array->index)
-//         {
-//             ret = ft_strcmp((char *)array->name_array[i], (char *)array->name_array[y]);
-//             if (ret < 0)
-//             {
-//                 tmp = array->name_array[i];
-//                 array->name_array[i] = array->name_array[y];
-//                 array->name_array[y] = tmp;
-//             }
-//             y++;
-//         }
-//         i++;
-//     }
-// }
 
 static void str_swap(char **array, size_t i, size_t y)
 {
@@ -47,18 +19,19 @@ static void str_swap(char **array, size_t i, size_t y)
     ptr = array[i];
     array[i] = array[y];
     array[y] = ptr;
-}    
+}
 
+/*
+    Sorts the array in lexicographic order and will sort it in reverse if -r flag is valid
+*/
 void    lexi_sort(t_array *array, t_opts *opt)
 {
     size_t  i;
     size_t  y;
     int     ret;
-    char    *tmp;
 
     i = 0;
     ret = 0;
-    tmp = NULL;
     while (i < array->index)
     {
         y = 0;
@@ -101,18 +74,6 @@ static t_node  *array_size(t_node *file_node, t_opts *opt, size_t *index)
     }
     return (head);
 }
-
-// static void    array_printer(t_array *array)
-// {
-//     size_t i;
-
-//     i = 0;
-//     while (i < array->index)
-//     {
-//         printf("%-15s", array->name_array[i]);
-//         i++;
-//     }
-// }
 
 t_array *file_name_array_collect(t_node *file_node, t_opts *opt)
 {

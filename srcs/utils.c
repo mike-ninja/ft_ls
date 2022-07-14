@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:21:27 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/13 11:33:23 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/14 16:24:41 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int file_type(mode_t mode)
 {
     if (S_ISREG(mode))
-        return (1);
+        return ('-');
     if (S_ISDIR(mode))
-        return (2);
+        return ('d');
     if (S_ISCHR(mode))
         return (3);
     if (S_ISBLK(mode))
@@ -42,63 +42,74 @@ char    *get_path(char *input, char *file_name)
     return (input);
 }
 
-// char    *permission_str(mode_t mode)
-// {
-//     int     len;
-//     int     octal;
-//     char    *octal_str;
-//     int     perm_int;
-//     char    *permission;
+void    array_printer(t_array *array)
+{
+    size_t i;
 
-//     len = 8;
-//     permission = ft_strdup("rwxrwxrwx");
-//     octal_str = ft_itoa_base(mode, 8);
-//     if (!permission || !octal_str)
-//         return (NULL);
-//     octal = ft_atoi(octal_str);
-//     while (len > 0)
-//     {
-//         perm_int = octal % 10;
-//         while (perm_int)
-//         {
-//             if ((perm_int % 2) == 0)
-//                 permission[len] = '-';
-//             perm_int /= 2;
-//             len--;
-//         }
-//         octal /= 10;
-//     }
-//     free(octal_str);
-//     return (permission);
-// }
+    i = 0;
+    while (i < array->index)
+    {
+        printf("%-15s", array->name_array[i]);
+        i++;
+    }
+}
 
-// char    *get_owner_name(uid_t uid)
-// {
-//     struct passwd *user_info;
+char    *permission_str(mode_t mode)
+{
+    int     len;
+    int     octal;
+    char    *octal_str;
+    int     perm_int;
+    char    *permission;
 
-//     user_info = getpwuid(uid);
-//     return (user_info->pw_name);
-// }
+    len = 8;
+    permission = ft_strdup("rwxrwxrwx");
+    octal_str = ft_itoa_base(mode, 8);
+    if (!permission || !octal_str)
+        return (NULL);
+    octal = ft_atoi(octal_str);
+    while (len > 0)
+    {
+        perm_int = octal % 10;
+        while (perm_int)
+        {
+            if ((perm_int % 2) == 0)
+                permission[len] = '-';
+            perm_int /= 2;
+            len--;
+        }
+        octal /= 10;
+    }
+    free(octal_str);
+    return (permission);
+}
 
-// char    *get_owner_group(gid_t gid)
-// {
+char    *get_owner_name(uid_t uid)
+{
+    struct passwd *user_info;
 
-//     struct group *user_group;
+    user_info = getpwuid(uid);
+    return (user_info->pw_name);
+}
 
-//     user_group = getgrgid(gid);
-//     return (user_group->gr_name);
-// }
+char    *get_owner_group(gid_t gid)
+{
 
-// char    *last_modification_date(struct timespec mtimespec)
-// {
-//     char    *date;
+    struct group *user_group;
 
-//     date = (char *)malloc(17);
-//     date[16] = '\0';
-//     ft_strncpy(date, &ctime(&mtimespec.tv_sec)[4], 12);
-//     ft_strncpy(&date[12], &ctime(&mtimespec.tv_sec)[19], 5);
-//     return (date);
-// };
+    user_group = getgrgid(gid);
+    return (user_group->gr_name);
+}
+
+char    *last_modification_date(struct timespec mtimespec)
+{
+    char    *date;
+
+    date = (char *)malloc(13);
+    date[16] = '\0';
+    ft_strncpy(date, &ctime(&mtimespec.tv_sec)[4], 12);
+    return (date);
+};
 
 // void    attr_printer(struct dirent *dent, struct stat *stat)
 // {

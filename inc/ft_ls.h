@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/14 13:32:11 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/14 16:09:48 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,15 @@ typedef struct options
 
 typedef struct file_node
 {
-	size_t				index;
-	char				*file_name;
 	char				file_type;
-	struct stat     	*stat;
+	char				*permission;
+	unsigned int		links;
+	char				*owner_name;
+	char				*owner_group;
+	unsigned int		size;
+	char				*date;
+	char				*file_name;
+	// struct stat     	*stat;
 	struct file_node	*next;
 }				t_node;
 
@@ -70,6 +75,11 @@ t_node  *file_name_list(const char *file_name, t_opts *opt);
 // Utils
 char    *get_path(char *input, char *file_name);
 int		file_type(mode_t mode);
+void    array_printer(t_array *array);
+char    *permission_str(mode_t mode);
+char    *get_owner_name(uid_t uid);
+char    *get_owner_group(gid_t gid);
+char    *last_modification_date(struct timespec mtimespec);
 
 // Options functions
 void    recursive(char *file_name, t_node *file_node, t_opts *opt);

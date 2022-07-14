@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 09:30:17 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/14 13:45:46 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/14 16:27:09 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,47 +14,70 @@
 
 static void    nodes_array_delete(t_node *file_node)
 {
-    t_node  *tmp;
+    t_node  *ptr;
 
     while (file_node)
     {
+        free(file_node->permission);
+        free(file_node->date);
         free(file_node->file_name);
-        tmp = file_node;
+        ptr = file_node;
         file_node = file_node->next;
-        free(tmp);
+        free(ptr);
     }
 }
 
 static void    file_node_collect(const char *prefix_file_name, t_node *node, t_node *file_node, char *file_name)
 {
-    char *path;
+    char                *path;
+    char                *perm;
+    char                *date;
+    struct stat     	*stat;
 
     path = get_path((char *)prefix_file_name, file_name);
-    file_node->stat = malloc(sizeof(struct stat));
-    lstat(path, file_node->stat);
+    stat = malloc(sizeof(struct stat));
+    lstat(path, stat);
     if (!node)
     {
+        file_node->file_type = file_type(stat->st_mode);
+        file_node->permission = permission_str(stat->st_mode);
+        file_node->links = stat->st_nlink;
+        file_node->owner_name = get_owner_name(stat->st_uid);
+        file_node->owner_group = get_owner_group(stat->st_gid);
+        file_node->size = stat->st_size;
+        file_node->date = last_modification_date(stat->st_mtimespec);
         file_node->file_name = ft_strdup(file_name);
-        file_node->file_type = file_type(file_node->stat->st_mode);
         file_node->next = NULL;
     }
     else
     {
         file_node->next = node;
+        node->file_type = file_type(stat->st_mode);
+        node->permission = permission_str(stat->st_mode);
+        node->links = stat->st_nlink;
+        node->owner_name = get_owner_name(stat->st_uid);
+        node->owner_group = get_owner_group(stat->st_gid);
+        node->size = stat->st_size;
+        node->date = last_modification_date(stat->st_mtimespec);
         node->file_name = ft_strdup(file_name);
-        node->file_type = file_type(file_node->stat->st_mode);
         node->next = NULL;
     }
-    free(file_node->stat);
+    free(stat);
     free(path);
 }
 
 static void    file_node_init(t_node *node)
 {
-    node->file_name  = NULL;
-    node->file_type  = 0;
-    node->stat       = NULL;
-    node->next       = NULL;
+    node->file_type     = 0;
+    node->permission    = NULL;
+    node->links         = 0;
+    node->owner_name    = NULL;
+    node->owner_group   = NULL;
+    node->size          = 0;
+    node->date          = NULL;
+    node->file_name     = NULL;
+    // node->stat          = NULL;
+    node->next          = NULL;
 }
 
 static t_node  *file_nodes_array(const char *prefix_file_name, t_node *file_node, char *file_name)
@@ -92,10 +115,12 @@ static t_node  *file_nodes_array(const char *prefix_file_name, t_node *file_node
 
 static void node_reader(t_node *file_node, t_opts *opt, t_array *lexi_sorted)
 {
-    t_node  *ptr;
     size_t  i;
+    t_node  *ptr;
+    char    *perm;
 
     i = 0;
+    perm = NULL;
     while (i < lexi_sorted->index)
     {
         ptr = file_node;
@@ -103,7 +128,15 @@ static void node_reader(t_node *file_node, t_opts *opt, t_array *lexi_sorted)
         {
             if (ft_strcmp(lexi_sorted->name_array[i], ptr->file_name) == 0)
             {
-                printf("%-20s", ptr->file_name);
+                printf("%c", ptr->file_type);
+                printf("%s", ptr->permission);
+                printf("%3i", ptr->links);
+                printf(" %s", ptr->owner_name);
+                printf("  %s ", ptr->owner_group);
+                printf(" %3i", ptr->size);
+                printf(" %s ", ptr->date);
+                printf("%s", ptr->file_name);
+                printf("\n");
                 break ;
             }
             ptr = ptr->next;
@@ -138,7 +171,10 @@ t_node  *file_name_list(const char *file_name, t_opts *opt)
         }
         closedir(dir);
         lexi_sorted = file_name_array_collect(file_node, opt);
-        node_reader(file_node, opt, lexi_sorted);
+        if (opt->lis)
+            node_reader(file_node, opt, lexi_sorted); // -l flag will be implemented here
+        else
+            array_printer(lexi_sorted);
         if (opt->rec)
             recursive((char *)file_name, file_node, opt);
         nodes_array_delete(file_node);
