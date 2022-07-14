@@ -6,7 +6,7 @@
 #    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/29 11:22:02 by mbarutel          #+#    #+#              #
-#    Updated: 2022/07/14 10:42:26 by mbarutel         ###   ########.fr        #
+#    Updated: 2022/07/14 11:33:16 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRC_FILE 	+= options
 SRC_FILE 	+= file_name_list
 SRC_FILE 	+= utils
 SRC_FILE 	+= options_functions
+SRC_FILE 	+= lexi_sort
 
 
 

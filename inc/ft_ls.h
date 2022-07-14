@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/14 10:40:43 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/14 12:50:04 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,18 @@ typedef struct options
 
 typedef struct file_node
 {
-	struct file_node	*current; // maybe we don't need
-	char	*file_name;
-	char	file_type;
+	size_t				index;
+	char				*file_name;
+	char				file_type;
+	struct stat     	*stat;
 	struct file_node	*next;
 }				t_node;
+
+typedef struct	lexi_array
+{
+	char	**name_array;
+	size_t	index;
+}				t_array;
 
 // Prototypes
 // void    ft_ls(const char *file_name, t_opts *opt);
@@ -69,5 +76,8 @@ int		file_type(mode_t mode);
 
 // Options functions
 void    recursive(char *file_name, t_node *file_node, t_opts *opt);
+
+//Lexi Sorting
+t_array *file_name_array_collect(t_node *file_node, t_opts *opt);
 
 #endif
