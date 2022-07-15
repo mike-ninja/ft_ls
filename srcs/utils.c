@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:21:27 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/14 16:24:41 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/15 12:49:31 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,9 @@ char    *last_modification_date(struct timespec mtimespec)
     char    *date;
 
     date = (char *)malloc(13);
-    date[16] = '\0';
+    date[12] = '\0';
     ft_strncpy(date, &ctime(&mtimespec.tv_sec)[4], 12);
+    printf("%zu}\n", ft_strlen(date));
     return (date);
 };
 

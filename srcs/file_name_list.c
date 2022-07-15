@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 09:30:17 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/14 16:27:09 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/15 12:12:36 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void    nodes_array_delete(t_node *file_node)
     }
 }
 
-static void    file_node_collect(const char *prefix_file_name, t_node *node, t_node *file_node, char *file_name)
+static void    file_node_collect(const char *prefix_file_name, t_node *node, t_node *file_node, char *file_name, size_t *dir_size)
 {
     char                *path;
     char                *perm;
@@ -45,6 +45,7 @@ static void    file_node_collect(const char *prefix_file_name, t_node *node, t_n
         file_node->owner_name = get_owner_name(stat->st_uid);
         file_node->owner_group = get_owner_group(stat->st_gid);
         file_node->size = stat->st_size;
+        dir_size[0] += file_node->size;
         file_node->date = last_modification_date(stat->st_mtimespec);
         file_node->file_name = ft_strdup(file_name);
         file_node->next = NULL;
@@ -58,6 +59,7 @@ static void    file_node_collect(const char *prefix_file_name, t_node *node, t_n
         node->owner_name = get_owner_name(stat->st_uid);
         node->owner_group = get_owner_group(stat->st_gid);
         node->size = stat->st_size;
+        dir_size[0] += node->size;
         node->date = last_modification_date(stat->st_mtimespec);
         node->file_name = ft_strdup(file_name);
         node->next = NULL;
@@ -76,11 +78,10 @@ static void    file_node_init(t_node *node)
     node->size          = 0;
     node->date          = NULL;
     node->file_name     = NULL;
-    // node->stat          = NULL;
     node->next          = NULL;
 }
 
-static t_node  *file_nodes_array(const char *prefix_file_name, t_node *file_node, char *file_name)
+static t_node  *file_nodes_array(const char *prefix_file_name, t_node *file_node, char *file_name, size_t *dir_size)
 {
     t_node  *head;
     t_node  *node;
@@ -93,7 +94,7 @@ static t_node  *file_nodes_array(const char *prefix_file_name, t_node *file_node
         if (!file_node)
             return (NULL);
         file_node_init(file_node);
-        file_node_collect(prefix_file_name, node, file_node, file_name);
+        file_node_collect(prefix_file_name, node, file_node, file_name, dir_size);
     }
     else
     {
@@ -107,13 +108,13 @@ static t_node  *file_nodes_array(const char *prefix_file_name, t_node *file_node
             exit(1);
         }
         file_node_init(node);
-        file_node_collect(prefix_file_name, node, file_node, file_name);
+        file_node_collect(prefix_file_name, node, file_node, file_name, dir_size);
         return (head);
     }
     return (file_node);
 }
 
-static void node_reader(t_node *file_node, t_opts *opt, t_array *lexi_sorted)
+static void node_reader(t_node *file_node, t_opts *opt, t_array *lexi_sorted, size_t *dir_size)
 {
     size_t  i;
     t_node  *ptr;
@@ -121,6 +122,7 @@ static void node_reader(t_node *file_node, t_opts *opt, t_array *lexi_sorted)
 
     i = 0;
     perm = NULL;
+    printf("Total %zu\n", dir_size[0]);
     while (i < lexi_sorted->index)
     {
         ptr = file_node;
@@ -157,22 +159,24 @@ t_node  *file_name_list(const char *file_name, t_opts *opt)
     t_array         *lexi_sorted;
     t_node          *file_node;
     struct dirent   *dent;
+    size_t          dir_size[1];
     
     file_node = NULL;
     lexi_sorted = NULL;
+    dir_size[0] = 0;
     dir = opendir(file_name);
     if (dir)
     {
         dent = readdir(dir);
         while (dent)
         {
-            file_node = file_nodes_array(file_name, file_node, dent->d_name);
+            file_node = file_nodes_array(file_name, file_node, dent->d_name, dir_size);
             dent = readdir(dir);
         }
         closedir(dir);
         lexi_sorted = file_name_array_collect(file_node, opt);
         if (opt->lis)
-            node_reader(file_node, opt, lexi_sorted); // -l flag will be implemented here
+            node_reader(file_node, opt, lexi_sorted, dir_size); // -l flag will be implemented here
         else
             array_printer(lexi_sorted);
         if (opt->rec)
