@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/14 16:09:48 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/15 13:57:35 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ typedef struct file_node
 	unsigned int		size;
 	char				*date;
 	char				*file_name;
-	// struct stat     	*stat;
 	struct file_node	*next;
 }				t_node;
 
@@ -65,17 +64,24 @@ typedef struct	lexi_array
 	size_t	index;
 }				t_array;
 
+typedef struct	column_attr
+{
+	int	links_len;
+	int	owner_name_len;
+	int	owner_group_len;
+	int	file_size_len;
+}				t_column;
+
+// ft_ls
+t_node	*ft_ls(const char *file_name, t_opts *opt);
+
 // Options
 void	init_struct(t_opts *opt);
 void    options_parse(t_opts *opt, char *opt_str);
 
-// Linked list
-t_node  *file_name_list(const char *file_name, t_opts *opt);
-
 // Utils
 char    *get_path(char *input, char *file_name);
 int		file_type(mode_t mode);
-void    array_printer(t_array *array);
 char    *permission_str(mode_t mode);
 char    *get_owner_name(uid_t uid);
 char    *get_owner_group(gid_t gid);
@@ -84,7 +90,20 @@ char    *last_modification_date(struct timespec mtimespec);
 // Options functions
 void    recursive(char *file_name, t_node *file_node, t_opts *opt);
 
-//Lexi Sorting
+// Lexi Sorting
 t_array *file_name_array_collect(t_node *file_node, t_opts *opt);
+
+// Printers
+void	list_print(t_node *file_node, t_opts *opt, t_array *lexi_sorted, size_t *blocks);
+void    standard_print(t_array *array);
+
+// Node Funcs
+void	nodes_array_delete(t_node *file_node);
+void	file_node_collect(const char *prefix_file_name, t_node *node, t_node *file_node, char *file_name, size_t *blocks);
+void	file_node_init(t_node *node);
+t_node	*file_nodes_array(const char *prefix_file_name, t_node *file_node, char *file_name, size_t *blocks);
+
+// Column Attributes
+t_column	*attr_col(t_node *nodes);
 
 #endif

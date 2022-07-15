@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:21:27 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/15 12:49:31 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/15 13:19:54 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,6 @@ char    *get_path(char *input, char *file_name)
     input = ft_strjoin(tmp, file_name); 
     free(tmp);
     return (input);
-}
-
-void    array_printer(t_array *array)
-{
-    size_t i;
-
-    i = 0;
-    while (i < array->index)
-    {
-        printf("%-15s", array->name_array[i]);
-        i++;
-    }
 }
 
 char    *permission_str(mode_t mode)
@@ -108,7 +96,6 @@ char    *last_modification_date(struct timespec mtimespec)
     date = (char *)malloc(13);
     date[12] = '\0';
     ft_strncpy(date, &ctime(&mtimespec.tv_sec)[4], 12);
-    printf("%zu}\n", ft_strlen(date));
     return (date);
 };
 

@@ -6,7 +6,7 @@
 #    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/29 11:22:02 by mbarutel          #+#    #+#              #
-#    Updated: 2022/07/14 11:33:16 by mbarutel         ###   ########.fr        #
+#    Updated: 2022/07/15 13:39:41 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,10 +22,12 @@ LIB_INC		= -Llibft -lftprintf
 
 SRC_FILE 	= main
 SRC_FILE 	+= options
-SRC_FILE 	+= file_name_list
+SRC_FILE 	+= node_funcs
 SRC_FILE 	+= utils
 SRC_FILE 	+= options_functions
 SRC_FILE 	+= lexi_sort
+SRC_FILE 	+= printers
+SRC_FILE 	+= column_attr
 
 
 
