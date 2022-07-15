@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:21:27 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/15 13:19:54 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/15 15:53:44 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,16 @@ char    *permission_str(mode_t mode)
     char    *permission;
 
     len = 8;
+    // printf("mode - %i\n", mode);
     permission = ft_strdup("rwxrwxrwx");
     octal_str = ft_itoa_base(mode, 8);
     if (!permission || !octal_str)
         return (NULL);
     octal = ft_atoi(octal_str);
+    // printf("%i\n", octal);
     while (len > 0)
     {
+        // printf("This happens\n");
         perm_int = octal % 10;
         while (perm_int)
         {
@@ -82,7 +85,6 @@ char    *get_owner_name(uid_t uid)
 
 char    *get_owner_group(gid_t gid)
 {
-
     struct group *user_group;
 
     user_group = getgrgid(gid);

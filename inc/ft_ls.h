@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/15 13:57:35 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/15 16:01:33 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct file_node
 
 typedef struct	lexi_array
 {
-	char	**name_array;
+	char	**arr;
 	size_t	index;
 }				t_array;
 

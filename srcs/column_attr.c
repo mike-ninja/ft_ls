@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:08:24 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/15 13:58:02 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/15 15:58:33 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ static void	attr_struct_init(t_column *attr)
 	attr->file_size_len = 0;
 }
 
-static void links_len(t_node *node, t_column *attr)
+static void	links_len(t_node *node, t_column *attr)
 {
-	int 			i;
+	int				i;
 	unsigned int	tmp;
 
 	i = 0;
 	tmp = node->links;
-	while(tmp)
+	while (tmp)
 	{
 		i++;
 		tmp /= 10;
@@ -36,32 +36,26 @@ static void links_len(t_node *node, t_column *attr)
 		attr->links_len = i;
 }
 
-static void owner_n_len(t_node *node, t_column *attr)
+static void	owner_len(t_node *node, t_column *attr)
 {
-	int i;
+	int	i;
 
 	i = ft_strlen(node->owner_name);
 	if (i > attr->owner_name_len)
 		attr->owner_name_len = i;
-}
-
-static void owner_g_len(t_node *node, t_column *attr)
-{
-	int i;
-
 	i = ft_strlen(node->owner_group);
 	if (i > attr->owner_group_len)
 		attr->owner_group_len = i;
 }
 
-static void file_s_len(t_node *node, t_column *attr)
+static void	file_s_len(t_node *node, t_column *attr)
 {
-	int 			i;
+	int				i;
 	unsigned int	tmp;
 
 	i = 0;
 	tmp = node->size;
-	while(tmp)
+	while (tmp)
 	{
 		i++;
 		tmp /= 10;
@@ -82,8 +76,7 @@ t_column	*attr_col(t_node *nodes)
 	while (nodes)
 	{
 		links_len(nodes, ret);
-		owner_n_len(nodes, ret);
-		owner_g_len(nodes, ret);
+		owner_len(nodes, ret);
 		file_s_len(nodes, ret);
 		nodes = nodes->next;
 	}

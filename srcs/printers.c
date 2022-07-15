@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:19:44 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/15 14:01:39 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/15 16:02:23 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	list_print(t_node *file_node, t_opts *opt, t_array *lexi_sorted, size_t *bl
 		ptr = file_node;
 		while (ptr)
 		{
-			if (ft_strcmp(lexi_sorted->name_array[i], ptr->file_name) == 0)
+			if (ft_strcmp(lexi_sorted->arr[i], ptr->file_name) == 0)
 			{
 				printf("%c", ptr->file_type);
 				printf("%s  ", ptr->permission);
@@ -55,7 +55,7 @@ void    standard_print(t_array *array)
     i = 0;
     while (i < array->index)
     {
-        printf("%-15s", array->name_array[i]);
+        printf("%-15s", array->arr[i]);
         i++;
     }
 }

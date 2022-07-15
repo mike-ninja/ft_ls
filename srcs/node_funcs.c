@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 09:30:17 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/15 13:37:15 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/15 15:32:05 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	node_collect_util(t_node *node, struct stat *stat, size_t *blocks, char *fi
 {
 	node->file_type = file_type(stat->st_mode);
 	node->permission = permission_str(stat->st_mode);
+	// printf("This happens\n");
 	node->links = stat->st_nlink;
 	node->owner_name = get_owner_name(stat->st_uid);
 	node->owner_group = get_owner_group(stat->st_gid);
@@ -48,16 +49,23 @@ void	file_node_collect(const char *prefix_file_name, t_node *node, t_node *file_
 	char		*date;
 	struct stat	*stat;
 
+	
+
 	path = get_path((char *)prefix_file_name, file_name);
 	stat = malloc(sizeof(struct stat));
+	if (!stat)
+		exit(3);
 	lstat(path, stat);
 	if (!node)
+	{
 		node_collect_util(file_node, stat, blocks, file_name);
+	}
 	else
 	{
 		file_node->next = node;
 		node_collect_util(node, stat, blocks, file_name);
 	}
+	
 	free(stat);
 	free(path);
 }
