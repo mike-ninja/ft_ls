@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   node_funcs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 09:30:17 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/15 15:32:05 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/17 13:53:57 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	node_collect_util(t_node *node, struct stat *stat, size_t *blocks, char *fi
 	node->size = stat->st_size;
 	blocks[0] += stat->st_blocks;
 	node->date = last_modification_date(stat->st_mtimespec);
+	node->s_date = stat->st_mtimespec;
+	// printf("%li}\n", node->s_date.tv_nsec);
 	node->file_name = ft_strdup(file_name);
 	node->next = NULL;
 }
@@ -79,6 +81,7 @@ void	file_node_init(t_node *node)
 	node->owner_group = NULL;
 	node->size = 0;
 	node->date = NULL;
+	// node->s_date = NULL;
 	node->file_name = NULL;
 	node->next = NULL;
 }
