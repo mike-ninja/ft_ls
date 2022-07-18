@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   node_funcs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 09:30:17 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/17 13:53:57 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/18 12:45:03 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	node_collect_util(t_node *node, struct stat *stat, size_t *blocks, char *fi
 {
 	node->file_type = file_type(stat->st_mode);
 	node->permission = permission_str(stat->st_mode);
-	// printf("This happens\n");
 	node->links = stat->st_nlink;
 	node->owner_name = get_owner_name(stat->st_uid);
 	node->owner_group = get_owner_group(stat->st_gid);
@@ -47,11 +46,7 @@ void	node_collect_util(t_node *node, struct stat *stat, size_t *blocks, char *fi
 void	file_node_collect(const char *prefix_file_name, t_node *node, t_node *file_node, char *file_name, size_t *blocks)
 {
 	char		*path;
-	char		*perm;
-	char		*date;
 	struct stat	*stat;
-
-	
 
 	path = get_path((char *)prefix_file_name, file_name);
 	stat = malloc(sizeof(struct stat));
@@ -60,10 +55,12 @@ void	file_node_collect(const char *prefix_file_name, t_node *node, t_node *file_
 	lstat(path, stat);
 	if (!node)
 	{
+		// file_node->prev = NULL;
 		node_collect_util(file_node, stat, blocks, file_name);
 	}
 	else
 	{
+		// node->prev = file_node; // This is for testing restructure
 		file_node->next = node;
 		node_collect_util(node, stat, blocks, file_name);
 	}
@@ -74,6 +71,7 @@ void	file_node_collect(const char *prefix_file_name, t_node *node, t_node *file_
 
 void	file_node_init(t_node *node)
 {
+	// node->prev = NULL; // This is for testing restructure
 	node->file_type = 0;
 	node->permission = NULL;
 	node->links = 0;

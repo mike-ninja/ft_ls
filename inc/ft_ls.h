@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/17 13:25:10 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/18 12:44:48 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct options
 
 typedef struct file_node
 {
+	// struct file_node	*prev; // Testing
 	char				file_type;
 	char				*permission;
 	unsigned int		links;
@@ -95,7 +96,7 @@ void    recursive(char *file_name, t_node *file_node, t_opts *opt);
 t_array *file_name_array_collect(t_node *file_node, t_opts *opt);
 
 // Printers
-void	list_print(t_node *file_node, t_opts *opt, t_array *lexi_sorted, size_t *blocks);
+void	list_print(t_node *file_node, t_array *lexi_sorted, size_t *blocks);
 void    standard_print(t_array *array);
 
 // Node Funcs

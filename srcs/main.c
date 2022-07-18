@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:57:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/15 16:29:17 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/18 11:47:55 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_node	*ft_ls(const char *file_name, t_opts *opt)
 		closedir(dir);
 		lexi_sorted = file_name_array_collect(node, opt);
 		if (opt->lis)
-			list_print(node, opt, lexi_sorted, blocks);
+			list_print(node, lexi_sorted, blocks);
 		else
 			standard_print(lexi_sorted);
 		if (opt->rec)

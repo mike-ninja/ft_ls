@@ -6,13 +6,13 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:19:44 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/15 16:02:23 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/18 11:47:21 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-void	list_print(t_node *file_node, t_opts *opt, t_array *lexi_sorted, size_t *blocks)
+void	list_print(t_node *file_node, t_array *lexi_sorted, size_t *blocks)
 {
 	size_t	    i;
 	t_node	    *ptr;
