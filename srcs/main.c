@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:57:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/19 16:29:24 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/20 10:34:13 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ t_node	*ft_ls(const char *file_name, t_opts *opt)
 		while (dent)
 		{
 			node = file_nodes_array(file_name, node, dent->d_name, blocks);
+			// list_print(node, blocks);
 			dent = readdir(dir);
 		}
 		closedir(dir);

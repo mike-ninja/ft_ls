@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 09:30:17 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/19 17:27:54 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/20 10:37:28 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,10 @@ t_node	*file_node_collect(const char *prefix_file_name, t_node *node, t_node *fi
 	else
 	{
 		node_collect_util(node, stat, blocks, file_name);
-		while(file_node->next)
+		while(file_node)
 		{
-			printf("%s | %s\n", node->file_name, file_node->file_name);
-			if ((ft_strcmp(node->file_name, file_node->file_name)) < 0)
+			if ((strcmp(node->file_name, file_node->file_name)) < 0)
 			{
-				// printf("%s | %s\n", node->file_name, file_node->file_name);
 				node->next = file_node;
 				if (prev)
 				{
@@ -88,17 +86,10 @@ t_node	*file_node_collect(const char *prefix_file_name, t_node *node, t_node *fi
 				else
 					return (node);
 			}
-			// {
-			// 	// printf("%s | %s\n", node->file_name, file_node->file_name);
-			// 	node->next = file_node;
-			// 	if (prev)
-			// 		prev->next = node;
-			// 	break ;
-			// }
 			prev = file_node;
 			file_node = file_node->next;
 		}
-		file_node->next = node;
+		prev->next = node;
 	}
 	free(stat);
 	free(path);
@@ -125,7 +116,6 @@ t_node	*file_nodes_array(const char *prefix_file_name, t_node *file_node, char *
 
 	head = NULL;
 	node = NULL;
-	
 	
 	if (!file_node)
 	{
