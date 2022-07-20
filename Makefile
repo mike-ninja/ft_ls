@@ -6,7 +6,7 @@
 #    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/29 11:22:02 by mbarutel          #+#    #+#              #
-#    Updated: 2022/07/19 13:05:00 by mbarutel         ###   ########.fr        #
+#    Updated: 2022/07/20 12:21:36 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 NAME 		= ft_ls
 SRC_DIR		= srcs/
 CC			= gcc
-FLAGS		= -g
+FLAGS		= -g -Wall -Werror -Wextra
 LIB_INC		= -Llibft -lftprintf
 
 # Files

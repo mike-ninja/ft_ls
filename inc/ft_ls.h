@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/19 17:09:57 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/20 10:53:31 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,9 @@ void    standard_print(t_array *array);
 
 // Node Funcs
 void	nodes_array_delete(t_node *file_node);
-t_node	*file_node_collect(const char *prefix_file_name, t_node *node, t_node *file_node, char *file_name, size_t *blocks);
+t_node	*file_node_collect(const char *prefix_file_name, t_node *node, t_node *file_node, char *file_name, size_t *blocks, t_opts *opt);
 void	file_node_init(t_node *node);
-t_node	*file_nodes_array(const char *prefix_file_name, t_node *file_node, char *file_name, size_t *blocks);
+t_node	*file_nodes_array(const char *prefix_file_name, t_node *file_node, char *file_name, size_t *blocks, t_opts *opt);
 
 // Column Attributes
 t_column	*attr_col(t_node *nodes);

@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 09:30:17 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/20 10:37:28 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/20 12:15:14 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,48 @@ void	node_collect_util(t_node *node, struct stat *stat, size_t *blocks, char *fi
 	node->next = NULL;
 }
 
-static void	node_print(t_node *node)
-{
-	t_node *ptr;
 
-	ptr = node;
-	while (ptr)
+static bool lexi_insertion(t_node **head, t_node *node, t_node *file_node, t_node *prev)
+{
+	if ((strcmp(node->file_name, file_node->file_name)) < 0)
 	{
-		printf("%-15s\n", ptr->file_name);
-		ptr = ptr->next;
+		node->next = file_node;
+		if (prev)
+			prev->next = node;
+		else
+			*head = node;
+		return (true);
 	}
+	return (false);
 }
 
-t_node	*file_node_collect(const char *prefix_file_name, t_node *node, t_node *file_node, char *file_name, size_t *blocks)
+// static void	node_print(t_node *node)
+// {
+// 	t_node *ptr;
+
+// 	ptr = node;
+// 	while (ptr)
+// 	{
+// 		printf("%-15s\n", ptr->file_name);
+// 		ptr = ptr->next;
+// 	}
+// }
+
+static bool date_insertion(t_node **head, t_node *node, t_node *file_node, t_node *prev)
+{
+	if (node->s_date.tv_sec > file_node->s_date.tv_sec)
+	{
+		node->next = file_node;
+		if (prev)
+			prev->next = node;
+		else
+			*head = node;
+		return (true);
+	}
+	return (false);
+}
+
+t_node	*file_node_collect(const char *prefix_file_name, t_node *node, t_node *file_node, char *file_name, size_t *blocks, t_opts *opt)
 {
 	char		*path;
 	struct stat	*stat;
@@ -75,21 +104,21 @@ t_node	*file_node_collect(const char *prefix_file_name, t_node *node, t_node *fi
 		node_collect_util(node, stat, blocks, file_name);
 		while(file_node)
 		{
-			if ((strcmp(node->file_name, file_node->file_name)) < 0)
-			{
-				node->next = file_node;
-				if (prev)
-				{
-					prev->next = node;
+			if (!opt->tim)
+			{	
+				if (lexi_insertion(&head, node, file_node, prev))
 					return (head);
-				}
-				else
-					return (node);
+			}
+			else
+			{
+				if (date_insertion(&head, node, file_node, prev))
+					return (head);
 			}
 			prev = file_node;
 			file_node = file_node->next;
 		}
-		prev->next = node;
+		if (!file_node)
+			prev->next = node;
 	}
 	free(stat);
 	free(path);
@@ -109,25 +138,21 @@ void	file_node_init(t_node *node)
 	node->next = NULL;
 }
 
-t_node	*file_nodes_array(const char *prefix_file_name, t_node *file_node, char *file_name, size_t *blocks)
+t_node	*file_nodes_array(const char *prefix_file_name, t_node *file_node, char *file_name, size_t *blocks, t_opts *opt)
 {
-	t_node	*head;
 	t_node	*node;
 
-	head = NULL;
 	node = NULL;
-	
 	if (!file_node)
 	{
 		file_node = (t_node *)malloc(sizeof(t_node));
 		if (!file_node)
 			return (NULL);
 		file_node_init(file_node);
-		file_node = file_node_collect(prefix_file_name, node, file_node, file_name, blocks);
+		file_node = file_node_collect(prefix_file_name, node, file_node, file_name, blocks, opt);
 	}
 	else
 	{
-		head = file_node;
 		node = (t_node *)malloc(sizeof(t_node));
 		if (!node)
 		{
@@ -135,7 +160,9 @@ t_node	*file_nodes_array(const char *prefix_file_name, t_node *file_node, char *
 			exit(1);
 		}
 		file_node_init(node);
-		file_node = file_node_collect(prefix_file_name, node, file_node, file_name, blocks);
+		// printf("1 %p  %s\n", file_node, file_node->file_name);
+		file_node = file_node_collect(prefix_file_name, node, file_node, file_name, blocks, opt);
+		// printf("2 %p  %s\n", file_node, file_node->file_name);
 	}
 	return (file_node);
 }
