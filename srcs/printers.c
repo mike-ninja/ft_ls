@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:19:44 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/19 15:37:13 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/20 12:57:38 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,9 @@ void	list_print(t_node *file_node, size_t *blocks)
     t_column    *column;
 
 	printf("total %i\n", (int)blocks[0]);
-    column = attr_col(file_node);
+	column = attr_col(file_node);
 	while (file_node)
 	{
-
 		printf("%c", file_node->file_type);
 		printf("%s  ", file_node->permission);
 		printf("%*i ", column->links_len, file_node->links);
