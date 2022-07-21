@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/20 12:57:55 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/21 11:00:59 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,9 @@ void    recursive(char *file_name, t_node *file_node, t_opts *opt);
 t_array *file_name_array_collect(t_node *file_node, t_opts *opt);
 
 // Printers
-void	list_print(t_node *file_node, size_t *blocks);
-void    standard_print(t_array *array);
+// void	list_print(t_node *file_node, size_t *blocks);
+void	print(t_node *node, t_opts *opt, size_t *blocks, char *file_name);
+// void    standard_print(t_array *array);
 
 // Node Funcs
 void	nodes_array_delete(t_node *file_node);

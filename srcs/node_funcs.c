@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 09:30:17 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/20 12:15:14 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/21 11:39:10 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	node_collect_util(t_node *node, struct stat *stat, size_t *blocks, char *fi
 	node->s_date = stat->st_mtimespec;
 	node->file_name = ft_strdup(file_name);
 	node->next = NULL;
+	free(stat);
 }
 
 
@@ -97,6 +98,7 @@ t_node	*file_node_collect(const char *prefix_file_name, t_node *node, t_node *fi
 	if (!stat)
 		exit(3);
 	lstat(path, stat);
+	free(path);
 	if (!node)
 		node_collect_util(file_node, stat, blocks, file_name);
 	else
@@ -120,8 +122,8 @@ t_node	*file_node_collect(const char *prefix_file_name, t_node *node, t_node *fi
 		if (!file_node)
 			prev->next = node;
 	}
-	free(stat);
-	free(path);
+	// free(stat);
+	// free(path);
 	return (head);
 }
 

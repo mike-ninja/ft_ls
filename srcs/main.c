@@ -6,24 +6,12 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:57:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/20 13:02:32 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/21 11:35:53 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-static void	node_print(t_node *node)
-{
-	t_node *ptr;
-
-	ptr = node;
-	while (ptr)
-	{
-		printf("%-15s", ptr->file_name);
-		ptr = ptr->next;
-	}
-	printf("\n");
-}
 
 /*
 	This file collects name & file type to add to a linked list.
@@ -44,20 +32,23 @@ t_node	*ft_ls(const char *file_name, t_opts *opt)
 	{
 		dent = readdir(dir);
 		if (!opt->all)
-			while (*dent->d_name == '.')
-				dent = readdir(dir);
-		while (dent)
 		{
+			while (dent)
+			{
+				if (*dent->d_name != '.')
+					break ;
+				dent = readdir(dir);
+			}
+		}
+		while (dent)
+		{	
 			node = file_nodes_array(file_name, node, dent->d_name, blocks, opt);
 			dent = readdir(dir);
 		}
 		closedir(dir);
-		// if recursive here
-		if (opt->lis)
-			list_print(node, blocks);
-		else
-			node_print(node);
+		print(node, opt, blocks, (char *)file_name);
 		nodes_array_delete(node);
+		// free((void *)file_name);
 	}
 	else
 		ft_printf("ft_ls: %s: No such file or directory\n", file_name);
@@ -83,5 +74,5 @@ int	main(int ac, char **av)
 		ft_ls(av[index], opts);
 		index++;
 	}
-	return (0);
+	return (0); // Return Value has to be based on success of execution
 }

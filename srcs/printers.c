@@ -6,17 +6,31 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:19:44 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/20 12:57:38 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/21 11:37:36 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-void	list_print(t_node *file_node, size_t *blocks)
+static void	node_print(t_node *node)
+{
+	t_node *ptr;
+
+	ptr = node;
+	while (ptr)
+	{
+		printf("%-15s", ptr->file_name);
+		ptr = ptr->next;
+	}
+	printf("\n");
+}
+
+static void	list_print(t_node *file_node, size_t *blocks)
 {
     t_column    *column;
 
-	printf("total %i\n", (int)blocks[0]);
+	if (file_node)
+		printf("total %i\n", (int)blocks[0]);
 	column = attr_col(file_node);
 	while (file_node)
 	{
@@ -34,14 +48,40 @@ void	list_print(t_node *file_node, size_t *blocks)
     free(column);
 }
 
-void    standard_print(t_array *array)
-{
-    size_t i;
+// void    standard_print(t_array *array)
+// {
+//     size_t i;
 
-    i = 0;
-    while (i < array->index)
-    {
-        printf("%-15s", array->arr[i]);
-        i++;
-    }
+//     i = 0;
+//     while (i < array->index)
+//     {
+//         printf("%-15s", array->arr[i]);
+//         i++;
+//     }
+// }
+
+void	print(t_node *node, t_opts *opt, size_t *blocks, char *file_name)
+{	
+	char *path;
+
+	path = NULL;
+	if (opt->lis)
+		list_print(node, blocks);
+	else
+		node_print(node);
+	if (opt->rec)
+	{
+		while (node)
+		{
+			if (node->file_type == 'd')
+			{
+				path = get_path(file_name, node->file_name);
+				printf("\n%s:\n", path);
+				ft_ls((const char *)path, opt);
+				free(path);
+			}
+			node = node->next;
+		}
+		
+	}
 }
