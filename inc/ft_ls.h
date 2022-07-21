@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/21 16:37:31 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/21 16:56:53 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ char    *get_owner_group(gid_t gid);
 char    *last_modification_date(struct timespec mtimespec);
 
 // Printers
-// void	print(t_node *node, t_opts *opt, size_t *blocks, char *file_name, t_cont *cont);
-void	print(t_node *node, t_cont *cont);
+void	print(t_node *node, t_opts *opt, size_t *blocks, char *file_name, t_cont *cont);
+// void	print(t_node *node, t_cont *cont);
 
 // Node Funcs
 void	nodes_array_delete(t_node *file_node);

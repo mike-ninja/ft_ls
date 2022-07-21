@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:19:44 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/21 16:40:16 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/21 16:55:23 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,25 +48,25 @@ static void	list_print(t_node *file_node, size_t *blocks)
 	free(column);
 }
 
-void	print(t_node *node, t_cont *cont)
+void	print(t_node *node, t_opts *opt, size_t *blocks, char *file_name, t_cont *cont)
 {	
-	char	*path;
+	char 	*path;
 
 	path = NULL;
-	if (cont->opt->lis)
-		list_print(node, &cont->blocks);
+	if (opt->lis)
+		list_print(node, blocks);
 	else
 		node_print(node);
-	if (cont->opt->rec)
+	if (opt->rec)
 	{
 		while (node)
 		{
 			if (node->file_type == 'd')
 			{
-				if ((ft_strcmp(node->file_name, ".")) != 0
-					&& (ft_strcmp(node->file_name, "..")) != 0)
+				if ((ft_strcmp(node->file_name, ".")) != 0 &&
+					(ft_strcmp(node->file_name, "..")) != 0)
 				{
-					path = get_path(cont->file_name, node->file_name);
+					path = get_path(file_name, node->file_name);
 					printf("\n%s:\n", path);
 					ft_ls((const char *)path, cont);
 					free(path);
@@ -76,3 +76,31 @@ void	print(t_node *node, t_cont *cont)
 		}
 	}
 }
+
+// void	print(t_node *node, t_cont *cont)
+// {	
+// 	char 	*path;
+
+// 	path = NULL;
+// 	if (cont->opt->lis)
+// 		list_print(node, &cont->blocks);
+// 	else
+// 		node_print(node);
+// 	if (cont->opt->rec)
+// 	{
+// 		while (node)
+// 		{
+// 			if (node->file_type == 'd')
+// 			{
+// 				if ((ft_strcmp(node->file_name, ".")) != 0 && (ft_strcmp(node->file_name, "..")) != 0)
+// 				{
+// 					path = get_path(cont->file_name, node->file_name);
+// 					printf("\n%s:\n", path);
+// 					ft_ls((const char *)path, cont);
+// 					free(path);
+// 				}
+// 			}
+// 			node = node->next;
+// 		}
+// 	}
+// }
