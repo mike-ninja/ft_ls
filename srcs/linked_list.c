@@ -6,129 +6,69 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 09:30:17 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/21 15:24:00 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/21 16:32:26 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-static bool	lexi_insertion(t_node **head, t_node *node, t_node *file_node, t_node *prev, t_opts *opt)
+static t_node *node_connect(t_node *nd, t_node *f_nd, t_cont *cont, struct stat *stat)
 {
-	if (opt->rev)
-	{
-		if ((strcmp(node->file_name, file_node->file_name)) > 0)
-		{
-			node->next = file_node;
-			if (prev)
-				prev->next = node;
-			else
-				*head = node;
-			return (true);
-		}
-		return (false);
-	}
-	if ((strcmp(node->file_name, file_node->file_name)) < 0)
-	{
-		node->next = file_node;
-		if (prev)
-			prev->next = node;
-		else
-			*head = node;
-		return (true);
-	}
-	return (false);
-}
+	t_node		*head;
+	t_node		*prev;
 
-static bool date_insertion(t_node **head, t_node *node, t_node *file_node, t_node *prev, t_opts *opt)
-{
-	if (opt->rev)
+	prev = NULL;
+	head = f_nd;
+	if (!nd)
+		node_collect_util(f_nd, stat, &cont->blocks, cont->file_name);
+	else
 	{
-		if (node->s_date.tv_sec < file_node->s_date.tv_sec)
+		node_collect_util(nd, stat, &cont->blocks, cont->file_name);
+		while (f_nd)
 		{
-			node->next = file_node;
-			if (prev)
-				prev->next = node;
-			else
-				*head = node;
-			return (true);
-		}
-		if (node->s_date.tv_sec == file_node->s_date.tv_sec)
-		{
-			if ((strcmp(node->file_name, file_node->file_name)) > 0)
-			{
-				node->next = file_node;
-				if (prev)
-					prev->next = node;
+			if (cont->opt->tim)
+			{	
+				if (cont->opt->rev)
+				{
+					if (date_insert_rev(&head, nd, f_nd, prev))
+						return (head);
+				}
 				else
-					*head = node;
-				return (true);
+					if (date_insert(&head, nd, f_nd, prev))
+						return (head);
 			}
-		}
-		return (false);
-	}
-	if (node->s_date.tv_sec > file_node->s_date.tv_sec)
-	{
-		node->next = file_node;
-		if (prev)
-			prev->next = node;
-		else
-			*head = node;
-		return (true);
-	}
-	if (node->s_date.tv_sec == file_node->s_date.tv_sec)
-	{
-		if ((strcmp(node->file_name, file_node->file_name)) < 0)
-		{
-			node->next = file_node;
-			if (prev)
-				prev->next = node;
 			else
-				*head = node;
-			return (true);
+			{
+				if (cont->opt->rev)
+				{	
+					if (lexi_insert_rev(&head, nd, f_nd, prev))
+						return (head);
+				}
+				else
+					if (lexi_insert(&head, nd, f_nd, prev))
+						return (head);
+			}
+			prev = f_nd;
+			f_nd = f_nd->next;
 		}
+		if (!f_nd)
+			prev->next = nd;
 	}
-	return (false);
+	return (head);
 }
 
 t_node	*file_node_collect(t_node *node, t_node *file_node, t_cont *cont)
 {
 	char		*path;
 	struct stat	*stat;
-	t_node		*prev;
-	t_node 		*head;
 
-	prev = NULL;
-	head = file_node;
 	path = get_path(cont->dir_name, cont->file_name);
 	stat = malloc(sizeof(struct stat));
 	if (!stat)
-		exit(3);
+		exit(1);
 	lstat(path, stat);
 	free(path);
-	if (!node)
-		node_collect_util(file_node, stat, &cont->blocks, cont->file_name);
-	else
-	{
-		node_collect_util(node, stat, &cont->blocks, cont->file_name);
-		while(file_node)
-		{
-			if (!cont->opt->tim)
-			{	
-				if (lexi_insertion(&head, node, file_node, prev, cont->opt))
-					return (head);
-			}
-			else
-			{
-				if (date_insertion(&head, node, file_node, prev, cont->opt))
-					return (head);
-			}
-			prev = file_node;
-			file_node = file_node->next;
-		}
-		if (!file_node)
-			prev->next = node;
-	}
-	return (head);
+	return (node_connect(node, file_node, cont, stat));
 }
 
 t_node	*linked_list(t_node *file_node, t_cont *cont)

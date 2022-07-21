@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/21 15:21:38 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/21 16:37:31 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ char    *get_owner_group(gid_t gid);
 char    *last_modification_date(struct timespec mtimespec);
 
 // Printers
-void	print(t_node *node, t_opts *opt, size_t *blocks, char *file_name, t_cont *cont);
+// void	print(t_node *node, t_opts *opt, size_t *blocks, char *file_name, t_cont *cont);
+void	print(t_node *node, t_cont *cont);
 
 // Node Funcs
 void	nodes_array_delete(t_node *file_node);
@@ -107,5 +108,11 @@ t_column	*attr_col(t_node *nodes);
 void	nodes_array_delete(t_node *file_node);
 void	node_collect_util(t_node *nd, struct stat *st, size_t *blks, char *name);
 void	file_node_init(t_node *node);
+
+// Linked list sort
+bool	date_insert(t_node **hd, t_node *nd, t_node *f_nd, t_node *prev);
+bool	date_insert_rev(t_node **hd, t_node *nd, t_node *f_nd, t_node *prev);
+bool	lexi_insert(t_node **hd, t_node *nd, t_node *f_nd, t_node *prev);
+bool	lexi_insert_rev(t_node **hd, t_node *nd, t_node *f_nd, t_node *prev);
 
 #endif

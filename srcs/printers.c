@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:19:44 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/21 14:45:28 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/21 16:40:16 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	node_print(t_node *node)
 {
-	t_node *ptr;
+	t_node	*ptr;
 
 	ptr = node;
 	while (ptr)
@@ -27,7 +27,7 @@ static void	node_print(t_node *node)
 
 static void	list_print(t_node *file_node, size_t *blocks)
 {
-    t_column    *column;
+	t_column	*column;
 
 	if (file_node)
 		printf("total %i\n", (int)blocks[0]);
@@ -45,39 +45,28 @@ static void	list_print(t_node *file_node, size_t *blocks)
 		printf("\n");
 		file_node = file_node->next;
 	}
-    free(column);
+	free(column);
 }
 
-// void    standard_print(t_array *array)
-// {
-//     size_t i;
-
-//     i = 0;
-//     while (i < array->index)
-//     {
-//         printf("%-15s", array->arr[i]);
-//         i++;
-//     }
-// }
-
-void	print(t_node *node, t_opts *opt, size_t *blocks, char *file_name, t_cont *cont)
+void	print(t_node *node, t_cont *cont)
 {	
-	char 	*path;
+	char	*path;
 
 	path = NULL;
-	if (opt->lis)
-		list_print(node, blocks);
+	if (cont->opt->lis)
+		list_print(node, &cont->blocks);
 	else
 		node_print(node);
-	if (opt->rec)
+	if (cont->opt->rec)
 	{
 		while (node)
 		{
 			if (node->file_type == 'd')
 			{
-				if ((ft_strcmp(node->file_name, ".")) != 0 && (ft_strcmp(node->file_name, "..")) != 0)
+				if ((ft_strcmp(node->file_name, ".")) != 0
+					&& (ft_strcmp(node->file_name, "..")) != 0)
 				{
-					path = get_path(file_name, node->file_name);
+					path = get_path(cont->file_name, node->file_name);
 					printf("\n%s:\n", path);
 					ft_ls((const char *)path, cont);
 					free(path);
@@ -85,6 +74,5 @@ void	print(t_node *node, t_opts *opt, size_t *blocks, char *file_name, t_cont *c
 			}
 			node = node->next;
 		}
-		
 	}
 }
