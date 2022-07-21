@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:19:44 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/21 11:55:28 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/21 14:45:28 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	list_print(t_node *file_node, size_t *blocks)
 //     }
 // }
 
-void	print(t_node *node, t_opts *opt, size_t *blocks, char *file_name)
+void	print(t_node *node, t_opts *opt, size_t *blocks, char *file_name, t_cont *cont)
 {	
 	char 	*path;
 
@@ -79,7 +79,7 @@ void	print(t_node *node, t_opts *opt, size_t *blocks, char *file_name)
 				{
 					path = get_path(file_name, node->file_name);
 					printf("\n%s:\n", path);
-					ft_ls((const char *)path, opt);
+					ft_ls((const char *)path, cont);
 					free(path);
 				}
 			}

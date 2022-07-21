@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/21 11:00:59 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/21 15:21:38 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ typedef struct options
 
 typedef struct file_node
 {
-	// struct file_node	*prev; // Testing
 	char				file_type;
 	char				*permission;
 	unsigned int		links;
@@ -60,11 +59,6 @@ typedef struct file_node
 	struct file_node	*next;
 }				t_node;
 
-typedef struct	lexi_array
-{
-	char	**arr;
-	size_t	index;
-}				t_array;
 
 typedef struct	column_attr
 {
@@ -74,8 +68,16 @@ typedef struct	column_attr
 	int	file_size_len;
 }				t_column;
 
+typedef struct	container
+{
+	char	*file_name;
+	char	*dir_name;
+	size_t	blocks;
+	t_opts	*opt;
+}				t_cont;
+
 // ft_ls
-t_node	*ft_ls(const char *file_name, t_opts *opt);
+t_node	*ft_ls(const char *file_name, t_cont *cont);
 
 // Options
 void	init_struct(t_opts *opt);
@@ -89,24 +91,21 @@ char    *get_owner_name(uid_t uid);
 char    *get_owner_group(gid_t gid);
 char    *last_modification_date(struct timespec mtimespec);
 
-// Options functions
-void    recursive(char *file_name, t_node *file_node, t_opts *opt);
-
-// Lexi Sorting
-t_array *file_name_array_collect(t_node *file_node, t_opts *opt);
-
 // Printers
-// void	list_print(t_node *file_node, size_t *blocks);
-void	print(t_node *node, t_opts *opt, size_t *blocks, char *file_name);
-// void    standard_print(t_array *array);
+void	print(t_node *node, t_opts *opt, size_t *blocks, char *file_name, t_cont *cont);
 
 // Node Funcs
 void	nodes_array_delete(t_node *file_node);
-t_node	*file_node_collect(const char *prefix_file_name, t_node *node, t_node *file_node, char *file_name, size_t *blocks, t_opts *opt);
+t_node	*file_node_collect(t_node *node, t_node *file_node, t_cont *cont);
 void	file_node_init(t_node *node);
-t_node	*file_nodes_array(const char *prefix_file_name, t_node *file_node, char *file_name, size_t *blocks, t_opts *opt);
+t_node	*linked_list(t_node *file_node, t_cont *cont);
 
 // Column Attributes
 t_column	*attr_col(t_node *nodes);
+
+// Linked list utils
+void	nodes_array_delete(t_node *file_node);
+void	node_collect_util(t_node *nd, struct stat *st, size_t *blks, char *name);
+void	file_node_init(t_node *node);
 
 #endif
