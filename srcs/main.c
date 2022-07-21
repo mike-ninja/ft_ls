@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:57:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/21 11:35:53 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/21 11:52:30 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ t_node	*ft_ls(const char *file_name, t_opts *opt)
 		closedir(dir);
 		print(node, opt, blocks, (char *)file_name);
 		nodes_array_delete(node);
-		// free((void *)file_name);
 	}
 	else
 		ft_printf("ft_ls: %s: No such file or directory\n", file_name);

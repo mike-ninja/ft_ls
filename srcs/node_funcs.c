@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 09:30:17 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/21 11:39:10 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/21 12:03:19 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,21 @@ void	node_collect_util(t_node *node, struct stat *stat, size_t *blocks, char *fi
 }
 
 
-static bool lexi_insertion(t_node **head, t_node *node, t_node *file_node, t_node *prev)
+static bool lexi_insertion(t_node **head, t_node *node, t_node *file_node, t_node *prev, t_opts *opt)
 {
+	if (opt->rev)
+	{
+		if ((strcmp(node->file_name, file_node->file_name)) > 0)
+		{
+			node->next = file_node;
+			if (prev)
+				prev->next = node;
+			else
+				*head = node;
+			return (true);
+		}
+		return (false);
+	}
 	if ((strcmp(node->file_name, file_node->file_name)) < 0)
 	{
 		node->next = file_node;
@@ -58,20 +71,33 @@ static bool lexi_insertion(t_node **head, t_node *node, t_node *file_node, t_nod
 	return (false);
 }
 
-// static void	node_print(t_node *node)
-// {
-// 	t_node *ptr;
-
-// 	ptr = node;
-// 	while (ptr)
-// 	{
-// 		printf("%-15s\n", ptr->file_name);
-// 		ptr = ptr->next;
-// 	}
-// }
-
-static bool date_insertion(t_node **head, t_node *node, t_node *file_node, t_node *prev)
+static bool date_insertion(t_node **head, t_node *node, t_node *file_node, t_node *prev, t_opts *opt)
 {
+	if (opt->rev)
+	{
+		if (node->s_date.tv_sec < file_node->s_date.tv_sec)
+		{
+			node->next = file_node;
+			if (prev)
+				prev->next = node;
+			else
+				*head = node;
+			return (true);
+		}
+		if (node->s_date.tv_sec == file_node->s_date.tv_sec)
+		{
+			if ((strcmp(node->file_name, file_node->file_name)) > 0)
+			{
+				node->next = file_node;
+				if (prev)
+					prev->next = node;
+				else
+					*head = node;
+				return (true);
+			}
+		}
+		return (false);
+	}
 	if (node->s_date.tv_sec > file_node->s_date.tv_sec)
 	{
 		node->next = file_node;
@@ -80,6 +106,18 @@ static bool date_insertion(t_node **head, t_node *node, t_node *file_node, t_nod
 		else
 			*head = node;
 		return (true);
+	}
+	if (node->s_date.tv_sec == file_node->s_date.tv_sec)
+	{
+		if ((strcmp(node->file_name, file_node->file_name)) < 0)
+		{
+			node->next = file_node;
+			if (prev)
+				prev->next = node;
+			else
+				*head = node;
+			return (true);
+		}
 	}
 	return (false);
 }
@@ -108,12 +146,12 @@ t_node	*file_node_collect(const char *prefix_file_name, t_node *node, t_node *fi
 		{
 			if (!opt->tim)
 			{	
-				if (lexi_insertion(&head, node, file_node, prev))
+				if (lexi_insertion(&head, node, file_node, prev, opt))
 					return (head);
 			}
 			else
 			{
-				if (date_insertion(&head, node, file_node, prev))
+				if (date_insertion(&head, node, file_node, prev, opt))
 					return (head);
 			}
 			prev = file_node;

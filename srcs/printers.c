@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:19:44 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/21 11:37:36 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/21 11:55:28 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	list_print(t_node *file_node, size_t *blocks)
 
 void	print(t_node *node, t_opts *opt, size_t *blocks, char *file_name)
 {	
-	char *path;
+	char 	*path;
 
 	path = NULL;
 	if (opt->lis)
@@ -75,10 +75,13 @@ void	print(t_node *node, t_opts *opt, size_t *blocks, char *file_name)
 		{
 			if (node->file_type == 'd')
 			{
-				path = get_path(file_name, node->file_name);
-				printf("\n%s:\n", path);
-				ft_ls((const char *)path, opt);
-				free(path);
+				if ((ft_strcmp(node->file_name, ".")) != 0 && (ft_strcmp(node->file_name, "..")) != 0)
+				{
+					path = get_path(file_name, node->file_name);
+					printf("\n%s:\n", path);
+					ft_ls((const char *)path, opt);
+					free(path);
+				}
 			}
 			node = node->next;
 		}
