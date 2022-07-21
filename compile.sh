@@ -1,5 +1,5 @@
 make
-# ./ft_ls -l
-# ls -l
-./ft_ls -la
-# ls -la
+ls -latrR > empty_dir/file.txt
+./ft_ls -latrR > empty_dir/ft_file.txt
+diff empty_dir/file.txt empty_dir/ft_file.txt
+make clean

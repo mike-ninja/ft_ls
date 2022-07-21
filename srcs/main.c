@@ -6,18 +6,27 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:57:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/21 11:52:30 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/21 14:21:53 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
+static struct dirent	*opt_all(DIR *dir, struct dirent *dent, t_opts *opt)
+{
+	dent = readdir(dir);
+	if (!opt->all)
+	{
+		while (dent)
+		{
+			if (*dent->d_name != '.')
+				break ;
+			dent = readdir(dir);
+		}
+	}
+	return (dent);
+}
 
-/*
-	This file collects name & file type to add to a linked list.
-	Have array of string for printing names in lexi order
-	and node will be in default order, for the sake of recursive
-*/
 t_node	*ft_ls(const char *file_name, t_opts *opt)
 {
 	DIR				*dir;
@@ -26,20 +35,12 @@ t_node	*ft_ls(const char *file_name, t_opts *opt)
 	size_t			blocks[1];
 
 	node = NULL;
+	dent = NULL;
 	blocks[0] = 0;
 	dir = opendir(file_name);
 	if (dir)
 	{
-		dent = readdir(dir);
-		if (!opt->all)
-		{
-			while (dent)
-			{
-				if (*dent->d_name != '.')
-					break ;
-				dent = readdir(dir);
-			}
-		}
+		dent = opt_all(dir, dent, opt);
 		while (dent)
 		{	
 			node = file_nodes_array(file_name, node, dent->d_name, blocks, opt);

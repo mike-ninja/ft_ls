@@ -6,7 +6,7 @@
 #    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/29 11:22:02 by mbarutel          #+#    #+#              #
-#    Updated: 2022/07/20 12:45:47 by mbarutel         ###   ########.fr        #
+#    Updated: 2022/07/21 14:23:35 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,8 +24,6 @@ SRC_FILE 	= main
 SRC_FILE 	+= options
 SRC_FILE 	+= node_funcs
 SRC_FILE 	+= utils
-SRC_FILE 	+= options_functions
-SRC_FILE 	+= lexi_sort
 SRC_FILE 	+= printers
 SRC_FILE 	+= column_attr
 
