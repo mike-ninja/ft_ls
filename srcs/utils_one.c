@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:21:27 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/22 11:59:36 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/22 12:59:08 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	file_type(mode_t mode)
 	if (S_ISFIFO(mode))
 		return (5);
 	if (S_ISLNK(mode))
-		return (6);
+		return ('l');
 	if (S_ISSOCK(mode))
 		return (7);
 	return (0);
@@ -42,32 +42,43 @@ char	*get_path(char *input, char *file_name)
 	return (input);
 }
 
-char	*permission_str(mode_t mode)
+static void	permission_parse(char *perm, int octal)
 {
 	int		len;
-	int		octal;
-	char	*octal_str;
 	int		perm_int;
-	char	*permission;
 
 	len = 8;
-	permission = ft_strdup("rwxrwxrwx");
-	octal_str = ft_itoa_base(mode, 8);
-	if (!permission || !octal_str)
-		return (NULL);
-	octal = ft_atoi(octal_str);
 	while (len > 0)
 	{
 		perm_int = octal % 10;
+		if (!perm_int)
+		{
+			perm[len] = '-';
+			perm[len - 1] = '-';
+			perm[len - 2] = '-';
+			len -= 3;
+		}
 		while (perm_int)
 		{
 			if ((perm_int % 2) == 0)
-				permission[len] = '-';
+				perm[len] = '-';
 			perm_int /= 2;
 			len--;
 		}
 		octal /= 10;
 	}
+}
+
+char	*permission_str(mode_t mode)
+{
+	char	*octal_str;
+	char	*permission;
+
+	permission = ft_strdup("rwxrwxrwx");
+	octal_str = ft_itoa_base(mode, 8);
+	if (!permission || !octal_str)
+		return (NULL);
+	permission_parse(permission, ft_atoi(octal_str));
 	free(octal_str);
 	return (permission);
 }
