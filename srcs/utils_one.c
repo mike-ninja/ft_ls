@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_one.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:21:27 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/21 16:46:21 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/22 11:59:36 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,30 +70,4 @@ char	*permission_str(mode_t mode)
 	}
 	free(octal_str);
 	return (permission);
-}
-
-char	*get_owner_name(uid_t uid)
-{
-	struct passwd	*user_info;
-
-	user_info = getpwuid(uid);
-	return (user_info->pw_name);
-}
-
-char	*get_owner_group(gid_t gid)
-{
-	struct group	*user_group;
-
-	user_group = getgrgid(gid);
-	return (user_group->gr_name);
-}
-
-char	*last_modification_date(struct timespec mtimespec)
-{
-	char	*date;
-
-	date = (char *)malloc(13);
-	date[12] = '\0';
-	ft_strncpy(date, &ctime(&mtimespec.tv_sec)[4], 12);
-	return (date);
 }

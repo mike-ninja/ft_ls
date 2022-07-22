@@ -6,7 +6,7 @@
 #    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/29 11:22:02 by mbarutel          #+#    #+#              #
-#    Updated: 2022/07/22 10:28:49 by mbarutel         ###   ########.fr        #
+#    Updated: 2022/07/22 12:00:06 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ SRC_FILE 	+= options
 SRC_FILE 	+= linked_list
 SRC_FILE 	+= linked_list_utils
 SRC_FILE 	+= linked_list_sort
-SRC_FILE 	+= utils
+SRC_FILE 	+= utils_one
+SRC_FILE 	+= utils_two
 SRC_FILE 	+= printers
 SRC_FILE 	+= column_attr
 
