@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:57:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/21 16:56:23 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/22 10:51:59 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,24 @@ static struct dirent	*opt_all(DIR *dir, struct dirent *dent, t_opts *opt)
 	return (dent);
 }
 
-t_node	*ft_ls(const char *file_name, t_cont *cont)
+static void	cont_init(t_cont *cont, t_opts *opt, char *file_name)
+{
+	cont->file_name = NULL;
+	cont->dir_name = file_name;
+	cont->blocks = 0;
+	cont->opt = opt;
+}
+
+t_node	*ft_ls(const char *file_name, t_opts *opt)
 {
 	DIR				*dir;
 	t_node			*node;
 	struct dirent	*dent;
+	t_cont			cont[1];
 
 	node = NULL;
 	dent = NULL;
-	cont->blocks = 0;
+	cont_init(cont, opt, (char *)file_name);
 	dir = opendir(file_name);
 	if (dir)
 	{
@@ -43,12 +52,11 @@ t_node	*ft_ls(const char *file_name, t_cont *cont)
 		while (dent)
 		{	
 			cont->file_name = dent->d_name;
-			cont->dir_name = (char *)file_name;
 			node = linked_list(node, cont);
 			dent = readdir(dir);
 		}
 		closedir(dir);
-		print(node, cont->opt, &cont->blocks, (char *)file_name, cont);
+		print(node, cont);
 		nodes_array_delete(node);
 	}
 	else
@@ -56,33 +64,23 @@ t_node	*ft_ls(const char *file_name, t_cont *cont)
 	return (node);
 }
 
-static void	cont_init(t_cont *placehold)
-{
-	placehold->file_name = NULL;
-	placehold->dir_name = NULL;
-	placehold->opt = NULL;
-}
-
 int	main(int ac, char **av)
 {
 	int		index;
 	t_opts	opts[1];
-	t_cont	container[1];
 
 	index = 1;
 	init_struct(opts);
-	cont_init(container);
 	while (index < ac && *av[index] == '-')
 	{
 		options_parse(opts, av[index]);
 		index++;
 	}
-	container->opt = opts;
 	if (index == ac)
-		ft_ls(".", container);
+		ft_ls(".", opts);
 	while (index < ac)
 	{
-		ft_ls(av[index], container);
+		ft_ls(av[index], opts);
 		index++;
 	}
 	return (0);

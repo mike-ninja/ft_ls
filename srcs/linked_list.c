@@ -6,55 +6,48 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 09:30:17 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/21 16:32:26 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/22 11:47:05 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-static t_node *node_connect(t_node *nd, t_node *f_nd, t_cont *cont, struct stat *stat)
+static void	swap_init(t_swap *swap, t_node *node, t_node *file_node)
 {
-	t_node		*head;
-	t_node		*prev;
+	swap->prev = NULL;
+	swap->head = file_node;
+	swap->node = node;
+	swap->f_node = file_node;
+}
 
-	prev = NULL;
-	head = f_nd;
-	if (!nd)
-		node_collect_util(f_nd, stat, &cont->blocks, cont->file_name);
+static t_node	*node_connect(t_node *nd, t_node *f_nd,
+	t_cont *cont, struct stat *st)
+{
+	t_swap			swap[1];
+
+	swap_init(swap, nd, f_nd);
+	if (!swap->node)
+		node_collect_util(swap->f_node, st, &cont->blocks, cont->file_name);
 	else
 	{
-		node_collect_util(nd, stat, &cont->blocks, cont->file_name);
-		while (f_nd)
+		node_collect_util(swap->node, st, &cont->blocks, cont->file_name);
+		while (swap->f_node)
 		{
 			if (cont->opt->tim)
-			{	
-				if (cont->opt->rev)
-				{
-					if (date_insert_rev(&head, nd, f_nd, prev))
-						return (head);
-				}
-				else
-					if (date_insert(&head, nd, f_nd, prev))
-						return (head);
+			{
+				if (date_sort(swap, cont))
+					return (swap->head);
 			}
 			else
-			{
-				if (cont->opt->rev)
-				{	
-					if (lexi_insert_rev(&head, nd, f_nd, prev))
-						return (head);
-				}
-				else
-					if (lexi_insert(&head, nd, f_nd, prev))
-						return (head);
-			}
-			prev = f_nd;
-			f_nd = f_nd->next;
+				if (lexi_sort(swap, cont))
+					return (swap->head);
+			swap->prev = swap->f_node;
+			swap->f_node = swap->f_node->next;
 		}
-		if (!f_nd)
-			prev->next = nd;
+		if (!swap->f_node)
+			swap->prev->next = swap->node;
 	}
-	return (head);
+	return (swap->head);
 }
 
 t_node	*file_node_collect(t_node *node, t_node *file_node, t_cont *cont)

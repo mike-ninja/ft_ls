@@ -6,7 +6,7 @@
 #    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/29 11:22:02 by mbarutel          #+#    #+#              #
-#    Updated: 2022/07/21 15:34:42 by mbarutel         ###   ########.fr        #
+#    Updated: 2022/07/22 10:28:49 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ OBJ			= $(addsuffix .o, $(SRC_FILE))
 all: $(NAME)
 
 $(NAME): $(SRC)
-	@$(CC) -c $(FLAGS) $(SRC)
+	@$(CC) -c $(SRC)
 	@echo "$(CYAN)Compiled obj files$(RESET)"
 	@$(CC) -o $(NAME) $(LIB_INC) $(OBJ)
 	@echo "$(GREEN)Compiled ft_ls$(RESET)"

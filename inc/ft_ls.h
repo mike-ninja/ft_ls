@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/21 16:56:53 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/22 11:45:29 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,13 @@ typedef struct file_node
 	struct file_node	*next;
 }				t_node;
 
+typedef struct	swap_struct
+{
+	t_node	*head;
+	t_node	*node;
+	t_node	*f_node;
+	t_node	*prev;
+}				t_swap;
 
 typedef struct	column_attr
 {
@@ -77,7 +84,7 @@ typedef struct	container
 }				t_cont;
 
 // ft_ls
-t_node	*ft_ls(const char *file_name, t_cont *cont);
+t_node	*ft_ls(const char *file_name, t_opts *opt);
 
 // Options
 void	init_struct(t_opts *opt);
@@ -92,13 +99,10 @@ char    *get_owner_group(gid_t gid);
 char    *last_modification_date(struct timespec mtimespec);
 
 // Printers
-void	print(t_node *node, t_opts *opt, size_t *blocks, char *file_name, t_cont *cont);
-// void	print(t_node *node, t_cont *cont);
+void	print(t_node *node, t_cont *cont);
 
 // Node Funcs
-void	nodes_array_delete(t_node *file_node);
 t_node	*file_node_collect(t_node *node, t_node *file_node, t_cont *cont);
-void	file_node_init(t_node *node);
 t_node	*linked_list(t_node *file_node, t_cont *cont);
 
 // Column Attributes
@@ -112,7 +116,9 @@ void	file_node_init(t_node *node);
 // Linked list sort
 bool	date_insert(t_node **hd, t_node *nd, t_node *f_nd, t_node *prev);
 bool	date_insert_rev(t_node **hd, t_node *nd, t_node *f_nd, t_node *prev);
-bool	lexi_insert(t_node **hd, t_node *nd, t_node *f_nd, t_node *prev);
-bool	lexi_insert_rev(t_node **hd, t_node *nd, t_node *f_nd, t_node *prev);
+// // bool	lexi_insert(t_node **hd, t_node *nd, t_node *f_nd, t_node *prev);
+bool	lexi_sort(t_swap *swap, t_cont *cont);
+// bool	lexi_insert_rev(t_node **hd, t_node *nd, t_node *f_nd, t_node *prev);
+bool	date_sort(t_swap *swap, t_cont *cont);
 
 #endif
