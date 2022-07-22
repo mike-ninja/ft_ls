@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:57:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/22 10:51:59 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/22 13:51:08 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_node	*ft_ls(const char *file_name, t_opts *opt)
 	{
 		dent = opt_all(dir, dent, cont->opt);
 		while (dent)
-		{	
+		{
 			cont->file_name = dent->d_name;
 			node = linked_list(node, cont);
 			dent = readdir(dir);

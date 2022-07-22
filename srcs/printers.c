@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:19:44 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/22 10:49:36 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/22 13:29:38 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ static void	list_print(t_node *file_node, size_t *blocks)
 		printf("%*i ", column->file_size_len, file_node->size);
 		printf("%s ", file_node->date);
 		printf("%s", file_node->file_name);
+		if (file_node->links_to)
+			printf(" -> %s", file_node->links_to);
 		printf("\n");
 		file_node = file_node->next;
 	}

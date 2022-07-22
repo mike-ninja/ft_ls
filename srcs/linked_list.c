@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 09:30:17 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/22 11:47:05 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/22 13:54:51 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,12 @@ static t_node	*node_connect(t_node *nd, t_node *f_nd,
 	t_swap			swap[1];
 
 	swap_init(swap, nd, f_nd);
+	// printf("%s\n", cont->file_name);
 	if (!swap->node)
-		node_collect_util(swap->f_node, st, &cont->blocks, cont->file_name);
+		node_collect_util(swap->f_node, st, cont);
 	else
 	{
-		node_collect_util(swap->node, st, &cont->blocks, cont->file_name);
+		node_collect_util(swap->node, st, cont);
 		while (swap->f_node)
 		{
 			if (cont->opt->tim)

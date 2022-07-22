@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/22 11:57:17 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/22 13:35:14 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct file_node
 	char				*date;
 	struct timespec		s_date;
 	char				*file_name;
+	char				*links_to;
 	struct file_node	*next;
 }				t_node;
 
@@ -110,7 +111,8 @@ t_column	*attr_col(t_node *nodes);
 
 // Linked list utils
 void	nodes_array_delete(t_node *file_node);
-void	node_collect_util(t_node *nd, struct stat *st, size_t *blks, char *name);
+// void	node_collect_util(t_node *nd, struct stat *st, size_t *blks, char *name);
+void	node_collect_util(t_node *nd, struct stat *st, t_cont *cont);
 void	file_node_init(t_node *node);
 
 // Linked list sort
