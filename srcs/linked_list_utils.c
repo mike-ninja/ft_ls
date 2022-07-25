@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 15:19:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/22 13:55:58 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/25 11:05:25 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	nodes_array_delete(t_node *file_node)
 		free(file_node->file_name);
 		if (file_node->links_to)
 			free(file_node->links_to);
+		free(file_node->owner_name);
 		ptr = file_node;
 		file_node = file_node->next;
 		free(ptr);
@@ -43,8 +44,8 @@ static char	*linkage(t_cont *cont, struct stat *st)
 	free(path);
 	if (ret < 0 || ret > st->st_size)
 	{
-		printf("readlink error\n");
-		exit(EXIT_FAILURE);
+		ft_printf("ft_ls: %s: Readlink Error\n", cont->file_name);
+		exit(1);
 	}
 	linkname[st->st_size] = '\0';
 	return (linkname);
@@ -55,8 +56,7 @@ void	node_collect_util(t_node *nd, struct stat *st, t_cont *cont)
 	nd->file_type = file_type(st->st_mode);
 	nd->permission = permission_str(st->st_mode);
 	nd->links = st->st_nlink;
-	nd->owner_name = get_owner_name(st->st_uid); // This has an error on school computers the printf below helps identify
-	printf("%s\n", cont->file_name);
+	nd->owner_name = get_owner_name(st->st_uid);
 	nd->owner_group = get_owner_group(st->st_gid);
 	nd->size = st->st_size;
 	cont->blocks += st->st_blocks;

@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/22 13:35:14 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/25 11:11:23 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define FT_LS_H
 
 // Forbidden
-# include    <stdio.h>
 # include    <string.h>
 // Forbidden
 
@@ -35,6 +34,8 @@
 
 // Bool data type
 # include    <stdbool.h>
+
+# define OPTIONS "Ralrt"
 
 typedef struct options
 {
@@ -111,16 +112,13 @@ t_column	*attr_col(t_node *nodes);
 
 // Linked list utils
 void	nodes_array_delete(t_node *file_node);
-// void	node_collect_util(t_node *nd, struct stat *st, size_t *blks, char *name);
 void	node_collect_util(t_node *nd, struct stat *st, t_cont *cont);
 void	file_node_init(t_node *node);
 
 // Linked list sort
 bool	date_insert(t_node **hd, t_node *nd, t_node *f_nd, t_node *prev);
 bool	date_insert_rev(t_node **hd, t_node *nd, t_node *f_nd, t_node *prev);
-// // bool	lexi_insert(t_node **hd, t_node *nd, t_node *f_nd, t_node *prev);
 bool	lexi_sort(t_swap *swap, t_cont *cont);
-// bool	lexi_insert_rev(t_node **hd, t_node *nd, t_node *f_nd, t_node *prev);
 bool	date_sort(t_swap *swap, t_cont *cont);
 
 #endif

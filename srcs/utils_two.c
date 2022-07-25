@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 11:59:24 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/22 11:59:50 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/25 09:40:54 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ char	*get_owner_name(uid_t uid)
 	struct passwd	*user_info;
 
 	user_info = getpwuid(uid);
-	return (user_info->pw_name);
+	if (!user_info)
+		return (ft_itoa(uid));
+	return (ft_strdup(user_info->pw_name));
 }
 
 char	*get_owner_group(gid_t gid)

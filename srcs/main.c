@@ -3,30 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:57:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/25 09:10:42 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/25 10:44:20 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../inc/ft_ls.h"
-
-// static struct dirent	*opt_all(DIR *dir, struct dirent *dent, t_opts *opt)
-// {
-// 	dent = readdir(dir);
-// 	if (!opt->all)
-// 	{
-// 		while (dent)
-// 		{
-// 			if (*dent->d_name != '.')
-// 				break ;
-// 			dent = readdir(dir);
-// 		}
-// 	}
-// 	return (dent);
-// }
 
 static struct dirent	*opt_all(DIR *dir, struct dirent *dent)
 {
@@ -39,42 +23,56 @@ static struct dirent	*opt_all(DIR *dir, struct dirent *dent)
 	return (dent);
 }
 
-static void	cont_init(t_cont *cont, t_opts *opt, char *file_name)
+static void	cont_init(t_cont *cont, t_opts *opt)
 {
 	cont->file_name = NULL;
-	cont->dir_name = file_name;
+	cont->dir_name = NULL;
 	cont->blocks = 0;
 	cont->opt = opt;
+}
+
+static void	ft_ls_util(t_node **node, char *f_name, DIR *dir, t_cont *cont)
+{
+	struct dirent	*dent;
+
+	dent = NULL;
+	if (dir)
+	{
+		cont->dir_name = f_name;
+		dent = readdir(dir);
+		while (dent)
+		{
+			if (!cont->opt->all)
+				dent = opt_all(dir, dent);
+			cont->file_name = dent->d_name;
+			*node = linked_list(*node, cont);
+			dent = readdir(dir);
+		}
+		closedir(dir);
+	}
+	else
+	{
+		cont->dir_name = ".";
+		cont->file_name = f_name;
+		*node = linked_list(*node, cont);
+	}
 }
 
 t_node	*ft_ls(const char *file_name, t_opts *opt)
 {
 	DIR				*dir;
 	t_node			*node;
-	struct dirent	*dent;
 	t_cont			cont[1];
 
 	node = NULL;
-	dent = NULL;
-	cont_init(cont, opt, (char *)file_name);
+	cont_init(cont, opt);
 	dir = opendir(file_name);
-	if (dir)
+	ft_ls_util(&node, (char *)file_name, dir, cont);
+	if (node)
 	{
-		dent = readdir(dir);
-		while (dent)
-		{
-			if (!opt->all)	
-				dent = opt_all(dir, dent);
-			cont->file_name = dent->d_name;
-			node = linked_list(node, cont);
-			dent = readdir(dir);
-		}
-		closedir(dir);
 		print(node, cont);
 		nodes_array_delete(node);
 	}
-	else
-		ft_printf("ft_ls: %s: No such file or directory\n", file_name);
 	return (node);
 }
 

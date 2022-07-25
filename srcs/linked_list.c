@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 09:30:17 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/22 13:54:51 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/25 11:08:00 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static t_node	*node_connect(t_node *nd, t_node *f_nd,
 	t_swap			swap[1];
 
 	swap_init(swap, nd, f_nd);
-	// printf("%s\n", cont->file_name);
 	if (!swap->node)
 		node_collect_util(swap->f_node, st, cont);
 	else
@@ -59,8 +58,15 @@ t_node	*file_node_collect(t_node *node, t_node *file_node, t_cont *cont)
 	path = get_path(cont->dir_name, cont->file_name);
 	stat = malloc(sizeof(struct stat));
 	if (!stat)
+	{
+		ft_printf("ft_ls: %s: Not enough memory\n", cont->file_name);
 		exit(1);
-	lstat(path, stat);
+	}
+	if (lstat(path, stat) < 0)
+	{
+		ft_printf("ft_ls: %s: No such file or directory\n", cont->file_name);
+		exit(1);
+	}
 	free(path);
 	return (node_connect(node, file_node, cont, stat));
 }
@@ -84,6 +90,7 @@ t_node	*linked_list(t_node *file_node, t_cont *cont)
 		if (!node)
 		{
 			nodes_array_delete(file_node);
+			ft_printf("ft_ls: %s: Not enough memory\n", cont->file_name);
 			exit(1);
 		}
 		file_node_init(node);
