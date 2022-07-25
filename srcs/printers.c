@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:19:44 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/25 11:11:00 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/25 11:17:06 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	node_print(t_node *node)
 
 static void	list_print(t_node *file_node, size_t *blocks)
 {
-	t_column	*column;
+	t_col	*column;
 
 	if (file_node)
 		ft_printf("total %i\n", (int)blocks[0]);

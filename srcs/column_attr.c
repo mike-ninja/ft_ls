@@ -6,13 +6,13 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:08:24 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/15 15:58:33 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/25 11:16:39 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-static void	attr_struct_init(t_column *attr)
+static void	attr_struct_init(t_col *attr)
 {
 	attr->links_len = 0;
 	attr->owner_name_len = 0;
@@ -20,7 +20,7 @@ static void	attr_struct_init(t_column *attr)
 	attr->file_size_len = 0;
 }
 
-static void	links_len(t_node *node, t_column *attr)
+static void	links_len(t_node *node, t_col *attr)
 {
 	int				i;
 	unsigned int	tmp;
@@ -36,7 +36,7 @@ static void	links_len(t_node *node, t_column *attr)
 		attr->links_len = i;
 }
 
-static void	owner_len(t_node *node, t_column *attr)
+static void	owner_len(t_node *node, t_col *attr)
 {
 	int	i;
 
@@ -48,7 +48,7 @@ static void	owner_len(t_node *node, t_column *attr)
 		attr->owner_group_len = i;
 }
 
-static void	file_s_len(t_node *node, t_column *attr)
+static void	file_s_len(t_node *node, t_col *attr)
 {
 	int				i;
 	unsigned int	tmp;
@@ -64,12 +64,12 @@ static void	file_s_len(t_node *node, t_column *attr)
 		attr->file_size_len = i;
 }
 
-t_column	*attr_col(t_node *nodes)
+t_col	*attr_col(t_node *nodes)
 {
-	t_column	*ret;
+	t_col	*ret;
 
 	ret = NULL;
-	ret = malloc(sizeof(t_column));
+	ret = malloc(sizeof(t_col));
 	if (!ret)
 		return (NULL);
 	attr_struct_init(ret);

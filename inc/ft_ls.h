@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/25 11:11:23 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/25 11:16:20 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef struct file_node
 	struct file_node	*next;
 }				t_node;
 
-typedef struct	swap_struct
+typedef struct swap_struct
 {
 	t_node	*head;
 	t_node	*node;
@@ -69,15 +69,15 @@ typedef struct	swap_struct
 	t_node	*prev;
 }				t_swap;
 
-typedef struct	column_attr
+typedef struct column_attr
 {
 	int	links_len;
 	int	owner_name_len;
 	int	owner_group_len;
 	int	file_size_len;
-}				t_column;
+}				t_col;
 
-typedef struct	container
+typedef struct container
 {
 	char	*file_name;
 	char	*dir_name;
@@ -90,15 +90,15 @@ t_node	*ft_ls(const char *file_name, t_opts *opt);
 
 // Options
 void	init_struct(t_opts *opt);
-void    options_parse(t_opts *opt, char *opt_str);
+void	options_parse(t_opts *opt, char *opt_str);
 
 // Utils
-char    *get_path(char *input, char *file_name);
+char	*get_path(char *input, char *file_name);
 int		file_type(mode_t mode);
-char    *permission_str(mode_t mode);
-char    *get_owner_name(uid_t uid);
-char    *get_owner_group(gid_t gid);
-char    *last_modification_date(struct timespec mtimespec);
+char	*permission_str(mode_t mode);
+char	*get_owner_name(uid_t uid);
+char	*get_owner_group(gid_t gid);
+char	*last_modification_date(struct timespec mtimespec);
 
 // Printers
 void	print(t_node *node, t_cont *cont);
@@ -108,7 +108,7 @@ t_node	*file_node_collect(t_node *node, t_node *file_node, t_cont *cont);
 t_node	*linked_list(t_node *file_node, t_cont *cont);
 
 // Column Attributes
-t_column	*attr_col(t_node *nodes);
+t_col	*attr_col(t_node *nodes);
 
 // Linked list utils
 void	nodes_array_delete(t_node *file_node);
