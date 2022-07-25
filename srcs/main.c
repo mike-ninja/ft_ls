@@ -3,26 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:57:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/22 10:51:59 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/23 09:38:36 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-static struct dirent	*opt_all(DIR *dir, struct dirent *dent, t_opts *opt)
+// static struct dirent	*opt_all(DIR *dir, struct dirent *dent, t_opts *opt)
+// {
+// 	dent = readdir(dir);
+// 	if (!opt->all)
+// 	{
+// 		while (dent)
+// 		{
+// 			if (*dent->d_name != '.')
+// 				break ;
+// 			dent = readdir(dir);
+// 		}
+// 	}
+// 	return (dent);
+// }
+
+static struct dirent	*opt_all(DIR *dir, struct dirent *dent)
 {
-	dent = readdir(dir);
-	if (!opt->all)
+	while (dent)
 	{
-		while (dent)
-		{
-			if (*dent->d_name != '.')
-				break ;
-			dent = readdir(dir);
-		}
+		if (*dent->d_name != '.')
+			break ;
+		dent = readdir(dir);
 	}
 	return (dent);
 }
@@ -48,9 +59,11 @@ t_node	*ft_ls(const char *file_name, t_opts *opt)
 	dir = opendir(file_name);
 	if (dir)
 	{
-		dent = opt_all(dir, dent, cont->opt);
+		dent = readdir(dir);
 		while (dent)
-		{	
+		{
+			if (!opt->all)	
+				dent = opt_all(dir, dent);
 			cont->file_name = dent->d_name;
 			node = linked_list(node, cont);
 			dent = readdir(dir);
