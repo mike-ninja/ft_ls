@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 15:19:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/26 12:56:06 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/26 14:39:28 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static char	*linkage(t_cont *cont, struct stat *st)
 void	node_collect_util(t_node *nd, struct stat *st, t_cont *cont)
 {
 	nd->file_type = file_type(st->st_mode);
-	ft_printf("%s -> ", cont->file_name); // Delete this
+	// ft_printf("%s -> ", cont->file_name); // Delete this
 	nd->permission = permission_str(st->st_mode);
 	nd->extra_attr = extra_attribute(cont->dir_name, cont->file_name);
 	nd->links = st->st_nlink;

@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:21:27 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/26 13:12:02 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/26 14:58:53 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,46 +51,137 @@ char	*get_path(char *input, char *file_name)
 	return (input);
 }
 
+// static void	permission_parse(char *perm, int octal)
+// {
+// 	int		len;
+// 	int		perm_int;
+
+// 	len = 8;
+// 	while (len > 0)
+// 	{
+// 		perm_int = octal % 10;
+// 		ft_printf("This happens %i\n", perm_int);
+// 		if (!perm_int)
+// 		{
+// 			perm[len] = '-';
+// 			perm[len - 1] = '-';
+// 			perm[len - 2] = '-';
+// 			len -= 3;
+// 		}
+// 		while (perm_int)
+// 		{
+// 			ft_printf("   This happens %i\n", perm_int);
+// 			if ((perm_int % 2) == 0)
+// 				perm[len] = '-';
+// 			perm_int /= 2;
+// 			len--;
+// 		}
+// 		octal /= 10;
+// 	}
+// }
+
+
+// char	*permission_str(mode_t mode)
+// {
+// 	char	*octal_str;
+// 	char	*permission;
+
+// 	permission = ft_strdup("rwxrwxrwx");
+// 	octal_str = ft_itoa_base(mode, 8);
+// 	ft_printf("%i\n", ft_atoi(octal_str)); // Delete this
+// 	if (!permission || !octal_str)
+// 		return (NULL);
+// 	permission_parse(permission, ft_atoi(octal_str));
+// 	free(octal_str);
+// 	return (permission);
+// }
+
 static void	permission_parse(char *perm, int octal)
 {
-	int		len;
-	int		perm_int;
+	int len;
+	int	tmp;
 
-	len = 8;
+	len = ft_strlen(perm) - 1;
 	while (len > 0)
 	{
-		perm_int = octal % 10;
-		ft_printf("This happens %i\n", perm_int);
-		if (!perm_int)
+		tmp = len - 3;
+		while (len > tmp)
 		{
-			perm[len] = '-';
-			perm[len - 1] = '-';
-			perm[len - 2] = '-';
-			len -= 3;
-		}
-		while (perm_int)
-		{
-			ft_printf("   This happens %i\n", perm_int);
-			if ((perm_int % 2) == 0)
+			if ((((len - tmp) - 1) % octal) == 0)
 				perm[len] = '-';
-			perm_int /= 2;
+			// ft_printf("%i}\n", ((len - tmp) - 1));
 			len--;
 		}
 		octal /= 10;
 	}
+	// ft_printf("HELLO %s %i %i\n", perm, octal, len);
+}
+
+// char	*permission_str(mode_t mode)
+// {
+// 	// int		len;
+// 	char	*octal_str;
+// 	// int		octal_int;
+// 	char	*permission;
+// 	char **testing;
+
+// 	// len = 9;
+// 	permission = ft_strdup("rwxrwxrwx");
+// 	octal_str = ft_itoa_base(mode, 8);
+// 	if (!permission || !octal_str)
+// 		return (NULL);
+// 	// octal_int = ft_atoi(octal_str);
+// 	// while (len >= 0)
+// 	// {
+// 	// 	len -= 3;
+// 	// 	permission_parse(&permission[len], octal_int % 10);
+// 	// 	octal_int /= 10;
+// 	// }
+// 	permission_parse(permission, ft_atoi(octal_str)%1000);
+	
+// 	free(octal_str);
+// 	return (NULL);
+// }
+
+
+static int ft_pow(int nbr)
+{
+	int ret;
+
+	ret = 1;
+	while (nbr--)
+		ret *= 10;
+	return (ret);
+}
+
+
+static char **permission_array(mode_t mode)
+{
+	int		index;
+	char	**permission;
+	char	*octal_str;
+	
+
+	index = 0;
+	octal_str = NULL;
+	permission = NULL;
+	permission = (char **)malloc(sizeof(char *) * 3);
+	octal_str = ft_itoa_base(mode, 8);
+	if (!permission || !octal_str)
+		return (NULL);
+	ft_printf("%s}\n", octal_str);
+	while (index < 3)
+	{
+		index++;
+	}
+	free(octal_str);
+	return (NULL);
 }
 
 char	*permission_str(mode_t mode)
 {
-	char	*octal_str;
-	char	*permission;
+	char **testing;
 
-	permission = ft_strdup("rwxrwxrwx");
-	octal_str = ft_itoa_base(mode, 8);
-	ft_printf("%i\n", ft_atoi(octal_str)); // Delete this
-	if (!permission || !octal_str)
-		return (NULL);
-	permission_parse(permission, ft_atoi(octal_str));
-	free(octal_str);
-	return (permission);
+	testing = permission_array(mode);
+	return (NULL);
 }
