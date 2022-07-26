@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 15:19:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/25 13:02:01 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/26 12:56:06 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	nodes_array_delete(t_node *file_node)
 	while (file_node)
 	{
 		free(file_node->permission);
+		free(file_node->date[0]);
+		free(file_node->date[1]);
 		free(file_node->date);
 		free(file_node->file_name);
 		if (file_node->links_to)
@@ -54,7 +56,9 @@ static char	*linkage(t_cont *cont, struct stat *st)
 void	node_collect_util(t_node *nd, struct stat *st, t_cont *cont)
 {
 	nd->file_type = file_type(st->st_mode);
+	ft_printf("%s -> ", cont->file_name); // Delete this
 	nd->permission = permission_str(st->st_mode);
+	nd->extra_attr = extra_attribute(cont->dir_name, cont->file_name);
 	nd->links = st->st_nlink;
 	nd->owner_name = get_owner_name(st->st_uid);
 	nd->owner_group = get_owner_group(st->st_gid);
@@ -73,6 +77,7 @@ void	file_node_init(t_node *node)
 {
 	node->file_type = 0;
 	node->permission = NULL;
+	node->extra_attr = 0;
 	node->links = 0;
 	node->owner_name = NULL;
 	node->owner_group = NULL;

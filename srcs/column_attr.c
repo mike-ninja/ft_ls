@@ -6,19 +6,11 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:08:24 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/25 11:16:39 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/26 12:12:51 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
-
-static void	attr_struct_init(t_col *attr)
-{
-	attr->links_len = 0;
-	attr->owner_name_len = 0;
-	attr->owner_group_len = 0;
-	attr->file_size_len = 0;
-}
 
 static void	links_len(t_node *node, t_col *attr)
 {
@@ -64,6 +56,15 @@ static void	file_s_len(t_node *node, t_col *attr)
 		attr->file_size_len = i;
 }
 
+static void	date_len(t_node *node, t_col *attr)
+{
+	int	len;
+
+	len = ft_strlen(node->date[1]);
+	if (len > attr->date_len)
+		attr->date_len = len;
+}
+
 t_col	*attr_col(t_node *nodes)
 {
 	t_col	*ret;
@@ -78,6 +79,7 @@ t_col	*attr_col(t_node *nodes)
 		links_len(nodes, ret);
 		owner_len(nodes, ret);
 		file_s_len(nodes, ret);
+		date_len(nodes, ret);
 		nodes = nodes->next;
 	}
 	return (ret);

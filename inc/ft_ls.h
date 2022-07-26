@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/25 11:16:20 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/26 12:13:17 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,21 @@
 # include    <dirent.h>
 
 // File metadata reading
-# include    <sys/stat.h>
-# include    <stdlib.h>
-# include    <sys/types.h>
-# include    <pwd.h>
-# include    <grp.h>
-# include    <uuid/uuid.h>
-# include    <time.h>
+# include	<sys/stat.h>
+# include	<stdlib.h>
+# include	<sys/types.h>
+# include	<pwd.h>
+# include	<grp.h>
+# include	<uuid/uuid.h>
+# include	<time.h>
+# include	<sys/acl.h>
+# include <sys/xattr.h>
 
 // Bool data type
 # include    <stdbool.h>
 
 # define OPTIONS "Ralrt"
+# define SIX_MONTHS 15778476
 
 typedef struct options
 {
@@ -50,11 +53,12 @@ typedef struct file_node
 {
 	char				file_type;
 	char				*permission;
+	char				extra_attr;
 	unsigned int		links;
 	char				*owner_name;
 	char				*owner_group;
 	unsigned int		size;
-	char				*date;
+	char				**date;
 	struct timespec		s_date;
 	char				*file_name;
 	char				*links_to;
@@ -74,6 +78,7 @@ typedef struct column_attr
 	int	links_len;
 	int	owner_name_len;
 	int	owner_group_len;
+	int date_len;
 	int	file_size_len;
 }				t_col;
 
@@ -98,7 +103,8 @@ int		file_type(mode_t mode);
 char	*permission_str(mode_t mode);
 char	*get_owner_name(uid_t uid);
 char	*get_owner_group(gid_t gid);
-char	*last_modification_date(struct timespec mtimespec);
+void	attr_struct_init(t_col *attr);
+char	**last_modification_date(struct timespec mtimespec);
 
 // Printers
 void	print(t_node *node, t_cont *cont);
@@ -120,5 +126,8 @@ bool	date_insert(t_node **hd, t_node *nd, t_node *f_nd, t_node *prev);
 bool	date_insert_rev(t_node **hd, t_node *nd, t_node *f_nd, t_node *prev);
 bool	lexi_sort(t_swap *swap, t_cont *cont);
 bool	date_sort(t_swap *swap, t_cont *cont);
+
+// Bonus
+char	extra_attribute(char *dir_name, char *file_name);
 
 #endif

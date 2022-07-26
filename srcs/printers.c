@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:19:44 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/25 11:17:06 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/26 12:11:55 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,14 @@ static void	list_print(t_node *file_node, size_t *blocks)
 	while (file_node)
 	{
 		ft_printf("%c", file_node->file_type);
-		ft_printf("%s  ", file_node->permission);
+		ft_printf("%s", file_node->permission);
+		ft_printf("%c ", file_node->extra_attr);
 		ft_printf("%*i ", column->links_len, file_node->links);
 		ft_printf("%-*s  ", column->owner_name_len, file_node->owner_name);
 		ft_printf("%-*s  ", column->owner_group_len, file_node->owner_group);
 		ft_printf("%*i ", column->file_size_len, file_node->size);
-		ft_printf("%s ", file_node->date);
+		ft_printf("%s ", file_node->date[0]);
+		ft_printf("%*s ", column->date_len, file_node->date[1]);
 		ft_printf("%s", file_node->file_name);
 		if (file_node->links_to)
 			ft_printf(" -> %s", file_node->links_to);
