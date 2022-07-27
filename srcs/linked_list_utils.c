@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 15:19:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/26 21:00:55 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/27 10:54:14 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static char	*linkage(t_cont *cont, struct stat *st)
 	if (ret < 0 || ret > st->st_size)
 	{
 		ft_printf("ft_ls: %s: Readlink Error\n", cont->file_name);
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	linkname[st->st_size] = '\0';
 	return (linkname);
@@ -56,7 +56,6 @@ static char	*linkage(t_cont *cont, struct stat *st)
 void	node_collect_util(t_node *nd, struct stat *st, t_cont *cont)
 {
 	nd->file_type = file_type(st->st_mode);
-	// ft_printf("%s -> ", cont->file_name); // Delete this
 	nd->permission = permission_str(st->st_mode);
 	nd->extra_attr = extra_attribute(cont->dir_name, cont->file_name);
 	nd->links = st->st_nlink;

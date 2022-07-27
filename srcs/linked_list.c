@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 09:30:17 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/25 11:08:00 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/27 10:54:51 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ t_node	*file_node_collect(t_node *node, t_node *file_node, t_cont *cont)
 	if (!stat)
 	{
 		ft_printf("ft_ls: %s: Not enough memory\n", cont->file_name);
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	if (lstat(path, stat) < 0)
 	{
 		ft_printf("ft_ls: %s: No such file or directory\n", cont->file_name);
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	free(path);
 	return (node_connect(node, file_node, cont, stat));
@@ -91,7 +91,7 @@ t_node	*linked_list(t_node *file_node, t_cont *cont)
 		{
 			nodes_array_delete(file_node);
 			ft_printf("ft_ls: %s: Not enough memory\n", cont->file_name);
-			exit(1);
+			exit(EXIT_FAILURE);
 		}
 		file_node_init(node);
 		file_node = file_node_collect(node, file_node, cont);

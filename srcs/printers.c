@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:19:44 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/26 12:11:55 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/27 10:49:01 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,10 @@ static void	node_print(t_node *node)
 	ft_printf("\n");
 }
 
-static void	list_print(t_node *file_node, size_t *blocks)
+static void	list_print(t_node *file_node)
 {
 	t_col	*column;
 
-	if (file_node)
-		ft_printf("total %i\n", (int)blocks[0]);
 	column = attr_col(file_node);
 	while (file_node)
 	{
@@ -58,7 +56,7 @@ void	print(t_node *node, t_cont *cont)
 
 	path = NULL;
 	if (cont->opt->lis)
-		list_print(node, &cont->blocks);
+		list_print(node);
 	else
 		node_print(node);
 	if (cont->opt->rec)

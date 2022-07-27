@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   options.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 13:47:13 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/25 11:08:23 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/27 10:55:24 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	options_parse(t_opts *opt, char *opt_str)
 		{
 			ft_printf("ft_ls: illegal option -- %c\n", *opt_str);
 			ft_printf("usage: ft_ls [-%s] [file ...]\n", OPTIONS);
-			exit(1);
+			exit(EXIT_FAILURE);
 		}
 		if (*opt_str == 'l')
 			opt->lis = true;

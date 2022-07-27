@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:57:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/25 10:44:20 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/27 10:51:46 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ static void	ft_ls_util(t_node **node, char *f_name, DIR *dir, t_cont *cont)
 			dent = readdir(dir);
 		}
 		closedir(dir);
+		if (cont->opt->lis)
+			ft_printf("total %i\n", cont->blocks);
 	}
 	else
 	{
@@ -95,5 +97,5 @@ int	main(int ac, char **av)
 		ft_ls(av[index], opts);
 		index++;
 	}
-	return (0);
+	exit(EXIT_SUCCESS);
 }

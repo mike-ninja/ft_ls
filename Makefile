@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
+#    By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/29 11:22:02 by mbarutel          #+#    #+#              #
-#    Updated: 2022/07/26 10:58:00 by mbarutel         ###   ########.fr        #
+#    Updated: 2022/07/27 11:08:21 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ OBJ			= $(addsuffix .o, $(SRC_FILE))
 all: $(NAME)
 
 $(NAME): $(SRC)
-	@$(CC) -c $(SRC)
+	@$(CC) $(FLAGS) -c $(SRC)
 	@echo "$(CYAN)Compiled obj files$(RESET)"
 	@$(CC) -o $(NAME) $(LIB_INC) $(OBJ)
 	@echo "$(GREEN)Compiled ft_ls$(RESET)"
