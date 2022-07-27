@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/27 10:51:26 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/27 11:23:10 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ typedef struct column_attr
 	int	links_len;
 	int	owner_name_len;
 	int	owner_group_len;
-	int date_len;
+	int	date_len;
 	int	file_size_len;
 }				t_col;
 
