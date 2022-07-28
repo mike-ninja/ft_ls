@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:21:27 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/27 10:32:19 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/27 18:49:45 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	attr_struct_init(t_col *attr)
 	attr->owner_name_len = 0;
 	attr->owner_group_len = 0;
 	attr->date_len = 0;
+	attr->name_len = 0;
 	attr->file_size_len = 0;
 }
 

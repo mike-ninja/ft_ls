@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/27 11:23:10 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/27 18:47:40 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@
 # include	<uuid/uuid.h>
 # include	<time.h>
 # include	<sys/acl.h>
-# include <sys/xattr.h>
+# include	<sys/xattr.h>
+# include	<termios.h>
+# include	<sys/ioctl.h>
 
 // Bool data type
 # include    <stdbool.h>
@@ -75,11 +77,13 @@ typedef struct swap_struct
 
 typedef struct column_attr
 {
-	int	links_len;
-	int	owner_name_len;
-	int	owner_group_len;
-	int	date_len;
-	int	file_size_len;
+	int				links_len;
+	int				owner_name_len;
+	int				owner_group_len;
+	int				date_len;
+	int				file_size_len;
+	int				name_len;
+	struct winsize	*argp;
 }				t_col;
 
 typedef struct container

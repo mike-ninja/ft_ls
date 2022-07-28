@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   column_attr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:08:24 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/26 12:12:51 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/27 18:50:18 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ static void	owner_len(t_node *node, t_col *attr)
 	i = ft_strlen(node->owner_group);
 	if (i > attr->owner_group_len)
 		attr->owner_group_len = i;
+	i = ft_strlen(node->file_name);
+	if (i > attr->name_len)
+		attr->name_len = i;
 }
 
 static void	file_s_len(t_node *node, t_col *attr)
