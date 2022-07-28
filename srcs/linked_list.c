@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 09:30:17 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/27 10:54:51 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/28 11:59:36 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,22 +53,22 @@ static t_node	*node_connect(t_node *nd, t_node *f_nd,
 t_node	*file_node_collect(t_node *node, t_node *file_node, t_cont *cont)
 {
 	char		*path;
-	struct stat	*stat;
+	struct stat	*st;
 
 	path = get_path(cont->dir_name, cont->file_name);
-	stat = malloc(sizeof(struct stat));
-	if (!stat)
+	st = malloc(sizeof(struct stat));
+	if (!st)
 	{
 		ft_printf("ft_ls: %s: Not enough memory\n", cont->file_name);
 		exit(EXIT_FAILURE);
 	}
-	if (lstat(path, stat) < 0)
+	if (lstat(path, st) < 0)
 	{
 		ft_printf("ft_ls: %s: No such file or directory\n", cont->file_name);
 		exit(EXIT_FAILURE);
 	}
 	free(path);
-	return (node_connect(node, file_node, cont, stat));
+	return (node_connect(node, file_node, cont, st));
 }
 
 t_node	*linked_list(t_node *file_node, t_cont *cont)

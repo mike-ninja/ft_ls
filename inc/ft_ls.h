@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/27 18:47:40 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/28 15:51:03 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ typedef struct swap_struct
 
 typedef struct column_attr
 {
+	int				norm_col;
+	int				norm_row;
 	int				links_len;
 	int				owner_name_len;
 	int				owner_group_len;
@@ -109,6 +111,7 @@ char	*get_owner_name(uid_t uid);
 char	*get_owner_group(gid_t gid);
 void	attr_struct_init(t_col *attr);
 char	**last_modification_date(struct timespec mtimespec);
+char	*permission_bits(mode_t mode);
 
 // Printers
 void	print(t_node *node, t_cont *cont);

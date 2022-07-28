@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   printers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:19:44 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/27 19:16:02 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/28 15:57:20 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-static void	line_print(t_node *node, int col, int row, int max_row)
+static void	line_print(t_node *node, int row, int width, int max_row)
 {
 	t_node	*ptr;
 	int		index;
@@ -24,7 +24,7 @@ static void	line_print(t_node *node, int col, int row, int max_row)
 	while (ptr)
 	{
 		index = 0;
-		ft_printf("%-24s", ptr->file_name);
+		ft_printf("%-*s", width, ptr->file_name);
 		while (index++ < max_row)
 		{
 			if (ptr)
@@ -53,25 +53,25 @@ static int	node_size(t_node *node)
 static void	node_print(t_node *node, t_col *column)
 {
 	int				i;
-	int				col;
-	int				row;
 	int				lst_len;
 	struct winsize	argp;
+	int				width;
 
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &argp);
 	lst_len = node_size(node);
+	width = 8;
+	if (column->name_len > 10)
+		width = 16;
 	if (column->name_len > 16)
-		col = argp.ws_col / 24;
-	else
-		col = argp.ws_col / 8;
-	row = lst_len / col;
-	ft_printf("| %i | %i | %i | %i | %i |\n", argp.ws_col, col, row, column->name_len, lst_len);
-	if ((lst_len % col) != 0)
-		row++;
+		width = 24;
+	column->norm_col = argp.ws_col / width;
+	column->norm_row = lst_len / column->norm_col;
+	if ((lst_len % column->norm_col) != 0)
+		column->norm_row++;
 	i = -1;
-	while (++i < row)
+	while (++i < column->norm_row)
 	{
-		line_print(node, col, i, row);
+		line_print(node, i, width, column->norm_row);
 		ft_printf("\n");
 	}
 }

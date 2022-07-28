@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 11:59:24 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/26 12:09:06 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/28 15:47:38 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,33 @@ char	**last_modification_date(struct timespec mtimespec)
 	ft_strncpy(*date, &ctime(&mtimespec.tv_sec)[4], 6);
 	date[1] = date_format(mtimespec.tv_sec);
 	return (date);
+}
+
+char	*permission_bits(mode_t mode)
+{
+	char	*ret;
+
+	ret = ft_strdup("rwxrwxrwx");
+	if (mode & S_ISUID)
+	{
+		if (mode & S_IXUSR)
+			ret[2] = 's';
+		else
+			ret[2] = 'S';
+	}
+	if (mode & S_ISGID)
+	{
+		if (mode & S_IXGRP)
+			ret[5] = 's';
+		else
+			ret[5] = 'l';
+	}
+	if (mode & S_ISVTX)
+	{
+		if (mode & S_IXOTH)
+			ret[8] = 't';
+		else
+			ret[8] = 'T';
+	}
+	return (ret);
 }
