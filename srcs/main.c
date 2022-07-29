@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:57:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/27 10:51:46 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/29 10:55:14 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ int	main(int ac, char **av)
 	init_struct(opts);
 	while (index < ac && *av[index] == '-')
 	{
+		if (*(av[index] + 1) == '\0')
+			break ;
 		options_parse(opts, av[index]);
 		index++;
 	}

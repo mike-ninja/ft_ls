@@ -6,16 +6,12 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/28 15:51:03 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/29 10:59:46 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_LS_H
 # define FT_LS_H
-
-// Forbidden
-# include    <string.h>
-// Forbidden
 
 // Header
 # include    "../libft/incs/ft_printf.h"
@@ -23,21 +19,20 @@
 // Directory metadata reading
 # include    <dirent.h>
 
+// Standard
+# include	<stdlib.h>
+# include   <stdbool.h>
+# include	<time.h>
+
 // File metadata reading
 # include	<sys/stat.h>
-# include	<stdlib.h>
-# include	<sys/types.h>
 # include	<pwd.h>
 # include	<grp.h>
-# include	<uuid/uuid.h>
-# include	<time.h>
 # include	<sys/acl.h>
 # include	<sys/xattr.h>
-# include	<termios.h>
-# include	<sys/ioctl.h>
 
-// Bool data type
-# include    <stdbool.h>
+// Terminal window size
+# include	<sys/ioctl.h>
 
 # define OPTIONS "Ralrt"
 # define SIX_MONTHS 15778476
@@ -96,43 +91,40 @@ typedef struct container
 	t_opts	*opt;
 }				t_cont;
 
-// ft_ls
+// Main
 t_node	*ft_ls(const char *file_name, t_opts *opt);
 
 // Options
 void	init_struct(t_opts *opt);
 void	options_parse(t_opts *opt, char *opt_str);
+int		node_size(t_node *node);
 
 // Utils
-char	*get_path(char *input, char *file_name);
+void	attr_struct_init(t_col *attr);
 int		file_type(mode_t mode);
+char	*get_path(char *input, char *file_name);
 char	*permission_str(mode_t mode);
 char	*get_owner_name(uid_t uid);
 char	*get_owner_group(gid_t gid);
-void	attr_struct_init(t_col *attr);
 char	**last_modification_date(struct timespec mtimespec);
 char	*permission_bits(mode_t mode);
 
 // Printers
 void	print(t_node *node, t_cont *cont);
 
-// Node Funcs
+// Linked list
 t_node	*file_node_collect(t_node *node, t_node *file_node, t_cont *cont);
 t_node	*linked_list(t_node *file_node, t_cont *cont);
-
-// Column Attributes
-t_col	*attr_col(t_node *nodes);
-
-// Linked list utils
 void	nodes_array_delete(t_node *file_node);
 void	node_collect_util(t_node *nd, struct stat *st, t_cont *cont);
 void	file_node_init(t_node *node);
-
-// Linked list sort
 bool	date_insert(t_node **hd, t_node *nd, t_node *f_nd, t_node *prev);
 bool	date_insert_rev(t_node **hd, t_node *nd, t_node *f_nd, t_node *prev);
 bool	lexi_sort(t_swap *swap, t_cont *cont);
 bool	date_sort(t_swap *swap, t_cont *cont);
+
+// Column Attributes
+t_col	*attr_col(t_node *nodes);
 
 // Bonus
 char	extra_attribute(char *dir_name, char *file_name);

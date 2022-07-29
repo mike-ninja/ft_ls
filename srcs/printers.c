@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:19:44 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/28 15:57:20 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/29 10:34:15 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,6 @@ static void	line_print(t_node *node, int row, int width, int max_row)
 		if (!ptr)
 			break ;
 	}
-}
-
-static int	node_size(t_node *node)
-{
-	int	ret;
-
-	ret = 0;
-	while (node)
-	{
-		ret++;
-		node = node->next;
-	}
-	return (ret);
 }
 
 static void	node_print(t_node *node, t_col *column)
@@ -97,18 +84,24 @@ static void	list_print(t_node *file_node, t_col *column)
 	}
 }
 
-void	print(t_node *node, t_cont *cont)
-{	
-	char	*path;
+static void	print_utils(t_node *node, t_cont *cont)
+{
 	t_col	*column;
 
-	path = NULL;
 	column = attr_col(node);
 	if (cont->opt->lis)
 		list_print(node, column);
 	else
 		node_print(node, column);
 	free(column);
+}
+
+void	print(t_node *node, t_cont *cont)
+{	
+	char	*path;
+
+	path = NULL;
+	print_utils(node, cont);
 	if (cont->opt->rec)
 	{
 		while (node)

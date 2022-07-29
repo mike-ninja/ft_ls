@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   options.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 13:47:13 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/27 10:55:24 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/29 10:54:01 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,17 @@ void	options_parse(t_opts *opt, char *opt_str)
 			opt->rec = true;
 		opt_str++;
 	}
+}
+
+int	node_size(t_node *node)
+{
+	int	ret;
+
+	ret = 0;
+	while (node)
+	{
+		ret++;
+		node = node->next;
+	}
+	return (ret);
 }
