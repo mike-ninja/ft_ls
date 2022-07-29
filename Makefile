@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+         #
+#    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/29 11:22:02 by mbarutel          #+#    #+#              #
-#    Updated: 2022/07/27 13:45:29 by mbarutel         ###   ########.fr        #
+#    Updated: 2022/07/29 13:54:24 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ OBJ			= $(addsuffix .o, $(SRC_FILE))
 all: $(NAME)
 
 $(NAME): $(SRC)
+	@make -C libft
 	@$(CC)  -c $(SRC)
 	@echo "$(CYAN)Compiled obj files$(RESET)"
 	@$(CC) -o $(NAME) $(LIB_INC) $(OBJ)
