@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:19:44 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/29 12:15:56 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/29 14:48:35 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	node_print(t_node *node, t_col *column)
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &argp);
 	lst_len = node_size(node);
 	width = 8;
-	if (column->name_len > 10)
+	if (column->name_len > 7)
 		width = 16;
 	if (column->name_len > 16)
 		width = 24;
@@ -113,7 +113,7 @@ void	print(t_node *node, t_cont *cont)
 				{
 					path = get_path(cont->dir_name, node->file_name);
 					ft_printf("\n%s:\n", path);
-					ft_ls((const char *)path, cont->opt, 1);
+					ft_ls((const char *)path, cont->opt);
 					free(path);
 				}
 			}

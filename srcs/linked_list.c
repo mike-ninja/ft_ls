@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 09:30:17 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/29 10:54:45 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/29 15:04:06 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,9 @@ t_node	*file_node_collect(t_node *node, t_node *file_node, t_cont *cont)
 	char		*path;
 	struct stat	*st;
 
+	// ft_printf("%s | %s\n", cont->dir_name, cont->file_name);
 	path = get_path(cont->dir_name, cont->file_name);
+	// ft_printf("This happens\n");
 	st = malloc(sizeof(struct stat));
 	if (!st)
 	{
@@ -64,7 +66,7 @@ t_node	*file_node_collect(t_node *node, t_node *file_node, t_cont *cont)
 	}
 	if (lstat(path, st) < 0)
 	{
-		ft_printf("ft_ls: %s: No such file or directory\n", cont->file_name);
+		ft_printf("ft_ls: %s: No such file or directory\n", cont->file_name); // Will need to change this
 		exit(EXIT_FAILURE);
 	}
 	free(path);
