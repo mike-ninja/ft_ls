@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:19:44 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/29 10:34:15 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/29 12:15:56 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	print(t_node *node, t_cont *cont)
 				{
 					path = get_path(cont->dir_name, node->file_name);
 					ft_printf("\n%s:\n", path);
-					ft_ls((const char *)path, cont->opt);
+					ft_ls((const char *)path, cont->opt, 1);
 					free(path);
 				}
 			}

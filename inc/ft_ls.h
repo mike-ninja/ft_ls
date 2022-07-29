@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/29 10:59:46 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/29 12:18:08 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,12 @@ typedef struct container
 	char	*dir_name;
 	size_t	blocks;
 	t_opts	*opt;
+	int		ac;
 }				t_cont;
 
 // Main
-t_node	*ft_ls(const char *file_name, t_opts *opt);
+// t_node	*ft_ls(const char *file_name, t_opts *opt);
+t_node	*ft_ls(const char *file_name, t_opts *opt, int ac);
 
 // Options
 void	init_struct(t_opts *opt);
