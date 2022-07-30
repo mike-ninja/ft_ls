@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:57:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/30 17:45:19 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/30 19:38:10 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,17 +87,21 @@ static void file_list(int index, char **av, int ac, t_opts *opt)
 {
 	t_node			*node;
 	t_cont			cont[1];
+	DIR				*dir;
 
 	node = NULL;
 	cont_init(cont, opt);
 	while(index < ac)
 	{
-		if (!opendir(av[index]))
+		dir = opendir(av[index]);
+		if (!dir)
 		{
 			cont->dir_name = ".";
 			cont->file_name = av[index];
 			node = linked_list(node, cont);
 		}
+		else
+			closedir(dir);
 		index++;
 	}
 	if (node)
@@ -160,16 +164,12 @@ static void arr_sort(int ac, char **av, int i)
 	int 	index;
 	int		index_1;
 	char 	*ptr;
-	int		p;
-	int		y;
 
 	index = 0;
-	p = i;
-	while(p < ac)
+	while((index + i) < ac)
 	{
-		y = i;
 		index_1 = 0;
-		while (y < ac)
+		while ((index_1 + i) < ac)
 		{
 			if (ft_strcmp(av[index], av[index_1]) < 0)
 			{
@@ -178,10 +178,8 @@ static void arr_sort(int ac, char **av, int i)
 				av[index_1] = ptr;
 			}
 			index_1++;
-			y++;
 		}
 		index++;
-		p++;
 	}
 }
 
@@ -190,6 +188,7 @@ static void	arg_parse(int index, int ac, char **av, t_opts *opt)
 	char	**arr;
 	int		index_del;
 	int		i;
+	DIR		*dir;
 
 	index_del = index;
 	// ft_printf("%i\n", index);
@@ -201,16 +200,17 @@ static void	arg_parse(int index, int ac, char **av, t_opts *opt)
 	i = 0;
 	while (index < ac)
 	{
-		if (opendir(arr[i]))
+		dir = opendir(arr[i]);
+		if (dir)
 		{
 			ft_printf("\n");
 			ft_printf("%s:\n", arr[i]);
 			ft_ls(arr[i], opt);
+			closedir(dir);
 		}
 		index++;
 		i++;
 	}
-	// ft_printf("%i\n", index - index_del - 1);
 	arr_delete(arr, (index - index_del) - 1);
 }
 
