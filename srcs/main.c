@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:57:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/29 16:56:23 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/07/30 17:45:19 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,32 +141,6 @@ static char **arr_dup(int ac, char **av, int index)
 	return (ret);
 }
 
-static void arr_sort(int ac, char **av, int i)
-{
-	int 	index;
-	int		index_1;
-	char 	*ptr;
-
-	index = 0;
-	while(i < (ac - 1))
-	{
-		index_1 = 0;
-		while (i < (ac - 1))
-		{
-			if (ft_strcmp(av[index], av[index_1]) < 0)
-			{
-				ptr = av[index];
-				av[index] = av[index_1];
-				av[index_1] = ptr;
-			}
-			index_1++;
-			i++;
-		}
-		index++;
-		i++;
-	}
-}
-
 static void print_arr(int ac, char **av, int index)
 {
 	int i;
@@ -179,6 +153,36 @@ static void print_arr(int ac, char **av, int index)
 		index++;
 	}
 	ft_printf("\n");
+}
+
+static void arr_sort(int ac, char **av, int i)
+{
+	int 	index;
+	int		index_1;
+	char 	*ptr;
+	int		p;
+	int		y;
+
+	index = 0;
+	p = i;
+	while(p < ac)
+	{
+		y = i;
+		index_1 = 0;
+		while (y < ac)
+		{
+			if (ft_strcmp(av[index], av[index_1]) < 0)
+			{
+				ptr = av[index];
+				av[index] = av[index_1];
+				av[index_1] = ptr;
+			}
+			index_1++;
+			y++;
+		}
+		index++;
+		p++;
+	}
 }
 
 static void	arg_parse(int index, int ac, char **av, t_opts *opt)
