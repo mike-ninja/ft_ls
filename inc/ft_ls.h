@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/29 14:19:26 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/01 11:57:42 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ char	*get_owner_name(uid_t uid);
 char	*get_owner_group(gid_t gid);
 char	**last_modification_date(struct timespec mtimespec);
 char	*permission_bits(mode_t mode);
+void	cont_init(t_cont *cont, t_opts *opt);
 
 // Printers
 void	print(t_node *node, t_cont *cont);
@@ -128,5 +129,8 @@ t_col	*attr_col(t_node *nodes);
 
 // Bonus
 char	extra_attribute(char *dir_name, char *file_name);
+
+// Multiple Arguments
+void	arg_parse(int index, int ac, char **av, t_opts *opt);
 
 #endif
