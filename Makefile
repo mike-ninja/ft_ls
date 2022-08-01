@@ -6,7 +6,7 @@
 #    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/29 11:22:02 by mbarutel          #+#    #+#              #
-#    Updated: 2022/08/01 12:01:17 by mbarutel         ###   ########.fr        #
+#    Updated: 2022/08/01 12:38:30 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,7 @@ clean:
 	@rm -f $(OBJ)
 
 fclean:	clean
+	@make fclean -C libft
 	@echo "$(PURPLE)Cleaning ft_ls$(RESET)"
 	@rm -f $(NAME)
 
