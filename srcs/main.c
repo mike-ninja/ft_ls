@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:57:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/01 16:14:01 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/01 17:11:47 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ static void	ft_ls_util(t_node **node, char *f_name, DIR *dir, t_cont *cont)
 		{
 			if (!cont->opt->all)
 				dent = opt_all(dir, dent);
+			if (!dent)
+				break ;
 			cont->file_name = dent->d_name;
 			*node = linked_list(*node, cont);
 			dent = readdir(dir);
@@ -65,11 +67,9 @@ t_node	*ft_ls(const char *file_name, t_opts *opt)
 	DIR		*dir;
 	t_node	*node;
 	t_cont	cont[1];
-	int		index;
 
 	node = NULL;
 	dir = NULL;
-	index = 1;
 	cont_init(cont, opt);
 	dir = opendir(file_name);
 	ft_ls_util(&node, (char *)file_name, dir, cont);
