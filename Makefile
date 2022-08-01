@@ -6,7 +6,7 @@
 #    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/29 11:22:02 by mbarutel          #+#    #+#              #
-#    Updated: 2022/08/01 11:57:17 by mbarutel         ###   ########.fr        #
+#    Updated: 2022/08/01 12:01:17 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,8 +31,6 @@ SRC_FILE 	+= printers
 SRC_FILE 	+= column_attr
 SRC_FILE 	+= extra_attr
 SRC_FILE 	+= multiple_args
-
-
 
 # Colours
 
