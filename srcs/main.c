@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:57:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/01 12:45:43 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/01 12:49:32 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,8 @@ void	cont_init(t_cont *cont, t_opts *opt)
 static void	ft_ls_util(t_node **node, char *f_name, DIR *dir, t_cont *cont)
 {
 	struct dirent	*dent;
-	bool			empty_dir;
 
 	dent = NULL;
-	empty_dir = true;
 	if (dir)
 	{
 		cont->dir_name = f_name;
@@ -46,12 +44,11 @@ static void	ft_ls_util(t_node **node, char *f_name, DIR *dir, t_cont *cont)
 			dent = opt_all(dir, dent);
 		while (dent)
 		{
-			empty_dir = false;
 			cont->file_name = dent->d_name;
 			*node = linked_list(*node, cont);
 			dent = readdir(dir);
 		}
-		if (cont->opt->lis && !empty_dir)
+		if (cont->opt->lis && cont->file_name)
 			ft_printf("total %i\n", cont->blocks);
 		closedir(dir);
 	}
