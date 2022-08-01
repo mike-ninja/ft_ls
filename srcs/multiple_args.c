@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:50:11 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/01 11:57:23 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/01 16:29:40 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,24 +75,69 @@ static char	**arr_dup(int ac, char **av, int index)
 	return (ret);
 }
 
-static void	arr_sort(int ac, char **av, int i)
+static void	arr_lexi_sort(int index, int index_1, char **av, t_opts *opt)
+{
+	char	*ptr;
+
+	if (opt->rev)
+	{
+		if (ft_strcmp(av[index], av[index_1]) > 0)
+		{
+			ptr = av[index];
+			av[index] = av[index_1];
+			av[index_1] = ptr;
+		}
+	}
+	else
+	{	
+		if (ft_strcmp(av[index], av[index_1]) < 0)
+		{
+			ptr = av[index];
+			av[index] = av[index_1];
+			av[index_1] = ptr;
+		}
+	}
+}
+
+// static void	arr_date_sort(int index, int index_1, char **av, t_opts *opt)
+// {
+// 	char		*ptr;
+// 	struct stat	*st_1;
+// 	struct stat	*st_2;
+	
+// 	if (opt->rev)
+// 	{
+// 		if (ft_strcmp(av[index], av[index_1]) > 0)
+// 		{
+// 			ptr = av[index];
+// 			av[index] = av[index_1];
+// 			av[index_1] = ptr;
+// 		}
+// 	}
+// 	else
+// 	{	
+// 		if (ft_strcmp(av[index], av[index_1]) < 0)
+// 		{
+// 			ptr = av[index];
+// 			av[index] = av[index_1];
+// 			av[index_1] = ptr;
+// 		}
+// 	}
+// }
+
+static void	arr_sort(int ac, char **av, int i, t_opts *opt)
 {
 	int		index;
 	int		index_1;
-	char	*ptr;
-
+	
 	index = 0;
 	while ((index + i) < ac)
 	{
 		index_1 = 0;
 		while ((index_1 + i) < ac)
 		{
-			if (ft_strcmp(av[index], av[index_1]) < 0)
-			{
-				ptr = av[index];
-				av[index] = av[index_1];
-				av[index_1] = ptr;
-			}
+			if (!opt->tim)
+				arr_lexi_sort(index, index_1, av, opt);
 			index_1++;
 		}
 		index++;
@@ -108,7 +153,7 @@ void	arg_parse(int index, int ac, char **av, t_opts *opt)
 
 	index_del = index;
 	arr = arr_dup(ac, av, index);
-	arr_sort(ac, arr, index);
+	arr_sort(ac, arr, index, opt);
 	file_list(index, arr, ac, opt);
 	i = 0;
 	while (index < ac)

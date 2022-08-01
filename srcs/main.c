@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:57:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/01 12:49:32 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/01 16:14:01 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ static void	ft_ls_util(t_node **node, char *f_name, DIR *dir, t_cont *cont)
 	{
 		cont->dir_name = f_name;
 		dent = readdir(dir);
-		if (!cont->opt->all)
-			dent = opt_all(dir, dent);
 		while (dent)
 		{
+			if (!cont->opt->all)
+				dent = opt_all(dir, dent);
 			cont->file_name = dent->d_name;
 			*node = linked_list(*node, cont);
 			dent = readdir(dir);
