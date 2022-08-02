@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
+#    By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/29 11:22:02 by mbarutel          #+#    #+#              #
-#    Updated: 2022/08/01 12:38:30 by mbarutel         ###   ########.fr        #
+#    Updated: 2022/08/02 13:50:14 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 NAME 		= ft_ls
 SRC_DIR		= srcs/
 CC			= gcc
-FLAGS		= -Wall -Werror -Wextra
+# FLAGS		= -Wall -Werror -Wextra
 LIB_INC		= -Llibft -lftprintf
 
 # Files
@@ -31,6 +31,7 @@ SRC_FILE 	+= printers
 SRC_FILE 	+= column_attr
 SRC_FILE 	+= extra_attr
 SRC_FILE 	+= multiple_args
+SRC_FILE 	+= multiple_args_util
 
 # Colours
 

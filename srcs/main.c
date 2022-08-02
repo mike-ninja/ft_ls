@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:57:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/01 17:11:47 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/02 15:52:52 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,7 @@ static void	ft_ls_util(t_node **node, char *f_name, DIR *dir, t_cont *cont)
 		closedir(dir);
 	}
 	else
-	{
-		cont->dir_name = ".";
-		cont->file_name = f_name;
-		*node = linked_list(*node, cont);
-	}
+		file_node(node, f_name, cont);
 }
 
 t_node	*ft_ls(const char *file_name, t_opts *opt)

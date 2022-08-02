@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extra_attr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 11:38:34 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/28 12:16:45 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/02 15:53:06 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,11 @@ char	extra_attribute(char *dir_name, char *file_name)
 	acl_free(acl);
 	free(path);
 	return (ret);
+}
+
+void	file_node(t_node **node, char *f_name, t_cont *cont)
+{
+	cont->dir_name = ".";
+	cont->file_name = f_name;
+	*node = linked_list(*node, cont);
 }

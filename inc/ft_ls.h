@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/01 11:57:42 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/02 15:53:34 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,12 @@ typedef struct container
 	t_opts	*opt;
 }				t_cont;
 
+typedef struct args
+{
+	char	*file_name;
+	time_t	modi_date;
+}				t_args;
+
 // Main
 t_node	*ft_ls(const char *file_name, t_opts *opt);
 
@@ -109,12 +115,13 @@ char	*get_owner_group(gid_t gid);
 char	**last_modification_date(struct timespec mtimespec);
 char	*permission_bits(mode_t mode);
 void	cont_init(t_cont *cont, t_opts *opt);
+void	file_node(t_node **node, char *f_name, t_cont *cont);
 
 // Printers
 void	print(t_node *node, t_cont *cont);
 
 // Linked list
-t_node	*file_node_collect(t_node *node, t_node *file_node, t_cont *cont);
+t_node	*node_collect(t_node *node, t_node *file_node, t_cont *cont);
 t_node	*linked_list(t_node *file_node, t_cont *cont);
 void	nodes_array_delete(t_node *file_node);
 void	node_collect_util(t_node *nd, struct stat *st, t_cont *cont);
@@ -132,5 +139,10 @@ char	extra_attribute(char *dir_name, char *file_name);
 
 // Multiple Arguments
 void	arg_parse(int index, int ac, char **av, t_opts *opt);
+void	args_del(t_args *args, int index);
+void	args_lexi_swap(int i, int y, t_args *args, t_opts *opt);
+void	args_date_swap(int i, int y, t_args *args, t_opts *opt);
+void	args_sorting(int index, t_args *args, t_opts *opt);
+void	collect_dates(int index, t_args *args);
 
 #endif

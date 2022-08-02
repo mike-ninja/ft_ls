@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   multiple_args.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:50:11 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/01 16:29:40 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/02 15:44:17 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-static void	file_list(int index, char **av, int ac, t_opts *opt)
+static void	file_list(int index, t_args *args, int ac, t_opts *opt)
 {
 	int		i;
 	DIR		*dir;
@@ -24,11 +24,11 @@ static void	file_list(int index, char **av, int ac, t_opts *opt)
 	cont_init(cont, opt);
 	while (++i < (ac - index))
 	{
-		dir = opendir(av[i]);
+		dir = opendir(args[i].file_name);
 		if (!dir)
 		{
 			cont->dir_name = ".";
-			cont->file_name = av[i];
+			cont->file_name = args[i].file_name;
 			node = linked_list(node, cont);
 		}
 		else
@@ -41,133 +41,71 @@ static void	file_list(int index, char **av, int ac, t_opts *opt)
 	}
 }
 
-static void	arr_delete(char **av, int index)
+static void	args_sort(int index, t_args *args, t_opts *opt)
 {
-	while (index >= 0)
-	{
-		free(av[index]);
-		index--;
-	}
-	free(av);
-}
+	int	i;
+	int	y;
 
-static char	**arr_dup(int ac, char **av, int index)
-{
-	int		i;
-	char	**ret;
-
-	ret = NULL;
-	ret = (char **)malloc(sizeof(char *) * (ac - index));
-	if (!ret)
-		return (NULL);
 	i = 0;
-	while (index < ac)
+	if (opt->tim)
+		collect_dates(index, args);
+	while (i < index)
 	{
-		ret[i] = ft_strdup(av[index]);
-		if (!ret[i])
+		y = 0;
+		while (y < index)
 		{
-			arr_delete(ret, i);
-			exit(EXIT_FAILURE);
+			if (opt->tim)
+				args_date_swap(i, y, args, opt);
+			else
+				args_lexi_swap(i, y, args, opt);
+			y++;
 		}
 		i++;
-		index++;
-	}
-	return (ret);
-}
-
-static void	arr_lexi_sort(int index, int index_1, char **av, t_opts *opt)
-{
-	char	*ptr;
-
-	if (opt->rev)
-	{
-		if (ft_strcmp(av[index], av[index_1]) > 0)
-		{
-			ptr = av[index];
-			av[index] = av[index_1];
-			av[index_1] = ptr;
-		}
-	}
-	else
-	{	
-		if (ft_strcmp(av[index], av[index_1]) < 0)
-		{
-			ptr = av[index];
-			av[index] = av[index_1];
-			av[index_1] = ptr;
-		}
 	}
 }
 
-// static void	arr_date_sort(int index, int index_1, char **av, t_opts *opt)
-// {
-// 	char		*ptr;
-// 	struct stat	*st_1;
-// 	struct stat	*st_2;
-	
-// 	if (opt->rev)
-// 	{
-// 		if (ft_strcmp(av[index], av[index_1]) > 0)
-// 		{
-// 			ptr = av[index];
-// 			av[index] = av[index_1];
-// 			av[index_1] = ptr;
-// 		}
-// 	}
-// 	else
-// 	{	
-// 		if (ft_strcmp(av[index], av[index_1]) < 0)
-// 		{
-// 			ptr = av[index];
-// 			av[index] = av[index_1];
-// 			av[index_1] = ptr;
-// 		}
-// 	}
-// }
-
-static void	arr_sort(int ac, char **av, int i, t_opts *opt)
+static void	args_dup(int index, int ac, char **av, t_args *args)
 {
-	int		index;
-	int		index_1;
-	
-	index = 0;
-	while ((index + i) < ac)
+	int	i;
+	int	nbr;
+
+	i = -1;
+	nbr = index;
+	while (++i < (ac - nbr))
 	{
-		index_1 = 0;
-		while ((index_1 + i) < ac)
-		{
-			if (!opt->tim)
-				arr_lexi_sort(index, index_1, av, opt);
-			index_1++;
-		}
+		args[i].file_name = ft_strdup(av[index]);
+		if (!args[i].file_name)
+			exit(EXIT_FAILURE);
+		args[i].modi_date = 0;
 		index++;
 	}
 }
 
 void	arg_parse(int index, int ac, char **av, t_opts *opt)
 {
-	char	**arr;
-	int		index_del;
 	int		i;
 	DIR		*dir;
+	t_args	*args;
 
-	index_del = index;
-	arr = arr_dup(ac, av, index);
-	arr_sort(ac, arr, index, opt);
-	file_list(index, arr, ac, opt);
+	args = (t_args *)malloc(sizeof(t_args) * (ac - index));
+	if (!args)
+		exit(EXIT_FAILURE);
+	args_dup(index, ac, av, args);
+	args_sort((ac - index), args, opt);
+	file_list(index, args, ac, opt);
 	i = 0;
 	while (index < ac)
 	{
-		dir = opendir(arr[i]);
+		dir = opendir(args[i].file_name);
 		if (dir)
 		{
 			ft_printf("\n");
-			ft_printf("%s:\n", arr[i]);
-			ft_ls(arr[i], opt);
+			ft_printf("%s:\n", args[i].file_name);
+			ft_ls(args[i].file_name, opt);
 			closedir(dir);
 		}
 		index++;
 		i++;
 	}
-	arr_delete(arr, (index - index_del) - 1);
+	args_del(args, (i - 1));
 }

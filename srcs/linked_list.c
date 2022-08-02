@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 09:30:17 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/01 11:30:14 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/02 15:51:19 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static t_node	*lstat_fail(char *path, struct stat *st,
 	return (f_node);
 }
 
-t_node	*file_node_collect(t_node *node, t_node *file_node, t_cont *cont)
+t_node	*node_collect(t_node *node, t_node *file_node, t_cont *cont)
 {
 	char		*path;
 	struct stat	*st;
@@ -98,7 +98,7 @@ t_node	*linked_list(t_node *file_node, t_cont *cont)
 		if (!file_node)
 			return (NULL);
 		file_node_init(file_node);
-		file_node = file_node_collect(node, file_node, cont);
+		file_node = node_collect(node, file_node, cont);
 	}
 	else
 	{
@@ -110,7 +110,7 @@ t_node	*linked_list(t_node *file_node, t_cont *cont)
 			exit(EXIT_FAILURE);
 		}
 		file_node_init(node);
-		file_node = file_node_collect(node, file_node, cont);
+		file_node = node_collect(node, file_node, cont);
 	}
 	return (file_node);
 }
