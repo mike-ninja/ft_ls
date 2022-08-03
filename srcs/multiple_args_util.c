@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multiple_args_util.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 13:47:07 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/02 15:46:16 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/03 10:30:01 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,8 @@ void	collect_dates(int index, t_args *args)
 	while (++i < index)
 	{
 		st = (struct stat *)malloc(sizeof(struct stat));
-		if (lstat(args[i].file_name, st) < 0)
-		{
-			ft_printf("Arg LSTAT Failure");
-			exit(EXIT_FAILURE);
-		}
-		args[i].modi_date = st->st_mtimespec.tv_sec;
+		if (lstat(args[i].file_name, st) > 0)
+			args[i].modi_date = st->st_mtimespec.tv_sec;
 		free(st);
 	}
 }
