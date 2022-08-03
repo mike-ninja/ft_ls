@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extra_attr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 11:38:34 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/02 15:53:06 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/03 12:09:53 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,12 @@ void	file_node(t_node **node, char *f_name, t_cont *cont)
 	cont->dir_name = ".";
 	cont->file_name = f_name;
 	*node = linked_list(*node, cont);
+}
+
+void	permission_denied(char *f_name, t_cont *cont)
+{
+	ft_printf("ft_ls: ");
+	if (cont->opt->rec)
+		ft_printf("%s", ft_strchr(ft_strrchr(f_name, '/'), '/') + 1);
+	ft_printf(": %s\n", strerror(errno));
 }

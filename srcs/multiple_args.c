@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multiple_args.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:50:11 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/02 15:44:17 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/03 12:45:19 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,29 @@
 
 static void	file_list(int index, t_args *args, int ac, t_opts *opt)
 {
-	int		i;
 	DIR		*dir;
 	t_node	*node;
 	t_cont	cont[1];
 
-	i = -1;
 	node = NULL;
 	cont_init(cont, opt);
-	while (++i < (ac - index))
+	while (index++ < ac)
 	{
-		dir = opendir(args[i].file_name);
+		dir = opendir(args->file_name);
 		if (!dir)
 		{
 			cont->dir_name = ".";
-			cont->file_name = args[i].file_name;
+			cont->file_name = args->file_name;
 			node = linked_list(node, cont);
 		}
 		else
 			closedir(dir);
+		args++;
 	}
 	if (node)
 	{
 		print(node, cont);
+		ft_printf("\n");
 		nodes_array_delete(node);
 	}
 }
@@ -64,13 +64,21 @@ static void	args_sort(int index, t_args *args, t_opts *opt)
 	}
 }
 
-static void	args_dup(int index, int ac, char **av, t_args *args)
+static t_args	*args_dup(int index, int ac, char **av)
 {
-	int	i;
-	int	nbr;
+	int		i;
+	int		nbr;
+	t_args	*args;
 
 	i = -1;
 	nbr = index;
+	args = NULL;
+	args = (t_args *)malloc(sizeof(t_args) * (ac - index));
+	if (!args)
+	{
+		ft_printf("Malloc failure\n");
+		exit(EXIT_FAILURE);
+	}
 	while (++i < (ac - nbr))
 	{
 		args[i].file_name = ft_strdup(av[index]);
@@ -79,33 +87,32 @@ static void	args_dup(int index, int ac, char **av, t_args *args)
 		args[i].modi_date = 0;
 		index++;
 	}
+	return (args);
 }
 
 void	arg_parse(int index, int ac, char **av, t_opts *opt)
 {
-	int		i;
+	int		del;
 	DIR		*dir;
 	t_args	*args;
 
-	args = (t_args *)malloc(sizeof(t_args) * (ac - index));
-	if (!args)
-		exit(EXIT_FAILURE);
-	args_dup(index, ac, av, args);
+	del = index;
+	args = args_dup(index, ac, av);
 	args_sort((ac - index), args, opt);
 	file_list(index, args, ac, opt);
-	i = 0;
 	while (index < ac)
 	{
-		dir = opendir(args[i].file_name);
+		dir = opendir(args->file_name);
 		if (dir)
 		{
-			ft_printf("\n");
-			ft_printf("%s:\n", args[i].file_name);
-			ft_ls(args[i].file_name, opt);
+			ft_printf("%s:\n", args->file_name);
+			ft_ls(args->file_name, opt);
 			closedir(dir);
+			if (index != (ac - 1))
+				ft_printf("\n");
 		}
 		index++;
-		i++;
+		args++;
 	}
-	args_del(args, (i - 1));
+	args_del(args - (index - del), (index - del) - 1);
 }

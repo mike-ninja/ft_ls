@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:57:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/02 15:52:52 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/03 12:09:47 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ static void	ft_ls_util(t_node **node, char *f_name, DIR *dir, t_cont *cont)
 			ft_printf("total %i\n", cont->blocks);
 		closedir(dir);
 	}
+	else if (errno == 13)
+		permission_denied(f_name, cont);
 	else
 		file_node(node, f_name, cont);
 }

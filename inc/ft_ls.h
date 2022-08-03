@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/02 15:53:34 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/03 12:09:25 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_LS_H
 # define FT_LS_H
+
+#include <errno.h>
+#include <string.h>
 
 // Header
 # include    "../libft/incs/ft_printf.h"
@@ -116,6 +119,7 @@ char	**last_modification_date(struct timespec mtimespec);
 char	*permission_bits(mode_t mode);
 void	cont_init(t_cont *cont, t_opts *opt);
 void	file_node(t_node **node, char *f_name, t_cont *cont);
+void	permission_denied(char *f_name, t_cont *cont);
 
 // Printers
 void	print(t_node *node, t_cont *cont);
