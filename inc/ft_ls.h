@@ -6,15 +6,12 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/03 12:09:25 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/03 12:56:26 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_LS_H
 # define FT_LS_H
-
-#include <errno.h>
-#include <string.h>
 
 // Header
 # include    "../libft/incs/ft_printf.h"
@@ -26,6 +23,7 @@
 # include	<stdlib.h>
 # include   <stdbool.h>
 # include	<time.h>
+# include	<errno.h>
 
 // File metadata reading
 # include	<sys/stat.h>

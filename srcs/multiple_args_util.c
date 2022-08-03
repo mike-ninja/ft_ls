@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 13:47:07 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/03 10:30:01 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/03 13:13:58 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	args_date_swap(int i, int y, t_args *args, t_opts *opt)
 	else
 		if (args[i].modi_date > args[y].modi_date)
 			args_swap(i, y, args);
+	if (args[i].modi_date == args[y].modi_date)
+		args_lexi_swap(i, y, args, opt);
 }
 
 void	collect_dates(int index, t_args *args)
@@ -64,7 +66,7 @@ void	collect_dates(int index, t_args *args)
 	while (++i < index)
 	{
 		st = (struct stat *)malloc(sizeof(struct stat));
-		if (lstat(args[i].file_name, st) > 0)
+		if (lstat(args[i].file_name, st) == 0)
 			args[i].modi_date = st->st_mtimespec.tv_sec;
 		free(st);
 	}

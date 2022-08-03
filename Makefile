@@ -3,19 +3,20 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+         #
+#    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/29 11:22:02 by mbarutel          #+#    #+#              #
-#    Updated: 2022/08/02 13:50:14 by mbarutel         ###   ########.fr        #
+#    Updated: 2022/08/03 13:02:18 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Variables
 
+LIBFT		= libft
 NAME 		= ft_ls
 SRC_DIR		= srcs/
 CC			= gcc
-# FLAGS		= -Wall -Werror -Wextra
+FLAGS		= -Wall -Werror -Wextra
 LIB_INC		= -Llibft -lftprintf
 
 # Files
@@ -51,18 +52,19 @@ OBJ			= $(addsuffix .o, $(SRC_FILE))
 all: $(NAME)
 
 $(NAME): $(SRC)
-	@make -C libft
+	@make -C $(LIBFT)
 	@$(CC) $(FLAGS) -c $(SRC)
 	@echo "$(CYAN)Compiled obj files$(RESET)"
 	@$(CC) -o $(NAME) $(LIB_INC) $(OBJ)
 	@echo "$(GREEN)Compiled ft_ls$(RESET)"
 
 clean:
+	@make clean -C $(LIBFT)
 	@echo "$(RED)Cleaning obj files$(RESET)"
 	@rm -f $(OBJ)
 
 fclean:	clean
-	@make fclean -C libft
+	@make fclean -C $(LIBFT)
 	@echo "$(PURPLE)Cleaning ft_ls$(RESET)"
 	@rm -f $(NAME)
 
