@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:50:11 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/03 13:11:02 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/03 14:28:47 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,19 +100,20 @@ void	arg_parse(int index, int ac, char **av, t_opts *opt)
 	args = args_dup(index, ac, av);
 	args_sort((ac - index), args, opt);
 	file_list(index, args, ac, opt);
+	dir = opendir(args->file_name);
 	while (index < ac)
 	{
-		dir = opendir(args->file_name);
 		if (dir)
 		{
 			ft_printf("%s:\n", args->file_name);
 			ft_ls(args->file_name, opt);
 			closedir(dir);
-			if (index != (ac - 1))
-				ft_printf("\n");
 		}
 		index++;
 		args++;
+		dir = opendir(args->file_name);
+		if (dir)
+			ft_printf("\n");
 	}
 	args_del(args - (index - del), (index - del) - 1);
 }
