@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:50:11 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/04 12:44:21 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/04 16:16:36 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,19 @@ static void	args_sort(int index, t_args *args, t_opts *opt)
 	int	y;
 
 	i = 0;
-	if (opt->tim)
-		collect_dates(index, args);
+	collect_dates(index, args);
 	while (i < index)
 	{
 		y = i;
 		while (y < index)
 		{
-			if (opt->tim)
-				args_date_swap(i, y, args, opt);
-			else
-				args_lexi_swap(i, y, args, opt);
+			if (args[i].modi_date > 0 && args[y].modi_date > 0)
+			{	
+				if (opt->tim)
+					args_date_swap(i, y, args, opt);
+				else
+					args_lexi_swap(i, y, args, opt);
+			}
 			y++;
 		}
 		i++;
@@ -98,18 +100,6 @@ void	arg_parse(int index, int ac, char **av, t_opts *opt)
 	del = index;
 	args = args_dup(index, ac, av);
 	args_sort((ac - index), args, opt);
-	/*################################*/
-	// int		i;
-	// t_args	*ptr;
-	
-	// i = 0;
-	// ptr = args;
-	// while(i < (ac - index))
-	// {
-	// 	ft_printf("%-15s | %li\n", ptr[i].file_name, ptr[i].modi_date);
-	// 	i++;
-	// }
-	/*################################*/
 	file_list(index, args, ac, opt);
 	dir = opendir(args->file_name);
 	while (index < ac)
