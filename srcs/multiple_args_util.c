@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 13:47:07 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/03 13:13:58 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/04 11:50:07 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ void	args_lexi_swap(int i, int y, t_args *args, t_opts *opt)
 {
 	if (opt->rev)
 	{
-		if (ft_strcmp(args[i].file_name, args[y].file_name) > 0)
+		if (ft_strcmp(args[i].file_name, args[y].file_name) < 0)
 			args_swap(i, y, args);
 	}
 	else
-		if (ft_strcmp(args[i].file_name, args[y].file_name) < 0)
+		if (ft_strcmp(args[i].file_name, args[y].file_name) > 0)
 			args_swap(i, y, args);
 }
 
@@ -47,11 +47,11 @@ void	args_date_swap(int i, int y, t_args *args, t_opts *opt)
 {
 	if (opt->rev)
 	{
-		if (args[i].modi_date < args[y].modi_date)
+		if (args[i].modi_date > args[y].modi_date)
 			args_swap(i, y, args);
 	}
 	else
-		if (args[i].modi_date > args[y].modi_date)
+		if (args[i].modi_date < args[y].modi_date)
 			args_swap(i, y, args);
 	if (args[i].modi_date == args[y].modi_date)
 		args_lexi_swap(i, y, args, opt);
