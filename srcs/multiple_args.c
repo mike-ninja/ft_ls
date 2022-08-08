@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:50:11 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/04 16:16:36 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/08 11:04:01 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,10 @@ static void	args_sort(int index, t_args *args, t_opts *opt)
 		y = i;
 		while (y < index)
 		{
-			if (args[i].modi_date > 0 && args[y].modi_date > 0)
-			{	
-				if (opt->tim)
-					args_date_swap(i, y, args, opt);
-				else
-					args_lexi_swap(i, y, args, opt);
-			}
+			if (opt->tim)
+				args_date_swap(i, y, args, opt);
+			else
+				args_lexi_swap(i, y, args, opt);
 			y++;
 		}
 		i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multiple_args_util.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 13:47:07 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/06 13:28:07 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/08 11:02:22 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	args_swap(t_args *args_1, t_args *args_2)
 
 void	args_lexi_swap(int i, int y, t_args *args, t_opts *opt)
 {
-	if (opt->rev)
+	if (opt->rev && (args[i].modi_date > 0 || args[y].modi_date > 0))
 	{
 		if (ft_strcmp(args[i].file_name, args[y].file_name) < 0)
 			args_swap(&args[i], &args[y]);
@@ -61,7 +61,7 @@ void	args_date_swap(int i, int y, t_args *args, t_opts *opt)
 	else
 		if (args[i].modi_date < args[y].modi_date)
 			args_swap(&args[i], &args[y]);
-	if ((args[i].modi_date ^ args[y].modi_date) == 0)
+	if (args[i].modi_date == args[y].modi_date)
 		args_lexi_swap(i, y, args, opt);
 }
 
