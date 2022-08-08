@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:50:11 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/08 11:04:01 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/08 12:43:06 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ static void	file_list(int index, t_args *args, int ac, t_opts *opt)
 
 static void	args_sort(int index, t_args *args, t_opts *opt)
 {
-	int	i;
-	int	y;
+	int		i;
+	int		y;
 
 	i = 0;
 	collect_dates(index, args);
