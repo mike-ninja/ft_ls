@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 15:19:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/28 15:41:59 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/10 14:18:38 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static char	*linkage(t_cont *cont, struct stat *st)
 	path = get_path(cont->dir_name, cont->file_name);
 	ret = readlink(path, linkname, st->st_size + 1);
 	free(path);
-	if (ret < 0 || ret > st->st_size)
+	if (ret < 0)
 	{
 		ft_printf("ft_ls: %s: Readlink Error\n", cont->file_name);
 		exit(EXIT_FAILURE);
