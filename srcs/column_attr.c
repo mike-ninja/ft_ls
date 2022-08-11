@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   column_attr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:08:24 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/27 18:50:18 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/11 14:58:17 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,10 @@ static void	file_s_len(t_node *node, t_col *attr)
 	}
 	if (i > attr->file_size_len)
 		attr->file_size_len = i;
+	if ((attr->major_len + attr->minor_len) > attr->file_size_len)
+	{
+		attr->file_size_len = attr->major_len + attr->minor_len;
+	}
 }
 
 static void	date_len(t_node *node, t_col *attr)
@@ -81,7 +85,14 @@ t_col	*attr_col(t_node *nodes)
 	{
 		links_len(nodes, ret);
 		owner_len(nodes, ret);
-		file_s_len(nodes, ret);
+		if (nodes->file_type == 'c')
+		{
+			major_len(nodes, ret);
+			minor_len(nodes, ret);
+			len_correction(ret);
+		}
+		else
+			file_s_len(nodes, ret);
 		date_len(nodes, ret);
 		nodes = nodes->next;
 	}

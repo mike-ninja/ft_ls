@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 15:19:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/10 14:18:38 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/11 13:07:59 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,25 +32,22 @@ void	nodes_array_delete(t_node *file_node)
 	}
 }
 
-static char	*linkage(t_cont *cont, struct stat *st)
+static char	*linkage(t_cont *cont)
 {
-	char	*linkname;
+	char	linkname[256];
 	char	*path;
 	ssize_t	ret;
 
-	linkname = (char *)malloc(st->st_size + 1);
-	if (!linkname)
-		return (NULL);
+	ft_memset((void *)linkname, '\0', 255);
 	path = get_path(cont->dir_name, cont->file_name);
-	ret = readlink(path, linkname, st->st_size + 1);
+	ret = readlink(path, linkname, 255);
 	free(path);
 	if (ret < 0)
 	{
 		ft_printf("ft_ls: %s: Readlink Error\n", cont->file_name);
 		exit(EXIT_FAILURE);
 	}
-	linkname[st->st_size] = '\0';
-	return (linkname);
+	return (ft_strdup(linkname));
 }
 
 void	node_collect_util(t_node *nd, struct stat *st, t_cont *cont)
@@ -62,12 +59,17 @@ void	node_collect_util(t_node *nd, struct stat *st, t_cont *cont)
 	nd->owner_name = get_owner_name(st->st_uid);
 	nd->owner_group = get_owner_group(st->st_gid);
 	nd->size = st->st_size;
+	if (nd->file_type == 'c' || nd->file_type == 'b')
+	{
+		nd->major = st->st_rdev >> 24 & 0xff;
+		nd->minor = st->st_rdev & 0xff;
+	}
 	cont->blocks += st->st_blocks;
 	nd->date = last_modification_date(st->st_mtimespec);
 	nd->s_date = st->st_mtimespec;
 	nd->file_name = ft_strdup(cont->file_name);
 	if (nd->file_type == 'l')
-		nd->links_to = linkage(cont, st);
+		nd->links_to = linkage(cont);
 	nd->next = NULL;
 	free(st);
 }
@@ -81,6 +83,8 @@ void	file_node_init(t_node *node)
 	node->owner_name = NULL;
 	node->owner_group = NULL;
 	node->size = 0;
+	node->major = 0;
+	node->minor = 0;
 	node->date = NULL;
 	node->file_name = NULL;
 	node->links_to = NULL;

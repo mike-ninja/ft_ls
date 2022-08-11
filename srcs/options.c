@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 13:47:13 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/07/29 10:54:01 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/11 10:59:38 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,22 @@ void	init_struct(t_opts *opt)
 	opt->rec = false;
 }
 
+static void	illegal_usage(char c)
+{
+	ft_printf("ft_ls: illegal option -- %c\n", c);
+	ft_printf("usage: ft_ls [%s] [file ...]\n", OPTIONS);
+	exit(EXIT_FAILURE);
+}
+
 void	options_parse(t_opts *opt, char *opt_str)
 {
 	opt_str++;
+	if (opt_str[0] == '-' && opt_str[1] != '\0')
+		illegal_usage(*opt_str);
 	while (*opt_str != '\0')
 	{
-		if (!ft_strchr(OPTIONS, *opt_str))
-		{
-			ft_printf("ft_ls: illegal option -- %c\n", *opt_str);
-			ft_printf("usage: ft_ls [-%s] [file ...]\n", OPTIONS);
-			exit(EXIT_FAILURE);
-		}
+		if (!ft_strchr(OPTIONS, *opt_str) || opt_str[1] == '-')
+			illegal_usage(*opt_str);
 		if (*opt_str == 'l')
 			opt->lis = true;
 		if (*opt_str == 'a')

@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:19:44 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/10 15:05:57 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/11 14:50:40 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,24 +63,28 @@ static void	node_print(t_node *node, t_col *column)
 	}
 }
 
-static void	list_print(t_node *file_node, t_col *column)
+static void	list_print(t_node *node, t_col *col)
 {
-	while (file_node)
+	while (node)
 	{
-		ft_printf("%c", file_node->file_type);
-		ft_printf("%s", file_node->permission);
-		ft_printf("%c ", file_node->extra_attr);
-		ft_printf("%*i ", column->links_len, file_node->links);
-		ft_printf("%-*s  ", column->owner_name_len, file_node->owner_name);
-		ft_printf("%-*s  ", column->owner_group_len, file_node->owner_group);
-		ft_printf("%*i ", column->file_size_len, file_node->size);
-		ft_printf("%s ", file_node->date[0]);
-		ft_printf("%*s ", column->date_len, file_node->date[1]);
-		ft_printf("%s", file_node->file_name);
-		if (file_node->links_to)
-			ft_printf(" -> %s", file_node->links_to);
+		ft_printf("%c", node->file_type);
+		ft_printf("%s", node->permission);
+		ft_printf("%c ", node->extra_attr);
+		ft_printf("%*i ", col->links_len, node->links);
+		ft_printf("%-*s  ", col->owner_name_len, node->owner_name);
+		ft_printf("%-*s  ", col->owner_group_len, node->owner_group);
+		if (node->file_type == 'c' || node->file_type == 'b')
+			col->file_size_len = ft_printf("%*d, %*d ", col->major_len,
+					node->major, col->minor_len, node->minor) - 1;
+		else
+			ft_printf("%*i ", col->file_size_len, node->size);
+		ft_printf("%s ", node->date[0]);
+		ft_printf("%*s ", col->date_len, node->date[1]);
+		ft_printf("%s", node->file_name);
+		if (node->links_to)
+			ft_printf(" -> %s", node->links_to);
 		ft_printf("\n");
-		file_node = file_node->next;
+		node = node->next;
 	}
 }
 

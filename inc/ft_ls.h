@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/08 12:43:56 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/11 14:58:02 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 // Terminal window size
 # include	<sys/ioctl.h>
 
-# define OPTIONS "Ralrt"
+# define OPTIONS "-Ralrt"
 # define SIX_MONTHS 15778476
 
 typedef struct options
@@ -56,6 +56,8 @@ typedef struct file_node
 	char				*owner_name;
 	char				*owner_group;
 	unsigned int		size;
+	unsigned int		major;
+	unsigned int		minor;
 	char				**date;
 	struct timespec		s_date;
 	char				*file_name;
@@ -80,6 +82,8 @@ typedef struct column_attr
 	int				owner_group_len;
 	int				date_len;
 	int				file_size_len;
+	int				major_len;
+	int				minor_len;
 	int				name_len;
 	struct winsize	*argp;
 }				t_col;
@@ -135,6 +139,9 @@ bool	date_sort(t_swap *swap, t_cont *cont);
 
 // Column Attributes
 t_col	*attr_col(t_node *nodes);
+void	len_correction(t_col *attr);
+void	major_len(t_node *node, t_col *attr);
+void	minor_len(t_node *node, t_col *attr);
 
 // Bonus
 char	extra_attribute(char *dir_name, char *file_name);

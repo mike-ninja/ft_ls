@@ -6,7 +6,7 @@
 #    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/29 11:22:02 by mbarutel          #+#    #+#              #
-#    Updated: 2022/08/08 13:00:47 by mbarutel         ###   ########.fr        #
+#    Updated: 2022/08/11 11:35:22 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRC_FILE 	+= utils_one
 SRC_FILE 	+= utils_two
 SRC_FILE 	+= printers
 SRC_FILE 	+= column_attr
+SRC_FILE 	+= column_attr_utils
 SRC_FILE 	+= extra_attr
 SRC_FILE 	+= multiple_args
 SRC_FILE 	+= multiple_args_util
