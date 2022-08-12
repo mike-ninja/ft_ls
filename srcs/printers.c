@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:19:44 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/12 12:00:44 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/12 13:08:50 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static void	line_print(t_node *node, int row, int width, int max_row)
 			break ;
 	}
 }
-
 
 static void	node_print(t_node *node, t_col *column)
 {

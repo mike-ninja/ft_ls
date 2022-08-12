@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 15:19:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/12 12:02:52 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/12 13:08:23 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,9 @@ void	node_collect_util(t_node *nd, struct stat *st, t_cont *cont)
 	nd->size = st->st_size;
 	if (nd->file_type == 'c' || nd->file_type == 'b')
 	{
-		// nd->major = st->st_rdev >> 24 & 0xff;
 		nd->major = ((int32_t)(((u_int32_t)(st->st_rdev) >> 24) & 0xff));
 		nd->minor = ((int32_t)((st->st_rdev) & 0xffffff));
-		// nd->major = st->st_rdev;
-		// nd->minor = st->st_rdev & 0xff;
-		// nd->minor = st->st_rdev & 0xff;
 	}
-	// cont->blocks += st->st_blocks;
 	cont->blocks += st->st_blocks;
 	nd->date = last_modification_date(st->st_mtimespec);
 	nd->s_date = st->st_mtimespec;
