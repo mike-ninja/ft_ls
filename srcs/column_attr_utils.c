@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 11:30:42 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/11 14:58:34 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/12 12:05:44 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,17 @@ void	minor_len(t_node *node, t_col *attr)
 	int	tmp;
 
 	i = 0;
-	tmp = node->minor;
-	while (tmp)
+	if (node->minor <= 500)
 	{
-		i++;
-		tmp /= 10;
+		tmp = node->minor;
+		while (tmp)
+		{
+			i++;
+			tmp /= 10;
+		}
+		if (i > attr->minor_len)
+			attr->minor_len = i;
 	}
-	if (i > attr->minor_len)
-		attr->minor_len = i;
 }
 
 void	len_correction(t_col *attr)
@@ -51,4 +54,13 @@ void	len_correction(t_col *attr)
 		attr->major_len = attr->file_size_len >> 1;
 		attr->minor_len = attr->file_size_len >> 1;
 	}
+}
+
+void	rdev_print(t_node *node, t_col *col)
+{
+	col->file_size_len = ft_printf("%*d, ", col->major_len, node->major);
+	if (node->minor < 500)
+		col->file_size_len += ft_printf("%*d ", col->minor_len, node->minor) - 1;
+	else
+		ft_printf("%#010x ", node->minor);
 }

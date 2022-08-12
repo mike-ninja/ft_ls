@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:19:44 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/11 14:50:40 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/12 12:00:44 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void	line_print(t_node *node, int row, int width, int max_row)
 			break ;
 	}
 }
+
 
 static void	node_print(t_node *node, t_col *column)
 {
@@ -74,8 +75,7 @@ static void	list_print(t_node *node, t_col *col)
 		ft_printf("%-*s  ", col->owner_name_len, node->owner_name);
 		ft_printf("%-*s  ", col->owner_group_len, node->owner_group);
 		if (node->file_type == 'c' || node->file_type == 'b')
-			col->file_size_len = ft_printf("%*d, %*d ", col->major_len,
-					node->major, col->minor_len, node->minor) - 1;
+			rdev_print(node, col);
 		else
 			ft_printf("%*i ", col->file_size_len, node->size);
 		ft_printf("%s ", node->date[0]);

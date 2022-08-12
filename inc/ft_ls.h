@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/11 14:58:02 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/12 12:01:03 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ t_col	*attr_col(t_node *nodes);
 void	len_correction(t_col *attr);
 void	major_len(t_node *node, t_col *attr);
 void	minor_len(t_node *node, t_col *attr);
+void 	rdev_print(t_node *node, t_col *col);
 
 // Bonus
 char	extra_attribute(char *dir_name, char *file_name);
