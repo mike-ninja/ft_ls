@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:50:11 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/15 16:08:54 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/17 14:55:33 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 static t_node	*error_check(t_cont *cont, t_args *args, t_node *node)
 {
 	if (errno == 13 || errno == 9)
-		ft_error(args->file_name, cont);
+	{
+		ft_printf("%s:\n", args->file_name);
+		ft_error(args->file_name, errno);
+	}
 	else
 	{
 		if (*args->file_name == '/')
@@ -28,7 +31,7 @@ static t_node	*error_check(t_cont *cont, t_args *args, t_node *node)
 	return (node);
 }
 
-static void	file_list(int index, t_args *args, int ac, t_opts *opt)
+static bool	file_list(int index, t_args *args, int ac, t_opts *opt)
 {
 	DIR		*dir;
 	t_node	*node;
@@ -49,7 +52,9 @@ static void	file_list(int index, t_args *args, int ac, t_opts *opt)
 	{
 		print(node, cont);
 		nodes_array_delete(node);
+		return (true);
 	}
+	return (false);
 }
 
 static void	args_sort(int index, t_args *args, t_opts *opt)
@@ -105,24 +110,26 @@ void	arg_parse(int index, int ac, char **av, t_opts *opt)
 	int		del;
 	DIR		*dir;
 	t_args	*args;
+	bool	new_line;
 
 	del = index;
 	args = args_dup(index, ac, av);
 	args_sort((ac - index), args, opt);
-	file_list(index, args, ac, opt);
+	new_line = file_list(index, args, ac, opt);
 	dir = opendir(args->file_name);
 	while (index < ac)
 	{
 		if (dir)
 		{
-			ft_printf("\n");
+			if (new_line)
+				ft_printf("\n");
 			ft_printf("%s:\n", args->file_name);
-			ft_ls(args->file_name, opt);
+			ft_ls(args[index - del].file_name, opt);
 			closedir(dir);
+			new_line = true;
 		}
 		index++;
-		args++;
-		dir = opendir(args->file_name);
+		dir = opendir(args[index - del].file_name);
 	}
-	args_del(args - (index - del), (index - del) - 1);
+	args_del(args, (index - del) - 1);
 }

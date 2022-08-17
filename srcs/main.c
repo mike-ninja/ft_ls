@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:57:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/15 15:39:22 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/17 13:50:30 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,19 @@ void	cont_init(t_cont *cont, t_opts *opt)
 {
 	cont->file_name = NULL;
 	cont->dir_name = NULL;
+	cont->path = NULL;
 	cont->blocks = 0;
 	cont->opt = opt;
 }
 
-static void	ft_ls_util(t_node **head, char *f_name, DIR *dir, t_cont *cont)
+static void	ft_ls_util(t_node **head, char *arg, DIR *dir, t_cont *cont)
 {
 	struct dirent	*dent;
 
 	dent = NULL;
 	if (dir)
 	{
-		cont->dir_name = f_name;
+		cont->dir_name = arg;
 		dent = readdir(dir);
 		while (dent)
 		{
@@ -55,22 +56,22 @@ static void	ft_ls_util(t_node **head, char *f_name, DIR *dir, t_cont *cont)
 		closedir(dir);
 	}
 	else if (errno == 13 || errno == 9)
-		ft_error(f_name, cont);
+		ft_error(arg, errno);
 	else
-		file_node(head, f_name, cont);
+		file_node(head, arg, cont);
 }
 
-void	ft_ls(const char *file_name, t_opts *opt)
+void	ft_ls(const char *arg, t_opts *opt)
 {
 	DIR		*dir;
 	t_node	*head;
 	t_cont	cont[1];
 
-	head = NULL;
 	dir = NULL;
+	head = NULL;
 	cont_init(cont, opt);
-	dir = opendir(file_name);
-	ft_ls_util(&head, (char *)file_name, dir, cont);
+	dir = opendir(arg);
+	ft_ls_util(&head, (char *)arg, dir, cont);
 	if (head)
 	{
 		print(head, cont);

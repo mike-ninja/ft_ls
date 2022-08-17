@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 11:38:34 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/15 15:55:49 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/17 13:52:39 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ void	file_node(t_node **node, char *f_name, t_cont *cont)
 	*node = linked_list(*node, cont);
 }
 
-void	ft_error(char *f_name, t_cont *cont)
+void	ft_error(char *arg, int err_num)
 {
 	ft_printf("ft_ls: ");
-	if (cont->opt->rec)
-		ft_printf("%s", ft_strchr(ft_strrchr(f_name, '/'), '/') + 1);
+	if (err_num == 13)
+		ft_printf(ft_strrchr(arg, '/') + 1);
 	else
-		ft_printf("%s", f_name);
+		ft_printf("%s", arg);
 	ft_printf(": %s\n", strerror(errno));
 }

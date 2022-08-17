@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/15 15:08:36 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/17 13:48:38 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct container
 {
 	char	*file_name;
 	char	*dir_name;
+	char	*path;
 	size_t	blocks;
 	t_opts	*opt;
 }				t_cont;
@@ -104,7 +105,7 @@ typedef struct args
 }				t_args;
 
 // Main
-void	ft_ls(const char *file_name, t_opts *opt);
+void	ft_ls(const char *arg, t_opts *opt);
 
 // Options
 void	init_struct(t_opts *opt);
@@ -122,7 +123,7 @@ char	**last_modification_date(struct timespec mtimespec);
 char	*permission_bits(mode_t mode);
 void	cont_init(t_cont *cont, t_opts *opt);
 void	file_node(t_node **node, char *f_name, t_cont *cont);
-void	ft_error(char *f_name, t_cont *cont);
+void	ft_error(char *arg, int err_num);
 
 // Printers
 void	print(t_node *node, t_cont *cont);

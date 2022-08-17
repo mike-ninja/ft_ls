@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 09:30:17 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/15 16:07:04 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/17 14:55:41 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ t_node	*node_collect(t_node *head, t_node *node, t_cont *cont)
 	}
 	if (lstat(path, st) < 0)
 	{
-		ft_error(cont->file_name, cont);
+		ft_error(ft_strchr(path, '/') + 1, errno);
 		return (lstat_fail(path, st, head, node));
 	}
 	free(path);
