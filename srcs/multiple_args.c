@@ -6,18 +6,19 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:50:11 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/17 14:55:33 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/17 15:11:16 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-static t_node	*error_check(t_cont *cont, t_args *args, t_node *node)
+static bool error_check(t_cont *cont, t_args *args, t_node **node)
 {
 	if (errno == 13 || errno == 9)
 	{
 		ft_printf("%s:\n", args->file_name);
 		ft_error(args->file_name, errno);
+		return (true);
 	}
 	else
 	{
@@ -26,9 +27,10 @@ static t_node	*error_check(t_cont *cont, t_args *args, t_node *node)
 		else
 			cont->dir_name = ".";
 		cont->file_name = args->file_name;
-		node = linked_list(node, cont);
+		*node = linked_list(*node, cont);
+		return (true);
 	}
-	return (node);
+	return (false);
 }
 
 static bool	file_list(int index, t_args *args, int ac, t_opts *opt)
@@ -36,6 +38,7 @@ static bool	file_list(int index, t_args *args, int ac, t_opts *opt)
 	DIR		*dir;
 	t_node	*node;
 	t_cont	cont[1];
+	bool	ret;
 
 	node = NULL;
 	cont_init(cont, opt);
@@ -43,7 +46,7 @@ static bool	file_list(int index, t_args *args, int ac, t_opts *opt)
 	{
 		dir = opendir(args->file_name);
 		if (!dir)
-			node = error_check(cont, args, node);
+			ret = error_check(cont, args, &node);
 		else
 			closedir(dir);
 		args++;
@@ -54,7 +57,7 @@ static bool	file_list(int index, t_args *args, int ac, t_opts *opt)
 		nodes_array_delete(node);
 		return (true);
 	}
-	return (false);
+	return (ret);
 }
 
 static void	args_sort(int index, t_args *args, t_opts *opt)
@@ -123,7 +126,7 @@ void	arg_parse(int index, int ac, char **av, t_opts *opt)
 		{
 			if (new_line)
 				ft_printf("\n");
-			ft_printf("%s:\n", args->file_name);
+			ft_printf("%s:\n", args[index - del].file_name);
 			ft_ls(args[index - del].file_name, opt);
 			closedir(dir);
 			new_line = true;
