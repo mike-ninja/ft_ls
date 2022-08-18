@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 15:30:07 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/15 14:09:24 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/18 10:12:28 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ bool	lexi_sort(t_swap *swap, t_cont *cont)
 {
 	if (cont->opt->rev)
 	{
-		if ((strcmp(swap->node->file_name, swap->ptr->file_name)) > 0)
+		if ((ft_strcmp(swap->node->file_name, swap->ptr->file_name)) > 0)
 		{
 			node_swap(&swap->head, swap->node, swap->ptr, swap->prev);
 			return (true);
@@ -98,7 +98,7 @@ bool	lexi_sort(t_swap *swap, t_cont *cont)
 	}
 	else
 	{
-		if ((strcmp(swap->node->file_name, swap->ptr->file_name)) < 0)
+		if ((ft_strcmp(swap->node->file_name, swap->ptr->file_name)) < 0)
 		{
 			node_swap(&swap->head, swap->node, swap->ptr, swap->prev);
 			return (true);

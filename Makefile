@@ -6,7 +6,7 @@
 #    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/29 11:22:02 by mbarutel          #+#    #+#              #
-#    Updated: 2022/08/11 11:35:22 by mbarutel         ###   ########.fr        #
+#    Updated: 2022/08/18 15:14:40 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRC_FILE 	+= column_attr_utils
 SRC_FILE 	+= extra_attr
 SRC_FILE 	+= multiple_args
 SRC_FILE 	+= multiple_args_util
+SRC_FILE 	+= multiple_args_error_check
 
 # Colours
 
@@ -54,7 +55,7 @@ all: $(NAME)
 
 $(NAME): $(SRC)
 	@make -C $(LIBFT)
-	@$(CC) $(FLAGS) -c $(SRC)
+	@$(CC) -c $(FLAGS) $(SRC)
 	@echo "$(CYAN)Compiled obj files$(RESET)"
 	@$(CC) -o $(NAME) $(LIB_INC) $(OBJ)
 	@echo "$(GREEN)Compiled ft_ls$(RESET)"

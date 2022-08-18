@@ -6,21 +6,15 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:50:11 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/17 15:11:16 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/18 15:08:09 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-static bool error_check(t_cont *cont, t_args *args, t_node **node)
+static t_node	*error_check(t_cont *cont, t_args *args, t_node **node)
 {
-	if (errno == 13 || errno == 9)
-	{
-		ft_printf("%s:\n", args->file_name);
-		ft_error(args->file_name, errno);
-		return (true);
-	}
-	else
+	if (args->file_name && errno != 13)
 	{
 		if (*args->file_name == '/')
 			cont->dir_name = "/";
@@ -28,9 +22,8 @@ static bool error_check(t_cont *cont, t_args *args, t_node **node)
 			cont->dir_name = ".";
 		cont->file_name = args->file_name;
 		*node = linked_list(*node, cont);
-		return (true);
 	}
-	return (false);
+	return (*node);
 }
 
 static bool	file_list(int index, t_args *args, int ac, t_opts *opt)
@@ -38,7 +31,6 @@ static bool	file_list(int index, t_args *args, int ac, t_opts *opt)
 	DIR		*dir;
 	t_node	*node;
 	t_cont	cont[1];
-	bool	ret;
 
 	node = NULL;
 	cont_init(cont, opt);
@@ -46,7 +38,7 @@ static bool	file_list(int index, t_args *args, int ac, t_opts *opt)
 	{
 		dir = opendir(args->file_name);
 		if (!dir)
-			ret = error_check(cont, args, &node);
+			node = error_check(cont, args, &node);
 		else
 			closedir(dir);
 		args++;
@@ -57,7 +49,7 @@ static bool	file_list(int index, t_args *args, int ac, t_opts *opt)
 		nodes_array_delete(node);
 		return (true);
 	}
-	return (ret);
+	return (false);
 }
 
 static void	args_sort(int index, t_args *args, t_opts *opt)
@@ -110,29 +102,14 @@ static t_args	*args_dup(int index, int ac, char **av)
 
 void	arg_parse(int index, int ac, char **av, t_opts *opt)
 {
-	int		del;
-	DIR		*dir;
 	t_args	*args;
 	bool	new_line;
 
-	del = index;
 	args = args_dup(index, ac, av);
 	args_sort((ac - index), args, opt);
+	new_line = first_error_check(args, (ac - index));
+	new_line = second_error_check(args, (ac - index));
 	new_line = file_list(index, args, ac, opt);
-	dir = opendir(args->file_name);
-	while (index < ac)
-	{
-		if (dir)
-		{
-			if (new_line)
-				ft_printf("\n");
-			ft_printf("%s:\n", args[index - del].file_name);
-			ft_ls(args[index - del].file_name, opt);
-			closedir(dir);
-			new_line = true;
-		}
-		index++;
-		dir = opendir(args[index - del].file_name);
-	}
-	args_del(args, (index - del) - 1);
+	dir_list((ac - index), args, opt, new_line);
+	args_del(args, ((ac - index) - 1));
 }

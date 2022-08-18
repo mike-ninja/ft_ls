@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 13:47:07 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/08 12:44:17 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/18 14:44:48 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	args_del(t_args *args, int index)
 {
 	while (index >= 0)
 	{
-		free(args[index].file_name);
+		if (args[index].file_name)
+			free(args[index].file_name);
 		index--;
 	}
 	free(args);
