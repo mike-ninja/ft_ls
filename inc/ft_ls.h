@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/19 11:11:08 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/19 11:14:29 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 # define FT_LS_H
 
 // Header
-# include    "../libft/incs/ft_printf.h"
+# include	"../libft/incs/ft_printf.h"
 
 // Directory metadata reading
-# include    <dirent.h>
+# include	<dirent.h>
 
 // Standard
-# include	<stdlib.h>
-# include   <stdbool.h>
 # include	<time.h>
 # include	<errno.h>
+# include	<stdlib.h>
+# include   <stdbool.h>
 
 // File metadata reading
-# include	<sys/stat.h>
 # include	<pwd.h>
 # include	<grp.h>
 # include	<sys/acl.h>
+# include	<sys/stat.h>
 # include	<sys/xattr.h>
 
 // Terminal window size
