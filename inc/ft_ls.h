@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/19 10:53:34 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/19 11:11:08 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,8 +161,7 @@ void	args_lexi_swap(int i, int y, t_args *args, t_opts *opt);
 void	args_date_swap(int i, int y, t_args *args, t_opts *opt);
 
 // Multiple_args_error_check
-bool	first_error_check(t_args *args, int len);
-bool	second_error_check(t_args *args, int len);
+bool	file_error_check(t_args *args, int len);
 void	dir_list(int index, t_args *args, t_opts *opt, bool new_line);
 
 // Extra_attr

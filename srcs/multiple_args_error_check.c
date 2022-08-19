@@ -6,13 +6,13 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 14:33:19 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/18 15:11:48 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/19 11:11:17 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-bool	first_error_check(t_args *args, int len)
+bool	file_error_check(t_args *args, int len)
 {
 	int		i;
 	DIR		*dir;
@@ -25,35 +25,7 @@ bool	first_error_check(t_args *args, int len)
 		dir = opendir(args[i].file_name);
 		if (!dir)
 		{
-			if (errno == 2)
-			{
-				ft_printf("ft_ls: %s: %s\n", args[i].file_name, strerror(errno));
-				free(args[i].file_name);
-				args[i].file_name = NULL;
-				ret = true;
-			}
-		}
-		else
-			closedir(dir);
-		i++;
-	}
-	return (ret);
-}
-
-bool	second_error_check(t_args *args, int len)
-{
-	int		i;
-	DIR		*dir;
-	bool	ret;
-
-	i = 0;
-	ret = false;
-	while (i < len)
-	{
-		dir = opendir(args[i].file_name);
-		if (!dir)
-		{
-			if (errno == 9)
+			if (errno == 2 || errno == 9)
 			{
 				ft_printf("ft_ls: %s: %s\n", args[i].file_name, strerror(errno));
 				free(args[i].file_name);
