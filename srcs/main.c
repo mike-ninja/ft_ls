@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:57:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/17 13:50:30 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/19 10:42:06 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,11 @@ void	cont_init(t_cont *cont, t_opts *opt)
 {
 	cont->file_name = NULL;
 	cont->dir_name = NULL;
-	cont->path = NULL;
 	cont->blocks = 0;
 	cont->opt = opt;
 }
 
-static void	ft_ls_util(t_node **head, char *arg, DIR *dir, t_cont *cont)
+static void	read_dir(t_node **head, char *arg, DIR *dir, t_cont *cont)
 {
 	struct dirent	*dent;
 
@@ -71,10 +70,10 @@ void	ft_ls(const char *arg, t_opts *opt)
 	head = NULL;
 	cont_init(cont, opt);
 	dir = opendir(arg);
-	ft_ls_util(&head, (char *)arg, dir, cont);
+	read_dir(&head, (char *)arg, dir, cont);
 	if (head)
 	{
-		print(head, cont);
+		print_nodes(head, cont);
 		nodes_array_delete(head);
 	}
 }
@@ -85,7 +84,7 @@ int	main(int ac, char **av)
 	t_opts	opts[1];
 
 	index = 1;
-	init_struct(opts);
+	opts_init(opts);
 	while (index < ac && *av[index] == '-')
 	{
 		if (*(av[index] + 1) == '\0')

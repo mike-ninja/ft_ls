@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:50:11 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/18 15:08:09 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/19 10:35:26 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static bool	file_list(int index, t_args *args, int ac, t_opts *opt)
 	}
 	if (node)
 	{
-		print(node, cont);
+		print_nodes(node, cont);
 		nodes_array_delete(node);
 		return (true);
 	}

@@ -6,13 +6,13 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 13:47:13 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/11 10:59:38 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/19 10:32:25 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-void	init_struct(t_opts *opt)
+void	opts_init(t_opts *opt)
 {
 	opt->lis = false;
 	opt->all = false;

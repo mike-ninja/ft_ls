@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:19:44 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/19 10:22:57 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/19 10:36:00 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static void	print_utils(t_node *node, t_cont *cont)
 	free(column);
 }
 
-void	print(t_node *node, t_cont *cont)
+void	print_nodes(t_node *node, t_cont *cont)
 {	
 	char	*path;
 
