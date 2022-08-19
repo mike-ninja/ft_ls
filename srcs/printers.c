@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:19:44 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/18 15:24:44 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/19 10:22:57 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,9 @@ static void	node_print(t_node *node, t_col *column)
 
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &argp);
 	lst_len = node_size(node);
-	/**************************************/
-	// Need to apply changes
 	width = 8;
-	if (column->name_len > 7)
-		width = 16;
-	else if (column->name_len > 16)
-		width = 24;
-	else if (column->name_len > 24)
-		width = column->name_len + 5;
-	/**************************************/
+	while (width < column->name_len)
+		width += 8;
 	column->norm_col = argp.ws_col / width;
 	column->norm_row = lst_len / column->norm_col;
 	if ((lst_len % column->norm_col) != 0)
