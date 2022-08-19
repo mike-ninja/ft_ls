@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:19:44 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/19 10:36:00 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/19 11:19:04 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ static void	line_print(t_node *node, int row, int width, int max_row)
 static void	node_print(t_node *node, t_col *column)
 {
 	int				i;
+	int				width;
 	int				lst_len;
 	struct winsize	argp;
-	int				width;
 
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &argp);
 	lst_len = node_size(node);
