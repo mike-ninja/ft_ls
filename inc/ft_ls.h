@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/19 11:14:29 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/19 14:38:33 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,7 @@ bool	file_error_check(t_args *args, int len);
 void	dir_list(int index, t_args *args, t_opts *opt, bool new_line);
 
 // Extra_attr
+void	line_print_nw(t_node *node);
 void	ft_error(char *arg, int err_num);
 char	extra_attribute(char *dir_name, char *file_name);
 void	file_node(t_node **node, char *f_name, t_cont *cont);

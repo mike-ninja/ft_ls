@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 11:38:34 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/17 13:52:39 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/19 14:38:19 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,13 @@ void	ft_error(char *arg, int err_num)
 	else
 		ft_printf("%s", arg);
 	ft_printf(": %s\n", strerror(errno));
+}
+
+void	line_print_nw(t_node *node)
+{
+	while (node)
+	{
+		ft_printf("%s\n", node->file_name);
+		node = node->next;
+	}
 }

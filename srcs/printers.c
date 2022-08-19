@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:19:44 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/19 11:19:04 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/19 14:38:10 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,20 @@ static void	node_print(t_node *node, t_col *column)
 	while (width < column->name_len)
 		width += 8;
 	column->norm_col = argp.ws_col / width;
-	column->norm_row = lst_len / column->norm_col;
-	if ((lst_len % column->norm_col) != 0)
-		column->norm_row++;
-	i = -1;
-	while (++i < column->norm_row)
+	if (column->norm_col)
 	{
-		line_print(node, i, width, column->norm_row);
-		ft_printf("\n");
+		column->norm_row = lst_len / column->norm_col;
+		if ((lst_len % column->norm_col) != 0)
+			column->norm_row++;
+		i = -1;
+		while (++i < column->norm_row)
+		{
+			line_print(node, i, width, column->norm_row);
+			ft_printf("\n");
+		}
 	}
+	else
+		line_print_nw(node);
 }
 
 static void	list_print(t_node *node, t_col *col)
