@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:19:44 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/19 14:41:26 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/23 16:34:55 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,41 @@ static void	node_print(t_node *node, t_col *column)
 		line_print_nw(node);
 }
 
-static void	list_print(t_node *node, t_col *col)
+static t_node	*delete_node(t_node *node, t_node **prev, t_node **head)
 {
+	t_node *ret;
+
+	ret = NULL;
+	if (node->file_type != 'd')
+	{	
+		if (*prev)
+			prev[0]->next = node->next;
+		ret = node->next;
+		free(node->permission);
+		free(node->date[0]);
+		free(node->date[1]);
+		free(node->date);
+		free(node->file_name);
+		if (node->links_to)
+			free(node->links_to);
+		free(node->owner_name);
+		free(node);
+		return (ret);
+	}
+	if (!*head)
+		*head = node;
+	*prev = node;
+	return (node->next);
+}
+
+// static void	list_print(t_node *node, t_col *col, t_cont *cont)
+static t_node	*list_print(t_node *node, t_col *col)
+{
+	t_node	*prev;
+	t_node	*head;
+
+	prev = NULL;
+	head = NULL;
 	while (node)
 	{
 		ft_printf("%c", node->file_type);
@@ -86,28 +119,40 @@ static void	list_print(t_node *node, t_col *col)
 		if (node->links_to)
 			ft_printf(" -> %s", node->links_to);
 		ft_printf("\n");
-		node = node->next;
+		node = delete_node(node, &prev, &head);
 	}
+	return(head);
 }
 
-static void	print_utils(t_node *node, t_cont *cont)
+static t_node	*print_utils(t_node *node, t_cont *cont)
 {
 	t_col	*column;
 
 	column = attr_col(node);
 	if (cont->opt->lis)
-		list_print(node, column);
+		node = list_print(node, column);
 	else
 		node_print(node, column);
+	// list_print(node, column, cont);
+	/*------------------------------------*/
+	// while (node)
+	// {
+	// 	ft_printf("%s\n", node->file_name);
+	// 	node = node->next;
+	// }
+	/*------------------------------------*/
 	free(column);
+	return (node);
 }
 
-void	print_nodes(t_node *node, t_cont *cont)
+t_node	*print_nodes(t_node *node, t_cont *cont)
 {	
 	char	*path;
+	t_node	*head;
 
 	path = NULL;
-	print_utils(node, cont);
+	node = print_utils(node, cont);
+	head = node;
 	if (cont->opt->rec)
 	{
 		while (node)
@@ -126,4 +171,5 @@ void	print_nodes(t_node *node, t_cont *cont)
 			node = node->next;
 		}
 	}
+	return (head);
 }

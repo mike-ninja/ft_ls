@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/23 14:58:20 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/23 16:35:18 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ char	*permission_bits(mode_t mode);
 char	**last_modification_date(struct timespec mtimespec);
 
 // Printers
-void	print_nodes(t_node *node, t_cont *cont);
+t_node	*print_nodes(t_node *node, t_cont *cont);
 
 // Linked_list
 t_node	*linked_list(t_node *head, t_cont *cont);

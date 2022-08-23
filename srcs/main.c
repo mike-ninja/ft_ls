@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:57:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/19 10:42:06 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/23 16:35:09 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	ft_ls(const char *arg, t_opts *opt)
 	read_dir(&head, (char *)arg, dir, cont);
 	if (head)
 	{
-		print_nodes(head, cont);
+		head = print_nodes(head, cont);
 		nodes_array_delete(head);
 	}
 }
