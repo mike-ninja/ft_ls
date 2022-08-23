@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/19 14:38:33 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/23 14:58:20 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 // Terminal window size
 # include	<sys/ioctl.h>
 
-# define OPTIONS "-Ralrt"
+# define OPTIONS "Ralrt"
 # define SIX_MONTHS 15778476
 
 typedef struct options
