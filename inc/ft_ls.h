@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/24 15:02:20 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/24 15:50:35 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ t_node	*node_collect(t_node *node, t_node *file_node, t_cont *cont);
 
 // Linked_list_utils
 void	file_node_init(t_node *node);
+bool	link_check(char *arg, t_opts *opt);
 void	nodes_array_delete(t_node *file_node, t_opts *opt);
 void	node_collect_util(t_node *nd, struct stat *st, t_cont *cont);
 

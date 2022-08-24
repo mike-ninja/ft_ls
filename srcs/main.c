@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:57:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/24 10:32:54 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/24 15:50:19 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	read_dir(t_node **head, char *arg, DIR *dir, t_cont *cont)
 	struct dirent	*dent;
 
 	dent = NULL;
-	if (dir)
+	if (dir && !link_check(arg, cont->opt))
 	{
 		cont->dir_name = arg;
 		dent = readdir(dir);
