@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:19:44 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/24 10:48:27 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/24 15:00:15 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,15 @@ static void	node_print(t_node *node, t_col *column)
 	int				i;
 	int				width;
 	int				lst_len;
-	struct winsize	argp;
+	struct winsize	arginp;
+	struct winsize	argout;
 
-	ioctl(STDOUT_FILENO, TIOCGWINSZ, &argp);
+	ioctl(STDOUT_FILENO, TIOCGWINSZ, &arginp);
+	ioctl(STDOUT_FILENO, TIOCGWINSZ, &argout);
 	lst_len = node_size(node);
-	width = 8;
-	while (width < column->name_len)
-		width += 8;
-	column->norm_col = argp.ws_col / width;
-	if (column->norm_col)
+	width = get_width(column->name_len);
+	column->norm_col = arginp.ws_col / width;
+	if (column->norm_col && (arginp.ws_col == argout.ws_col))
 	{
 		column->norm_row = lst_len / column->norm_col;
 		if ((lst_len % column->norm_col) != 0)

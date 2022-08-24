@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 11:30:42 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/15 14:32:52 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/24 15:02:10 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,14 @@ void	rdev_print(t_node *node, t_col *col)
 				node->minor) - 1;
 	else
 		ft_printf("%#010x ", node->minor);
+}
+
+int	get_width(int name_len)
+{
+	int	width;
+
+	width = 8;
+	while (width <= name_len)
+		width += 8;
+	return (width);
 }

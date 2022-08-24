@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/24 10:43:42 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/24 15:02:20 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ void	len_correction(t_col *attr);
 void	major_len(t_node *node, t_col *attr);
 void	minor_len(t_node *node, t_col *attr);
 void	rdev_print(t_node *node, t_col *col);
+int		get_width(int name_len);
 
 // Multiple_args
 void	arg_parse(int index, int ac, char **av, t_opts *opt);
