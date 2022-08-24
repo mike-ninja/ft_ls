@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 09:30:17 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/17 14:55:41 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/24 10:34:55 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ t_node	*linked_list(t_node *head, t_cont *cont)
 		node = (t_node *)malloc(sizeof(t_node));
 		if (!node)
 		{
-			nodes_array_delete(head);
+			nodes_array_delete(head, cont->opt);
 			ft_printf("ft_ls: %s: Not enough memory\n", cont->file_name);
 			exit(EXIT_FAILURE);
 		}

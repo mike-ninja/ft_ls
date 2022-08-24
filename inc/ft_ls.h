@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/23 16:35:18 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/24 10:43:42 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ t_node	*node_collect(t_node *node, t_node *file_node, t_cont *cont);
 
 // Linked_list_utils
 void	file_node_init(t_node *node);
-void	nodes_array_delete(t_node *file_node);
+void	nodes_array_delete(t_node *file_node, t_opts *opt);
 void	node_collect_util(t_node *nd, struct stat *st, t_cont *cont);
 
 // Linked_list_sort
@@ -143,7 +143,7 @@ bool	date_insert(t_node **hd, t_node *nd, t_node *f_nd, t_node *prev);
 bool	date_insert_rev(t_node **hd, t_node *nd, t_node *f_nd, t_node *prev);
 
 // Column_attr
-t_col	*attr_col(t_node *nodes);
+t_col	*attr_col(t_node *nodes, t_opts *opt);
 
 // Column_attr_utils
 void	len_correction(t_col *attr);
@@ -169,5 +169,6 @@ void	line_print_nw(t_node *node);
 void	ft_error(char *arg, int err_num);
 char	extra_attribute(char *dir_name, char *file_name);
 void	file_node(t_node **node, char *f_name, t_cont *cont);
+t_node	*delete_node(t_node *node, t_node **prev, t_node **head);
 
 #endif

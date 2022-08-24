@@ -6,11 +6,38 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 11:38:34 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/19 14:38:19 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/24 10:43:32 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
+
+t_node	*delete_node(t_node *node, t_node **prev, t_node **head)
+{
+	t_node	*ret;
+
+	ret = NULL;
+	if (node->file_type != 'd')
+	{	
+		if (*prev)
+			prev[0]->next = node->next;
+		ret = node->next;
+		free(node->permission);
+		free(node->date[0]);
+		free(node->date[1]);
+		free(node->date);
+		free(node->file_name);
+		if (node->links_to)
+			free(node->links_to);
+		free(node->owner_name);
+		free(node);
+		return (ret);
+	}
+	if (!*head)
+		*head = node;
+	*prev = node;
+	return (node->next);
+}
 
 char	extra_attribute(char *dir_name, char *file_name)
 {

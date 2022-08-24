@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:19:44 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/23 16:34:55 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/24 10:48:27 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,34 +66,6 @@ static void	node_print(t_node *node, t_col *column)
 		line_print_nw(node);
 }
 
-static t_node	*delete_node(t_node *node, t_node **prev, t_node **head)
-{
-	t_node *ret;
-
-	ret = NULL;
-	if (node->file_type != 'd')
-	{	
-		if (*prev)
-			prev[0]->next = node->next;
-		ret = node->next;
-		free(node->permission);
-		free(node->date[0]);
-		free(node->date[1]);
-		free(node->date);
-		free(node->file_name);
-		if (node->links_to)
-			free(node->links_to);
-		free(node->owner_name);
-		free(node);
-		return (ret);
-	}
-	if (!*head)
-		*head = node;
-	*prev = node;
-	return (node->next);
-}
-
-// static void	list_print(t_node *node, t_col *col, t_cont *cont)
 static t_node	*list_print(t_node *node, t_col *col)
 {
 	t_node	*prev;
@@ -103,44 +75,33 @@ static t_node	*list_print(t_node *node, t_col *col)
 	head = NULL;
 	while (node)
 	{
-		ft_printf("%c", node->file_type);
-		ft_printf("%s", node->permission);
-		ft_printf("%c ", node->extra_attr);
-		ft_printf("%*i ", col->links_len, node->links);
+		ft_printf("%c%s", node->file_type, node->permission);
+		ft_printf("%c %*i ", node->extra_attr, col->links_len, node->links);
 		ft_printf("%-*s  ", col->owner_name_len, node->owner_name);
 		ft_printf("%-*s  ", col->owner_group_len, node->owner_group);
 		if (node->file_type == 'c' || node->file_type == 'b')
 			rdev_print(node, col);
 		else
 			ft_printf("%*i ", col->file_size_len, node->size);
-		ft_printf("%s ", node->date[0]);
-		ft_printf("%*s ", col->date_len, node->date[1]);
+		ft_printf("%s %*s ", node->date[0], col->date_len, node->date[1]);
 		ft_printf("%s", node->file_name);
 		if (node->links_to)
 			ft_printf(" -> %s", node->links_to);
 		ft_printf("\n");
 		node = delete_node(node, &prev, &head);
 	}
-	return(head);
+	return (head);
 }
 
 static t_node	*print_utils(t_node *node, t_cont *cont)
 {
 	t_col	*column;
 
-	column = attr_col(node);
+	column = attr_col(node, cont->opt);
 	if (cont->opt->lis)
 		node = list_print(node, column);
 	else
 		node_print(node, column);
-	// list_print(node, column, cont);
-	/*------------------------------------*/
-	// while (node)
-	// {
-	// 	ft_printf("%s\n", node->file_name);
-	// 	node = node->next;
-	// }
-	/*------------------------------------*/
 	free(column);
 	return (node);
 }
