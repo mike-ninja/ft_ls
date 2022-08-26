@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 14:33:19 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/19 11:11:17 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/26 15:18:24 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	dir_parse(DIR *dir, bool *new_line, t_args args, t_opts *opt)
 	else
 	{
 		if (errno == 13)
-		{	
+		{
 			if (*new_line)
 				ft_printf("\n");
 			ft_printf("%s:\n", args.file_name);

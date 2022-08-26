@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 13:47:13 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/24 10:39:35 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/26 15:04:10 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	illegal_usage(char c)
 void	options_parse(t_opts *opt, char *opt_str)
 {
 	opt_str++;
-	if (*opt_str == '-')
+	if (*opt_str == '-' && opt_str[1] == '\0')
 		opt_str++;
 	while (*opt_str != '\0')
 	{

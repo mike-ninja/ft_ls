@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 15:19:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/24 15:50:50 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/26 15:19:40 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,18 +101,15 @@ void	file_node_init(t_node *node)
 
 bool	link_check(char *arg, t_opts *opt)
 {
-	struct stat	*st;
+	struct stat	st;
 	bool		ret;
 
-	st = NULL;
 	ret = false;
 	if (opt->lis)
-	{	
-		st = (struct stat *)malloc(sizeof(struct stat));
-		lstat(arg, st);
-		if (S_ISLNK(st->st_mode))
-			ret = true;
-		free(st);
+	{
+		if (lstat(arg, &st) == 0)
+			if (S_ISLNK(st.st_mode))
+				ret = true;
 	}
 	return (ret);
 }

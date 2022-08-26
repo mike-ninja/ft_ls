@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 13:47:07 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/18 14:44:48 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/26 14:59:53 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,12 @@ void	args_date_swap(int i, int y, t_args *args, t_opts *opt)
 void	collect_dates(int index, t_args *args)
 {
 	int			i;
-	struct stat	*st;
+	struct stat	st;
 
 	i = -1;
 	while (++i < index)
 	{
-		st = (struct stat *)malloc(sizeof(struct stat));
-		if (lstat(args[i].file_name, st) == 0)
-			args[i].modi_date = st->st_mtimespec.tv_sec;
-		free(st);
+		if (lstat(args[i].file_name, &st) == 0)
+			args[i].modi_date = st.st_mtimespec.tv_sec;
 	}
 }

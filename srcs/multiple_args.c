@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:50:11 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/24 10:34:26 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/26 15:19:06 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static bool	file_list(int index, t_args *args, int ac, t_opts *opt)
 	}
 	if (node)
 	{
-		print_nodes(node, cont);
+		node = print_nodes(node, cont);
 		nodes_array_delete(node, opt);
 		return (true);
 	}
@@ -58,7 +58,8 @@ static void	args_sort(int index, t_args *args, t_opts *opt)
 	int		y;
 
 	i = 0;
-	collect_dates(index, args);
+	if (opt->tim)
+		collect_dates(index, args);
 	while (i < index)
 	{
 		y = i;
