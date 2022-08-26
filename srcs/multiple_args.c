@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:50:11 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/26 15:19:06 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/26 15:54:45 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ static void	args_sort(int index, t_args *args, t_opts *opt)
 	int		y;
 
 	i = 0;
-	if (opt->tim)
-		collect_dates(index, args);
+	collect_dates(index, args);
 	while (i < index)
 	{
 		y = i;
