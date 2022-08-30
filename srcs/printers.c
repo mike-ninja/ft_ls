@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:19:44 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/30 10:40:20 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/30 10:46:23 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,10 @@ static t_node	*print_utils(t_node *node, t_cont *cont)
 	t_col	*column;
 
 	column = attr_col(node, cont->opt);
-	if (cont->opt->lis)
+	if (cont->opt->lis && !cont->opt->one)
 		node = list_print(node, column);
+	else if (cont->opt->one)
+		line_print_nw(node);
 	else
 		node_print(node, column);
 	free(column);

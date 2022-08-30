@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/24 15:50:35 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/30 10:43:25 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 // Terminal window size
 # include	<sys/ioctl.h>
 
-# define OPTIONS "Ralrt"
+# define OPTIONS "Ralrt1"
 # define SIX_MONTHS 15778476
 
 typedef struct options
@@ -45,6 +45,7 @@ typedef struct options
 	bool	rev;
 	bool	tim;
 	bool	rec;
+	bool	one;
 }				t_opts;
 
 typedef struct file_node

@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 13:47:13 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/26 15:04:10 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/30 10:43:09 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	opts_init(t_opts *opt)
 	opt->rev = false;
 	opt->tim = false;
 	opt->rec = false;
+	opt->one = false;
 }
 
 static void	illegal_usage(char c)
@@ -47,6 +48,8 @@ void	options_parse(t_opts *opt, char *opt_str)
 			opt->tim = true;
 		if (*opt_str == 'R')
 			opt->rec = true;
+		if (*opt_str == '1')
+			opt->one = true;
 		opt_str++;
 	}
 }

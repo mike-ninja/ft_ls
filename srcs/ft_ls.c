@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:57:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/29 17:59:47 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/30 10:47:09 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	read_dir(t_node **head, char *arg, DIR *dir, t_cont *cont)
 			*head = linked_list(*head, cont);
 			dent = readdir(dir);
 		}
-		if (cont->opt->lis && cont->file_name)
+		if (cont->opt->lis && cont->file_name && !cont->opt->one)
 			ft_printf("total %i\n", cont->blocks);
 		closedir(dir);
 	}
