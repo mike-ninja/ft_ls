@@ -6,7 +6,7 @@
 #    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/29 11:22:02 by mbarutel          #+#    #+#              #
-#    Updated: 2022/08/26 15:55:41 by mbarutel         ###   ########.fr        #
+#    Updated: 2022/08/29 18:03:10 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,13 +15,14 @@
 LIBFT		= libft
 NAME 		= ft_ls
 SRC_DIR		= srcs/
+INCLUDE		= inc
 CC			= gcc
-FLAGS		= -Wall -Werror -Wextra
+FLAGS		= -Wall -Werror -Wextra -I
 LIB_INC		= -Llibft -lftprintf
 
 # Files
 
-SRC_FILE 	= main
+SRC_FILE 	= ft_ls
 SRC_FILE 	+= options
 SRC_FILE 	+= linked_list
 SRC_FILE 	+= linked_list_utils
@@ -55,7 +56,7 @@ all: $(NAME)
 
 $(NAME): $(SRC)
 	@make -C $(LIBFT)
-	@$(CC) -c $(FLAGS) $(SRC)
+	@$(CC) -c $(FLAGS) $(INCLUDE) $(SRC)
 	@echo "$(CYAN)Compiled obj files$(RESET)"
 	@$(CC) -o $(NAME) $(LIB_INC) $(OBJ)
 	@echo "$(GREEN)Compiled ft_ls$(RESET)"
