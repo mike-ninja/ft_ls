@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 11:38:34 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/24 10:43:32 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/30 17:32:22 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,18 @@ void	file_node(t_node **node, char *f_name, t_cont *cont)
 
 void	ft_error(char *arg, int err_num)
 {
+	char *file_name;
+
+	file_name = NULL;
 	ft_printf("ft_ls: ");
 	if (err_num == 13)
-		ft_printf(ft_strrchr(arg, '/') + 1);
+	{
+		file_name = ft_strrchr(arg, '/');
+		if (file_name)
+			ft_printf("%s", file_name + 1);
+		else
+			ft_printf("%s", arg);
+	}
 	else
 		ft_printf("%s", arg);
 	ft_printf(": %s\n", strerror(errno));

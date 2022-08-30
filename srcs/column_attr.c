@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:08:24 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/24 10:41:11 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/30 14:14:02 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,14 @@ static void	file_s_len(t_node *node, t_col *attr)
 		attr->file_size_len = attr->major_len + attr->minor_len;
 }
 
-static void	date_len(t_node *node, t_col *attr)
-{
-	int	len;
+// static void	date_len(t_node *node, t_col *attr)
+// {
+// 	int	len;
 
-	len = ft_strlen(node->date[1]);
-	if (len > attr->date_len)
-		attr->date_len = len;
-}
+// 	len = ft_strlen(node->date[1]);
+// 	if (len > attr->date_len)
+// 		attr->date_len = len;
+// }
 
 t_col	*attr_col(t_node *nodes, t_opts *opt)
 {
@@ -95,7 +95,7 @@ t_col	*attr_col(t_node *nodes, t_opts *opt)
 			}
 			else
 				file_s_len(nodes, ret);
-			date_len(nodes, ret);
+			// date_len(nodes, ret);
 		}
 		nodes = nodes->next;
 	}

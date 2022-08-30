@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:57:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/30 10:47:09 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/30 17:37:21 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,11 @@ int	main(int ac, char **av)
 		if (*(av[index] + 1) == '\0')
 			break ;
 		options_parse(opts, av[index]);
+		if (ft_strcmp(av[index], "--") == 0)
+		{
+			index++;
+			break;
+		}
 		index++;
 	}
 	if (index == ac)

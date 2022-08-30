@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:19:44 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/30 10:46:23 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/30 14:13:11 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,11 @@ static t_node	*list_print(t_node *node, t_col *col)
 			rdev_print(node, col);
 		else
 			ft_printf("%*i ", col->file_size_len, node->size);
-		ft_printf("%s %*s ", node->date[0], col->date_len, node->date[1]);
+		ft_printf("%s", node->date[0]);
+		if (!ft_strchr(node->date[1], ':'))
+			ft_printf("  %s ", node->date[1]);
+		else
+			ft_printf(" %s ", node->date[1]);
 		ft_printf("%s", node->file_name);
 		if (node->links_to)
 			ft_printf(" -> %s", node->links_to);

@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 11:59:24 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/24 15:01:41 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/30 14:08:46 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,43 @@ char	*get_owner_group(gid_t gid)
 	return (user_group->gr_name);
 }
 
+static int	len_year(char *date)
+{
+	int len;
+	int ret;
+
+	len = ft_strlen(date) - 1;
+	ret = len;
+	len--;
+	while (date[len] < '0' || date[len] > '9')
+		len--;
+	while (len)
+	{
+		if (date[len] < '0' || date[len] > '9')
+			break;
+		len--;
+	}
+	return (ret - len);
+}
+
 static char	*date_format(time_t epoch_sec)
 {
 	char	*date;
 	time_t	curr_time;
+	int		len;
 
+	len = 0;
 	date = NULL;
 	curr_time = time(0);
-	if ((curr_time - epoch_sec) > SIX_MONTHS)
+	if ((curr_time - epoch_sec) > SIX_MONTHS || epoch_sec > curr_time)
 	{
-		date = (char *)malloc(5);
+		len = len_year(ctime(&epoch_sec));
+		// ft_printf("len %d\n", len);
+		date = (char *)malloc(len - 1);
 		if (!date)
 			return (NULL);
-		date[4] = '\0';
-		ft_strncpy(date, &ctime(&epoch_sec)[20], 4);
+		date[len - 2] = '\0';
+		ft_strncpy(date, &ctime(&epoch_sec)[ft_strlen(ctime(&epoch_sec)) - len], len - 1);
 	}
 	else
 	{
@@ -69,6 +92,9 @@ char	**last_modification_date(struct timespec mtimespec)
 		return (NULL);
 	date[0][6] = '\0';
 	ft_strncpy(*date, &ctime(&mtimespec.tv_sec)[4], 6);
+	/**********/
+	// ft_printf("[%s]\n", ctime(&mtimespec.tv_sec));
+	/**********/
 	date[1] = date_format(mtimespec.tv_sec);
 	return (date);
 }

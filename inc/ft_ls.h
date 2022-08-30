@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/30 10:43:25 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/30 14:13:48 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ typedef struct column_attr
 {
 	int				norm_col;
 	int				norm_row;
-	int				date_len;
+	// int				date_len;
 	int				name_len;
 	int				links_len;
 	int				major_len;
