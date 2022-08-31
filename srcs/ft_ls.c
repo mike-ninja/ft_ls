@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:57:36 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/30 17:37:21 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/31 12:14:29 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	read_dir(t_node **head, char *arg, DIR *dir, t_cont *cont)
 		closedir(dir);
 	}
 	else if (errno == 13 || errno == 9)
-		ft_error(arg, errno);
+		ft_error(arg, errno, cont->opt);
 	else
 		file_node(head, arg, cont);
 }
@@ -93,7 +93,7 @@ int	main(int ac, char **av)
 		if (ft_strcmp(av[index], "--") == 0)
 		{
 			index++;
-			break;
+			break ;
 		}
 		index++;
 	}
@@ -103,5 +103,5 @@ int	main(int ac, char **av)
 		ft_ls(av[index], opts);
 	else
 		arg_parse(index, ac, av, opts);
-	exit(EXIT_SUCCESS);
+	exit(opts->exit);
 }

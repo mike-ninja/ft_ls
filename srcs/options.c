@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 13:47:13 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/30 10:43:09 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/31 11:26:22 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	opts_init(t_opts *opt)
 	opt->tim = false;
 	opt->rec = false;
 	opt->one = false;
+	opt->exit = 0;
 }
 
 static void	illegal_usage(char c)
@@ -39,7 +40,11 @@ void	options_parse(t_opts *opt, char *opt_str)
 		if (!ft_strchr(OPTIONS, *opt_str))
 			illegal_usage(*opt_str);
 		if (*opt_str == 'l')
+		{
 			opt->lis = true;
+			if (opt->one)
+				opt->one = false;
+		}
 		if (*opt_str == 'a')
 			opt->all = true;
 		if (*opt_str == 'r')

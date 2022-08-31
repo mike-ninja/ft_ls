@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:56:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/30 14:13:48 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/31 12:29:32 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct options
 	bool	tim;
 	bool	rec;
 	bool	one;
+	int		exit;
 }				t_opts;
 
 typedef struct file_node
@@ -79,7 +80,6 @@ typedef struct column_attr
 {
 	int				norm_col;
 	int				norm_row;
-	// int				date_len;
 	int				name_len;
 	int				links_len;
 	int				major_len;
@@ -122,8 +122,13 @@ char	*get_path(char *input, char *file_name);
 // Utils_two
 char	*get_owner_name(uid_t uid);
 char	*get_owner_group(gid_t gid);
-char	*permission_bits(mode_t mode);
+void	permission_bits(mode_t mode, char *perm);
 char	**last_modification_date(struct timespec mtimespec);
+
+// Utils_three
+int		len_year(char *date);
+void	date_print(char **date);
+char	*special_date_case(char *date, time_t epoch_sec);
 
 // Printers
 t_node	*print_nodes(t_node *node, t_cont *cont);
@@ -164,12 +169,12 @@ void	args_lexi_swap(int i, int y, t_args *args, t_opts *opt);
 void	args_date_swap(int i, int y, t_args *args, t_opts *opt);
 
 // Multiple_args_error_check
-bool	file_error_check(t_args *args, int len);
+bool	file_error_check(t_args *args, int len, t_opts *opt);
 void	dir_list(int index, t_args *args, t_opts *opt, bool new_line);
 
 // Extra_attr
 void	line_print_nw(t_node *node);
-void	ft_error(char *arg, int err_num);
+void	ft_error(char *arg, int err_num, t_opts *opt);
 char	extra_attribute(char *dir_name, char *file_name);
 void	file_node(t_node **node, char *f_name, t_cont *cont);
 t_node	*delete_node(t_node *node, t_node **prev, t_node **head);

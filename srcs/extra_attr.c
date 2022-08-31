@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 11:38:34 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/30 17:32:22 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/31 13:10:20 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,24 @@ char	extra_attribute(char *dir_name, char *file_name)
 
 void	file_node(t_node **node, char *f_name, t_cont *cont)
 {
+	if (!*f_name)
+	{
+		ft_error(f_name, 2, cont->opt);
+		exit(EXIT_FAILURE);
+	}
 	if (*f_name == '/')
-		cont->dir_name = "/";
+		cont->dir_name = "";
 	else
 		cont->dir_name = ".";
 	cont->file_name = f_name;
 	*node = linked_list(*node, cont);
 }
 
-void	ft_error(char *arg, int err_num)
+void	ft_error(char *arg, int err_num, t_opts *opt)
 {
-	char *file_name;
+	char	*file_name;
 
+	opt->exit = 1;
 	file_name = NULL;
 	ft_printf("ft_ls: ");
 	if (err_num == 13)
@@ -94,8 +100,30 @@ void	ft_error(char *arg, int err_num)
 	}
 	else
 		ft_printf("%s", arg);
-	ft_printf(": %s\n", strerror(errno));
+	ft_printf(": %s\n", strerror(err_num));
 }
+
+// void	ft_error(char *arg, int err_num, t_opts *opt)
+// {
+// 	char	*file_name;
+
+// 	opt->exit = 1;
+// 	file_name = NULL;
+// 	write(0, "ft_ls: ", 7);
+// 	if (err_num == 13)
+// 	{
+// 		file_name = ft_strrchr(arg, '/');
+// 		if (file_name)
+// 			write(0, file_name + 1, ft_strlen(file_name));
+// 		else
+// 			write(0, arg, ft_strlen(arg));
+// 	}
+// 	else
+// 		write(0, arg, ft_strlen(arg));
+// 	write(0, ": ", 2);
+// 	write(0, strerror(err_num), ft_strlen(strerror(err_num)));
+// 	write(0, "\n", 1);
+// }
 
 void	line_print_nw(t_node *node)
 {

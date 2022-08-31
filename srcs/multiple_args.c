@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:50:11 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/26 15:54:45 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/31 11:27:57 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	arg_parse(int index, int ac, char **av, t_opts *opt)
 
 	args = args_dup(index, ac, av);
 	args_sort((ac - index), args, opt);
-	new_line = file_error_check(args, (ac - index));
+	new_line = file_error_check(args, (ac - index), opt);
 	new_line = file_list(index, args, ac, opt);
 	dir_list((ac - index), args, opt, new_line);
 	args_del(args, ((ac - index) - 1));

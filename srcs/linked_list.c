@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 09:30:17 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/30 17:36:04 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/31 12:14:46 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ t_node	*node_collect(t_node *head, t_node *node, t_cont *cont)
 	char		*path;
 	struct stat	*st;
 
-
 	path = get_path(cont->dir_name, cont->file_name);
 	st = malloc(sizeof(struct stat));
 	if (!st)
@@ -81,7 +80,7 @@ t_node	*node_collect(t_node *head, t_node *node, t_cont *cont)
 	}
 	if (lstat(path, st) < 0)
 	{
-		ft_error(ft_strchr(path, '/') + 1, errno);
+		ft_error(ft_strchr(path, '/') + 1, errno, cont->opt);
 		return (lstat_fail(path, st, head, node));
 	}
 	free(path);

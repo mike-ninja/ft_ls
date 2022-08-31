@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 11:21:27 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/08/30 14:14:17 by mbarutel         ###   ########.fr       */
+/*   Updated: 2022/08/31 12:18:01 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	attr_struct_init(t_col *attr)
 	attr->links_len = 0;
 	attr->owner_name_len = 0;
 	attr->owner_group_len = 0;
-	// attr->date_len = 0;
 	attr->name_len = 0;
 	attr->file_size_len = 0;
 	attr->major_len = 0;
@@ -85,7 +84,7 @@ char	*permission_str(mode_t mode)
 
 	index = 0;
 	tmp = NULL;
-	permission = permission_bits(mode);
+	permission = ft_strdup("rwxrwxrwx");
 	octal_str = ft_itoa_base(mode, 8);
 	if (!permission || !octal_str)
 		return (NULL);
@@ -96,6 +95,7 @@ char	*permission_str(mode_t mode)
 		tmp++;
 		index += 3;
 	}
+	permission_bits(mode, permission);
 	free(tmp - 3);
 	free(octal_str);
 	return (permission);
